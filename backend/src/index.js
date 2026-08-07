@@ -32,6 +32,12 @@ app.get('/api/health', async (req, res) => {
 // Error Handler Middleware
 app.use(errorHandler);
 
-app.listen(port, () => {
+app.listen(port, async () => {
   console.log(`Server is running on http://localhost:${port}`);
+  try {
+    await prisma.$connect();
+    console.log('Database connected successfully ✅');
+  } catch (error) {
+    console.error('Database connection failed ❌:', error);
+  }
 });
