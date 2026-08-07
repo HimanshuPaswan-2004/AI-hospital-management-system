@@ -1,0 +1,7 @@
+version: '3.8'
+
+services:
+  # Database, Server, and Client configuration will be added here
+  # db:
+  # server:
+  # client:
