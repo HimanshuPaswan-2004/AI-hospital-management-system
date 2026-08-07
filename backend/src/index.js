@@ -29,6 +29,10 @@ app.get('/api/health', async (req, res) => {
   }
 });
 
+// Auth Routes
+import authRoutes from './modules/auth/auth.routes.js';
+app.use('/api/auth', authRoutes);
+
 // Error Handler Middleware
 app.use(errorHandler);
 
