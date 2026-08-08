@@ -45,6 +45,21 @@ app.use('/api/doctors', doctorsRoutes);
 import appointmentsRoutes from './modules/appointments/appointments.routes.js';
 app.use('/api/appointments', appointmentsRoutes);
 
+// Medical Routes (Pharmacy & Records)
+import medicinesRoutes from './modules/medical/medicines.routes.js';
+import recordsRoutes from './modules/medical/records.routes.js';
+app.use('/api/medicines', medicinesRoutes);
+app.use('/api/records', recordsRoutes);
+
+// Billing Routes
+import billingRoutes from './modules/billing/billing.routes.js';
+app.use('/api/billing', billingRoutes);
+
+// Serve uploads folder as static
+import path from 'path';
+const __dirname = path.resolve();
+app.use('/uploads', express.static(path.join(__dirname, '/uploads')));
+
 // Error Handler Middleware
 app.use(errorHandler);
 

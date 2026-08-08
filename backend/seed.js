@@ -13,6 +13,21 @@ async function main() {
   const salt = await bcrypt.genSalt(10);
   const hashedPassword = await bcrypt.hash('password123', salt);
 
+  // Admin
+  const existingAdmin = await prisma.user.findUnique({ where: { email: 'admin@example.com' } });
+  if (!existingAdmin) {
+    await prisma.user.create({
+      data: {
+        email: 'admin@example.com',
+        password: hashedPassword,
+        firstName: 'System',
+        lastName: 'Admin',
+        role: 'ADMIN',
+      }
+    });
+    console.log('Created admin: admin@example.com');
+  }
+
   // Doctors
   const doctorsData = [
     {

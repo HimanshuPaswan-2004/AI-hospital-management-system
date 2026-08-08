@@ -9,23 +9,16 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
 
   const menuItems = {
     ADMIN: [
-      { name: 'Dashboard', icon: Home, path: '/dashboard' },
-      { name: 'Users', icon: Users, path: '/admin/users' },
-      { name: 'Reports', icon: FileText, path: '/admin/reports' },
-      { name: 'Settings', icon: Settings, path: '/admin/settings' },
+      { name: 'Pharmacy Inventory', icon: Pill, path: '/admin/pharmacy' },
+      { name: 'Billing & Invoicing', icon: FileText, path: '/admin/billing' }
     ],
     DOCTOR: [
-      { name: 'Dashboard', icon: Home, path: '/dashboard' },
-      { name: 'Appointments', icon: Calendar, path: '/doctor/appointments' },
-      { name: 'Patients', icon: Users, path: '/doctor/patients' },
-      { name: 'Prescriptions', icon: ActivitySquare, path: '/doctor/prescriptions' },
+      { name: 'My Schedule', icon: Calendar, path: '/doctor/schedule' }
     ],
     PATIENT: [
-      { name: 'Dashboard', icon: Home, path: '/dashboard' },
-      { name: 'Doctor Directory', icon: Users, path: '/doctor-directory' },
       { name: 'My Appointments', icon: Calendar, path: '/patient/appointments' },
       { name: 'Medical Records', icon: Activity, path: '/patient/records' },
-      { name: 'Medicines', icon: Pill, path: '/patient/medicines' },
+      { name: 'Doctor Directory', icon: Users, path: '/doctor-directory' }
     ]
   };
 

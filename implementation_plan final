@@ -56,18 +56,18 @@ Aapke request ke mutabiq maine plan ko modify kar diya hai taaki **har din ek po
 ## 📌 Phase 3: Medical Operations (Day 10 - 11)
 
 ### Day 10: Medical Records & Pharmacy
-- **[ ] RECORDS & PHARMACY BACKEND `[backend]` `[medical]`**
+- **[x] RECORDS & PHARMACY BACKEND `[backend]` `[medical]`**
   - Prescription, LabReport, aur Medicine models banana.
   - Multer setup karke files upload ki API.
   - Pharmacy inventory manage karne ki API.
-- **[ ] RECORDS & PHARMACY FRONTEND `[frontend]` `[medical]`**
+- **[x] RECORDS & PHARMACY FRONTEND `[frontend]` `[medical]`**
   - Doctor ke liye Digital Prescription UI.
   - Pharmacy table dashboard aur Low-stock alerts banana.
 
 ### Day 11: Billing & Invoicing
-- **[ ] BILLING BACKEND `[backend]` `[billing]`**
+- **[x] BILLING BACKEND `[backend]` `[billing]`**
   - Invoice generation logic (Consultation fee + Pharmacy charges).
-- **[ ] BILLING FRONTEND `[frontend]` `[billing]`**
+- **[x] BILLING FRONTEND `[frontend]` `[billing]`**
   - Cashier panel banana for payments tracking.
   - `jspdf` se Invoice ko PDF mein download karne ka button.
 

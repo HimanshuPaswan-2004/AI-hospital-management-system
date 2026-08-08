@@ -7,6 +7,10 @@ import DoctorDirectory from './pages/DoctorDirectory/DoctorDirectory';
 import BookAppointment from './pages/Appointments/BookAppointment';
 import ProtectedRoute from './components/ProtectedRoute';
 import MainLayout from './layouts/MainLayout';
+import DoctorDashboard from './pages/Dashboard/DoctorDashboard';
+import PatientDashboard from './pages/Dashboard/PatientDashboard';
+import PharmacyDashboard from './pages/Pharmacy/PharmacyDashboard';
+import BillingDashboard from './pages/Billing/BillingDashboard';
 
 function App() {
   return (
@@ -22,15 +26,13 @@ function App() {
           <Route path="/profile" element={<Profile />} />
           <Route path="/doctor-directory" element={<DoctorDirectory />} />
           <Route path="/book-appointment/:doctorId" element={<BookAppointment />} />
-          <Route path="/admin/users" element={<Dashboard />} /> {/* Placeholder */}
-          <Route path="/admin/reports" element={<Dashboard />} /> {/* Placeholder */}
-          <Route path="/admin/settings" element={<Dashboard />} /> {/* Placeholder */}
-          <Route path="/doctor/appointments" element={<Dashboard />} /> {/* Placeholder */}
-          <Route path="/doctor/patients" element={<Dashboard />} /> {/* Placeholder */}
-          <Route path="/doctor/prescriptions" element={<Dashboard />} /> {/* Placeholder */}
-          <Route path="/patient/appointments" element={<Dashboard />} /> {/* Placeholder */}
-          <Route path="/patient/records" element={<Dashboard />} /> {/* Placeholder */}
-          <Route path="/patient/medicines" element={<Dashboard />} /> {/* Placeholder */}
+          <Route path="/admin/pharmacy" element={<PharmacyDashboard />} />
+          <Route path="/admin/billing" element={<BillingDashboard />} />
+          
+          <Route path="/doctor/schedule" element={<DoctorDashboard />} />
+          
+          <Route path="/patient/appointments" element={<PatientDashboard initialTab="appointments" />} />
+          <Route path="/patient/records" element={<PatientDashboard initialTab="records" />} />
         </Route>
       </Routes>
     </Router>
