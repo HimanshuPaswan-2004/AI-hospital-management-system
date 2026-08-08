@@ -11,26 +11,38 @@ MediAI is an advanced, production-grade Hospital Management System designed to s
   - Full Authentication Module (Backend APIs + JWT, Frontend Login/Signup + Global State)
   - Main Dashboard Layout with Role-based Responsive Sidebar (Admin, Doctor, Patient) & Navbar
 
+- **Phase 2 (Day 7 - 9) - COMPLETED**:
+  - Doctor Directory & Appointment Booking System (Patients can select slots)
+  - Doctor Dashboard (View schedule, Approve/Decline meetings)
+  - Patient Profiles and Basic EMR layout
+
+- **Phase 3 (Day 10 - 11) - COMPLETED**:
+  - Medical Records (Lab reports upload via Multer, Digital Prescriptions)
+  - Pharmacy Dashboard (Inventory tracking, low-stock alerts)
+  - Billing & Invoicing (Automatic calculation, PDF generation via jsPDF)
+  - Route Refactoring (Real URL routing for all sub-dashboards)
+
+- **Phase 4 (Day 12 - 13) - UPCOMING**:
+  - AI Symptom Checker & Summarizer (Gemini Integration)
+
 ---
 
 ## 🚀 Key Features
 
 ### 1. Robust Role-Based Access Control (RBAC)
-- **Admin**: Full control over users, doctors, departments, and system billing.
-- **Doctor**: Can manage their own schedule, view assigned patient records, write prescriptions, and request lab tests.
-- **Patient**: Can view their medical history, book and track appointments, and use AI features.
+- **Admin**: Full control over Pharmacy inventory, tracking low-stock medicines, generating billing invoices, and collecting payments.
+- **Doctor**: Can manage their own schedule (Approve/Decline appointments), view patient medical records, and write digital prescriptions.
+- **Patient**: Can browse the Doctor Directory, book appointments, upload Lab Reports, and view their medical history/prescriptions.
 
 ### 2. Core Modules
-- **Patient Management (EHR)**: Detailed Electronic Health Records tracking vitals, allergies, and chronic conditions.
-- **Appointment Scheduling**: Real-time slot booking and availability management for doctors and patients.
-- **Pharmacy & Lab**: Integrated modules for medicine inventory, test requests, and PDF result generation.
-- **Billing**: Automated invoice generation and payment tracking.
+- **Patient Management (EHR)**: Electronic Health Records tracking appointments, prescriptions, and uploaded files.
+- **Appointment Scheduling**: Real-time slot booking ensuring no double-booking overlaps.
+- **Pharmacy & Lab**: Integrated modules for medicine inventory, secure file uploads for test reports.
+- **Billing**: Automated invoice generation (Consultation + Pharmacy fees) with one-click PDF downloads.
 
-### 3. Advanced AI Capabilities (Powered by Google AI Studio - Gemini)
+### 3. Advanced AI Capabilities (Powered by Google Gemini) *(Coming Soon)*
 - **AI Symptom Checker**: Analyzes patient symptoms and suggests potential medical issues.
 - **AI Medical Report Summarizer**: Extracts and summarizes complex lab reports (PDF/Image) into layman's terms.
-- **AI Prescription Explainer**: Simplifies doctor notes and prescriptions for patients to easily understand.
-- **AI Chatbot**: A 24/7 virtual assistant for general hospital FAQs and navigation.
 
 ---
 
@@ -38,39 +50,18 @@ MediAI is an advanced, production-grade Hospital Management System designed to s
 
 **Frontend**
 - React.js (with Vite)
-- TypeScript
-- React Router DOM
-- Axios
+- Tailwind CSS (Styling)
+- React Router DOM (Routing)
+- Zustand (Global State Management)
+- Axios (API Calls)
+- jsPDF (Invoice PDF Generation)
 
 **Backend**
 - Node.js & Express.js
-- TypeScript
 - Prisma ORM
 - PostgreSQL (Database)
 - JWT (Authentication) & Bcrypt (Password Hashing)
-
-**AI Integration**
-- Google AI Studio API (Gemini)
-
----
-
-## 📁 Project Structure
-
-```text
-AI-hospital-management-system/
-├── frontend/             # React + Vite application
-│   ├── src/
-│   ├── public/
-│   ├── package.json
-│   └── vite.config.ts
-├── backend/              # Node.js + Express backend
-│   ├── src/
-│   ├── prisma/           # Database schema and migrations
-│   ├── package.json
-│   └── tsconfig.json
-├── docs/                 # Documentation (SRS, ER Diagrams)
-└── README.md             # This file
-```
+- Multer (File Uploads)
 
 ---
 
@@ -93,13 +84,17 @@ cd backend
 npm install
 ```
 - Create a `.env` file in the `backend` directory.
-- Add your PostgreSQL connection string:
+- Add your PostgreSQL connection string & JWT Secret:
   ```env
+  PORT=5000
   DATABASE_URL="postgresql://user:password@localhost:5432/mediai?schema=public"
+  JWT_SECRET="your_super_secret_key"
   ```
-- Initialize the database:
+- Initialize the database and run the seeder (loads test users/doctors/medicines):
   ```bash
   npx prisma migrate dev --name init
+  node seed.js
+  node seed_medicines.js
   ```
 - Start the backend server:
   ```bash
