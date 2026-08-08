@@ -41,6 +41,10 @@ app.use('/api/users', usersRoutes);
 import doctorsRoutes from './modules/doctors/doctors.routes.js';
 app.use('/api/doctors', doctorsRoutes);
 
+// Appointments Routes
+import appointmentsRoutes from './modules/appointments/appointments.routes.js';
+app.use('/api/appointments', appointmentsRoutes);
+
 // Error Handler Middleware
 app.use(errorHandler);
 

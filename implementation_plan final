@@ -37,17 +37,17 @@ Aapke request ke mutabiq maine plan ko modify kar diya hai taaki **har din ek po
   - Doctor Directory (Cards view) banakar APIs se connect karna.
 
 ### Day 8: Appointment Booking
-- **[ ] APPOINTMENTS BACKEND `[backend]` `[appointments]`**
+- **[x] APPOINTMENTS BACKEND `[backend]` `[appointments]`**
   - `Appointment` schema banana aur slot booking APIs.
   - Double booking rokne ka backend logic.
-- **[ ] APPOINTMENT BOOKING FRONTEND `[frontend]` `[appointments]`**
+- **[x] APPOINTMENT BOOKING FRONTEND `[frontend]` `[appointments]`**
   - Patients ke liye Calendar UI integrate karna.
   - Time slots select karke successfully appointment book karna.
 
 ### Day 9: Doctor's Schedule & Approvals
-- **[ ] SCHEDULE APPROVALS BACKEND `[backend]` `[appointments]`**
+- **[x] SCHEDULE APPROVALS BACKEND `[backend]` `[appointments]`**
   - Status change (Approve/Cancel) karne ki API.
-- **[ ] DOCTOR SCHEDULE FRONTEND `[frontend]` `[appointments]`**
+- **[x] DOCTOR SCHEDULE FRONTEND `[frontend]` `[appointments]`**
   - Doctor dashboard par aaj ki meetings dikhana.
   - Accept/Decline button lagakar backend API se call karna.
 

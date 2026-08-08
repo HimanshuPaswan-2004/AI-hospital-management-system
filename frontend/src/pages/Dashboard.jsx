@@ -1,5 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import useAuthStore from '../store/authStore';
+import DoctorDashboard from './Dashboard/DoctorDashboard';
+import PatientDashboard from './Dashboard/PatientDashboard';
 
 const Dashboard = () => {
   const { user, logout } = useAuthStore();
@@ -28,20 +30,28 @@ const Dashboard = () => {
           </h2>
           <p className="mt-2 text-gray-600">You are logged in as a <strong>{user?.role}</strong>.</p>
           
-          <div className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-6">
-            {/* Placeholder cards for future modules */}
-            <div className="p-4 border rounded-lg bg-gray-50 shadow-sm">
-              <h3 className="font-semibold text-lg mb-2">Appointments</h3>
-              <p className="text-sm text-gray-600">View and manage your upcoming schedule.</p>
-            </div>
-            <div className="p-4 border rounded-lg bg-gray-50 shadow-sm">
-              <h3 className="font-semibold text-lg mb-2">Medical Records</h3>
-              <p className="text-sm text-gray-600">Access your lab reports and prescriptions.</p>
-            </div>
-            <div className="p-4 border rounded-lg bg-gray-50 shadow-sm">
-              <h3 className="font-semibold text-lg mb-2">AI Assistant</h3>
-              <p className="text-sm text-gray-600">Check symptoms or summarize your reports.</p>
-            </div>
+          <div className="mt-8">
+            {user?.role === 'DOCTOR' ? (
+              <DoctorDashboard />
+            ) : user?.role === 'PATIENT' ? (
+              <PatientDashboard />
+            ) : (
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                {/* Placeholder cards for future modules */}
+                <div className="p-4 border rounded-lg bg-gray-50 shadow-sm">
+                  <h3 className="font-semibold text-lg mb-2">Appointments</h3>
+                  <p className="text-sm text-gray-600">View and manage your upcoming schedule.</p>
+                </div>
+                <div className="p-4 border rounded-lg bg-gray-50 shadow-sm">
+                  <h3 className="font-semibold text-lg mb-2">Medical Records</h3>
+                  <p className="text-sm text-gray-600">Access your lab reports and prescriptions.</p>
+                </div>
+                <div className="p-4 border rounded-lg bg-gray-50 shadow-sm">
+                  <h3 className="font-semibold text-lg mb-2">AI Assistant</h3>
+                  <p className="text-sm text-gray-600">Check symptoms or summarize your reports.</p>
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </div>

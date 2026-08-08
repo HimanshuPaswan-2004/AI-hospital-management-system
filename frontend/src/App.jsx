@@ -4,6 +4,7 @@ import Register from './pages/Register';
 import Dashboard from './pages/Dashboard';
 import Profile from './pages/Profile/Profile';
 import DoctorDirectory from './pages/DoctorDirectory/DoctorDirectory';
+import BookAppointment from './pages/Appointments/BookAppointment';
 import ProtectedRoute from './components/ProtectedRoute';
 import MainLayout from './layouts/MainLayout';
 
@@ -20,6 +21,7 @@ function App() {
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/doctor-directory" element={<DoctorDirectory />} />
+          <Route path="/book-appointment/:doctorId" element={<BookAppointment />} />
           <Route path="/admin/users" element={<Dashboard />} /> {/* Placeholder */}
           <Route path="/admin/reports" element={<Dashboard />} /> {/* Placeholder */}
           <Route path="/admin/settings" element={<Dashboard />} /> {/* Placeholder */}

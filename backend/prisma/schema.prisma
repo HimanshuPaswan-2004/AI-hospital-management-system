@@ -22,9 +22,11 @@ model User {
   role      Role     @default(PATIENT)
   phone     String?
   createdAt DateTime @default(now())
-  updatedAt      DateTime        @updatedAt
-  doctorProfile  DoctorProfile?
-  patientProfile PatientProfile?
+  updatedAt           DateTime          @updatedAt
+  doctorProfile       DoctorProfile?
+  patientProfile      PatientProfile?
+  patientAppointments Appointment[]     @relation("PatientAppointments")
+  doctorAppointments  Appointment[]     @relation("DoctorAppointments")
 }
 
 model DoctorProfile {
@@ -53,3 +55,28 @@ model PatientProfile {
   createdAt       DateTime @default(now())
   updatedAt       DateTime @updatedAt
 }
+
+enum AppointmentStatus {
+  PENDING
+  CONFIRMED
+  CANCELLED
+  COMPLETED
+}
+
+model Appointment {
+  id              String            @id @default(uuid())
+  patientId       String
+  patient         User              @relation("PatientAppointments", fields: [patientId], references: [id])
+  doctorId        String
+  doctor          User              @relation("DoctorAppointments", fields: [doctorId], references: [id])
+  appointmentDate DateTime          // Date of the appointment (normalized to midnight)
+  timeSlot        String            // e.g., "10:00 AM"
+  status          AppointmentStatus @default(PENDING)
+  reason          String?
+  createdAt       DateTime          @default(now())
+  updatedAt       DateTime          @updatedAt
+
+  // Composite unique constraint to prevent double-booking at the DB level
+  @@unique([doctorId, appointmentDate, timeSlot])
+}
+

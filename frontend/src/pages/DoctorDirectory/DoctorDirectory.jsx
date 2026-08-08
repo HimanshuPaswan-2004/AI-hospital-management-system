@@ -126,7 +126,7 @@ const DoctorDirectory = () => {
                 </div>
               </div>
               <div className="px-6 py-4 bg-gray-50 border-t border-gray-100 flex gap-3">
-                <Link to={`/patient/appointments`} className="flex-1 bg-blue-600 text-white text-center py-2 rounded-lg font-medium hover:bg-blue-700 transition-colors">
+                <Link to={`/book-appointment/${doctor.id}`} className="flex-1 bg-blue-600 text-white text-center py-2 rounded-lg font-medium hover:bg-blue-700 transition-colors">
                   Book Appointment
                 </Link>
               </div>
