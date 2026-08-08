@@ -18,10 +18,10 @@ Aapke request ke mutabiq maine plan ko modify kar diya hai taaki **har din ek po
   - Protected Routes lagana.
 
 ### Day 6: Main Dashboard & Layout
-- **[ ] MAIN LAYOUT FRONTEND `[frontend]` `[ui]`**
+- **[x] MAIN LAYOUT FRONTEND `[frontend]` `[ui]`**
   - Responsive Sidebar aur Top Navbar banana.
   - Role-based menus (Admin, Doctor, Patient ko alag-alag UI dikhana).
-- **[ ] DASHBOARD DATA BACKEND `[backend]` `[ui]`**
+- **[x] DASHBOARD DATA BACKEND `[backend]` `[ui]`**
   - Logged-in user ki details fetch karne wali API.
 
 ---

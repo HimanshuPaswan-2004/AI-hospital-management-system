@@ -43,7 +43,30 @@ const useAuthStore = create((set) => ({
     set({ user: null, isSuccess: false, isError: false, message: '' });
   },
 
+  fetchMe: async () => {
+    set({ isLoading: true, isError: false, message: '' });
+    try {
+      const user = JSON.parse(localStorage.getItem('user'));
+      if (!user || !user.token) throw new Error('No token found');
+      
+      const response = await axios.get(`${API_URL}/me`, {
+        headers: {
+          Authorization: `Bearer ${user.token}`
+        }
+      });
+      if (response.data) {
+        const updatedUser = { ...user, ...response.data };
+        localStorage.setItem('user', JSON.stringify(updatedUser));
+        set({ user: updatedUser, isLoading: false, isSuccess: true });
+      }
+    } catch (error) {
+      const message = error.response?.data?.message || error.message || error.toString();
+      set({ isLoading: false, isError: true, message });
+    }
+  },
+
   reset: () => set({ isError: false, isSuccess: false, isLoading: false, message: '' }),
+
 }));
 
 export default useAuthStore;
