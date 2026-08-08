@@ -4,6 +4,15 @@ MediAI is an advanced, production-grade Hospital Management System designed to s
 
 ---
 
+## 🚀 Current Status (Development in Progress)
+
+- **Phase 1 (Day 1 - 6) - COMPLETED**: 
+  - Project architecture & Database Setup (Prisma + PostgreSQL)
+  - Full Authentication Module (Backend APIs + JWT, Frontend Login/Signup + Global State)
+  - Main Dashboard Layout with Role-based Responsive Sidebar (Admin, Doctor, Patient) & Navbar
+
+---
+
 ## 🚀 Key Features
 
 ### 1. Robust Role-Based Access Control (RBAC)
