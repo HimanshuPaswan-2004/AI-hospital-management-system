@@ -29,10 +29,10 @@ Aapke request ke mutabiq maine plan ko modify kar diya hai taaki **har din ek po
 ## 📌 Phase 2: Profiles & Appointments (Day 7 - 9)
 
 ### Day 7: Doctor & Patient Profiles
-- **[ ] PROFILES BACKEND `[backend]` `[profiles]`**
+- **[x] PROFILES BACKEND `[backend]` `[profiles]`**
   - Doctor aur Patient schema banana Prisma mein.
   - Profile update aur fetch karne ki APIs.
-- **[ ] PROFILES FRONTEND `[frontend]` `[profiles]`**
+- **[x] PROFILES FRONTEND `[frontend]` `[profiles]`**
   - Patient/Doctor profile screens banana.
   - Doctor Directory (Cards view) banakar APIs se connect karna.
 

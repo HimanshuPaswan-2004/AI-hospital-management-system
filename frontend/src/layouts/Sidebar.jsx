@@ -22,6 +22,7 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
     ],
     PATIENT: [
       { name: 'Dashboard', icon: Home, path: '/dashboard' },
+      { name: 'Doctor Directory', icon: Users, path: '/doctor-directory' },
       { name: 'My Appointments', icon: Calendar, path: '/patient/appointments' },
       { name: 'Medical Records', icon: Activity, path: '/patient/records' },
       { name: 'Medicines', icon: Pill, path: '/patient/medicines' },

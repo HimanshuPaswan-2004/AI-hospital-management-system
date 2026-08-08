@@ -22,5 +22,34 @@ model User {
   role      Role     @default(PATIENT)
   phone     String?
   createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  updatedAt      DateTime        @updatedAt
+  doctorProfile  DoctorProfile?
+  patientProfile PatientProfile?
+}
+
+model DoctorProfile {
+  id              String   @id @default(uuid())
+  userId          String   @unique
+  user            User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  specialization  String
+  experience      Int      // in years
+  qualification   String
+  consultationFee Float
+  bio             String?
+  availableDays   String[] // e.g., ["Monday", "Wednesday"]
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}
+
+model PatientProfile {
+  id              String   @id @default(uuid())
+  userId          String   @unique
+  user            User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  dateOfBirth     DateTime?
+  gender          String?
+  address         String?
+  bloodGroup      String?
+  allergies       String[]
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
 }

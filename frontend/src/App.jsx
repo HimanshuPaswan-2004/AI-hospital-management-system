@@ -2,6 +2,8 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import Login from './pages/Login';
 import Register from './pages/Register';
 import Dashboard from './pages/Dashboard';
+import Profile from './pages/Profile/Profile';
+import DoctorDirectory from './pages/DoctorDirectory/DoctorDirectory';
 import ProtectedRoute from './components/ProtectedRoute';
 import MainLayout from './layouts/MainLayout';
 
@@ -16,6 +18,8 @@ function App() {
         {/* Protected Routes inside MainLayout */}
         <Route element={<ProtectedRoute><MainLayout /></ProtectedRoute>}>
           <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/doctor-directory" element={<DoctorDirectory />} />
           <Route path="/admin/users" element={<Dashboard />} /> {/* Placeholder */}
           <Route path="/admin/reports" element={<Dashboard />} /> {/* Placeholder */}
           <Route path="/admin/settings" element={<Dashboard />} /> {/* Placeholder */}

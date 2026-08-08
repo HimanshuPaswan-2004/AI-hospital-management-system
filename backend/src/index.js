@@ -33,6 +33,14 @@ app.get('/api/health', async (req, res) => {
 import authRoutes from './modules/auth/auth.routes.js';
 app.use('/api/auth', authRoutes);
 
+// Users Routes
+import usersRoutes from './modules/users/users.routes.js';
+app.use('/api/users', usersRoutes);
+
+// Doctors Routes
+import doctorsRoutes from './modules/doctors/doctors.routes.js';
+app.use('/api/doctors', doctorsRoutes);
+
 // Error Handler Middleware
 app.use(errorHandler);
 
