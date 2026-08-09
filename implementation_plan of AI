@@ -1,0 +1,55 @@
+# 🤖 AI Integration Guide & Plan (Phase 4)
+
+Aapko AI ke baare mein pehle se kuch aane ki zaroorat nahi hai! Is guide mein main aapko step-by-step samjhaunga ki hum apne project mein **Google Gemini AI** ko kaise jodne wale hain. 
+
+Abhi hum sirf plan samjhenge, **koi code implement nahi karenge.**
+
+---
+
+## 🧐 1. AI Integration Kaise Kaam Karta Hai? (The Concept)
+Hamare project mein AI ek "Virtual Doctor" ki tarah kaam karega. Process bahot simple hai:
+1. **Frontend (React):** Patient ek textbox mein apni problem likhega (e.g., *"Mujhe 2 din se bukhar aur sardi hai"*).
+2. **Backend (Node.js):** Hamara backend us message ko lega, aur **Google Gemini API** (Google ke AI engine) ko bhej dega.
+3. **Gemini AI:** Google ka AI us text ko padhega, samjhega, aur ek medical advice ya symptom analysis generate karega.
+4. **Result:** Wo advice wapas hamare backend pe aayegi, aur wahan se frontend pe bhej di jayegi taaki patient usko padh sake.
+
+---
+
+## 🔑 2. Step 1: Google Gemini API Key Lena
+AI use karne ke liye hume Google se ek "API Key" (ek secret password) chahiye hota hai. Yeh free hoti hai.
+- Aapko is website par jana hoga: [Google AI Studio](https://aistudio.google.com/app/apikey)
+- Apne Google account se login karna hoga.
+- **"Create API Key"** button par click karna hoga.
+- Jo key (lambi si string) milegi, usko hum apne backend ki `.env` file mein save kar lenge: `GEMINI_API_KEY="aapki_key_yaha_aayegi"`.
+
+---
+
+## ⚙️ 3. Step 2: Backend Setup (Node.js)
+Backend mein Google se baat karne ke liye hume ek package install karna padega.
+- **NPM Package:** Hum `npm install @google/generative-ai` run karenge.
+- **Controller Banana:** Hum `ai.controller.js` naam ki ek nayi file banayenge.
+  - Isme hum Gemini AI ko initialize karenge.
+  - Hum ek system prompt (rules) likhenge, jaise: *"Tum ek expert doctor ho. Patient ke symptoms padh kar unko possible bimari batao, lekin aakhir mein yeh zaroor likho ki kisi asli doctor se milein."*
+
+---
+
+## 🌐 4. Step 3: API Route Banana
+Frontend se data lene ke liye ek API Route banega:
+- **Route:** `POST /api/ai/symptom-checker`
+- Jab bhi frontend is route par request bhejega, backend turant Gemini AI ko call karega aur result wapas de dega.
+
+---
+
+## 💻 5. Step 4: Frontend UI Banana (React)
+Patient Dashboard mein hum ek naya tab ya page banayenge **"AI Symptom Checker"**.
+- Isme ek bada textarea (chat box type) hoga jahan patient apni problem likhega.
+- Ek "Analyze" button hoga.
+- Jab user analyze pe click karega, toh ek loading spinner ghoomega (kyunki AI ko sochne mein 2-3 seconds lagte hain).
+- Jaise hi result aayega, hum use nicely format karke screen par dikha denge.
+
+---
+
+## 📌 Humara Next Step Kya Hoga?
+Aap pehle is plan ko padh lijiye. Jab aapko concept samajh aa jaye, toh aap bas mujhe boliyega *"Implement it"* aur main yeh saare 4 steps (Packages install karna, Backend banana, aur Frontend UI banana) khud kar dunga!
+
+*(Note: API key laane wala kaam aapko manually karna padega, baaki sab main code kar dunga).*

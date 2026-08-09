@@ -19,7 +19,7 @@ function App() {
         <Route path="/" element={<Navigate to="/login" replace />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
-        
+
         {/* Protected Routes inside MainLayout */}
         <Route element={<ProtectedRoute><MainLayout /></ProtectedRoute>}>
           <Route path="/dashboard" element={<Dashboard />} />
@@ -28,9 +28,9 @@ function App() {
           <Route path="/book-appointment/:doctorId" element={<BookAppointment />} />
           <Route path="/admin/pharmacy" element={<PharmacyDashboard />} />
           <Route path="/admin/billing" element={<BillingDashboard />} />
-          
+
           <Route path="/doctor/schedule" element={<DoctorDashboard />} />
-          
+
           <Route path="/patient/appointments" element={<PatientDashboard initialTab="appointments" />} />
           <Route path="/patient/records" element={<PatientDashboard initialTab="records" />} />
         </Route>

@@ -14,7 +14,7 @@ const Navbar = ({ toggleSidebar }) => {
   };
 
   return (
-    <header className="flex items-center justify-between h-16 px-6 bg-white border-b border-gray-200">
+    <header className="flex items-center justify-between h-16 px-6 glass border-b border-white/20 sticky top-0 z-30">
       <div className="flex items-center">
         <button 
           onClick={toggleSidebar}

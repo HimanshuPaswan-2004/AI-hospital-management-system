@@ -18,14 +18,7 @@ const BillingDashboard = () => {
       setLoading(true);
       const headers = { Authorization: `Bearer ${user?.token}` };
       
-      const [invRes, appRes] = await Promise.all([
-        axios.get('http://localhost:5000/api/billing', { headers }),
-        axios.get('http://localhost:5000/api/appointments/schedule', { headers }) // This gets all appointments for the logic, wait! This is doctor specific in our current backend.
-        // Actually we don't have an endpoint to fetch all completed appointments globally for Admin.
-        // I will skip generating from the frontend dropdown for now if we lack the endpoint.
-        // Wait, I can just use a simple list of Invoices. The Admin can only see existing invoices.
-      ]);
-      
+      const invRes = await axios.get('http://localhost:5000/api/billing', { headers });
       setInvoices(invRes.data);
     } catch (err) {
       console.error(err);
@@ -69,6 +62,7 @@ const BillingDashboard = () => {
   };
 
   if (loading) return <div className="p-8 text-center"><div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto"></div></div>;
+  if (error) return <div className="p-8 text-center text-red-500">{error}</div>;
 
   return (
     <div className="space-y-6">
