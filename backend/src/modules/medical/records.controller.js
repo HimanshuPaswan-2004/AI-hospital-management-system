@@ -149,3 +149,33 @@ export const getLabReports = async (req, res, next) => {
     next(error);
   }
 };
+
+// @desc    Delete a lab report
+// @route   DELETE /api/records/reports/:id
+// @access  Private (Patient or Admin)
+export const deleteLabReport = async (req, res, next) => {
+  try {
+    const reportId = req.params.id;
+    const report = await prisma.labReport.findUnique({
+      where: { id: reportId }
+    });
+
+    if (!report) {
+      res.status(404);
+      throw new Error('Report not found');
+    }
+
+    if (report.patientId !== req.user.id && req.user.role !== 'ADMIN') {
+      res.status(403);
+      throw new Error('Not authorized to delete this report');
+    }
+
+    await prisma.labReport.delete({
+      where: { id: reportId }
+    });
+
+    res.json({ message: 'Report deleted successfully' });
+  } catch (error) {
+    next(error);
+  }
+};

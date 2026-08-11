@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
 import useAuthStore from '../../store/authStore';
-import { Calendar, Clock, Activity, FileText, CheckCircle, Clock as ClockIcon, XCircle, FilePlus, Download, Sparkles } from 'lucide-react';
+import { Calendar, Clock, Activity, FileText, CheckCircle, Clock as ClockIcon, XCircle, FilePlus, Download, Sparkles, Trash2 } from 'lucide-react';
 
 const PatientDashboard = ({ initialTab = 'appointments' }) => {
   const navigate = useNavigate();
@@ -74,6 +74,20 @@ const PatientDashboard = ({ initialTab = 'appointments' }) => {
       console.error(error);
     } finally {
       setUploading(false);
+    }
+  };
+
+  const handleDeleteReport = async (reportId) => {
+    if (!window.confirm('Are you sure you want to delete this report?')) return;
+    try {
+      await axios.delete(`http://localhost:5000/api/records/reports/${reportId}`, {
+        headers: { Authorization: `Bearer ${user?.token}` }
+      });
+      alert('Report deleted successfully');
+      fetchData(); // Refresh list
+    } catch (error) {
+      alert('Failed to delete report');
+      console.error(error);
     }
   };
 
@@ -270,14 +284,24 @@ const PatientDashboard = ({ initialTab = 'appointments' }) => {
                       <h4 className="font-semibold text-gray-800 text-sm">{report.reportName}</h4>
                       <p className="text-xs text-gray-500">{new Date(report.dateUploaded).toLocaleDateString()}</p>
                     </div>
-                    <a
-                      href={`http://localhost:5000${report.fileUrl}`}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="p-2 bg-blue-50 text-blue-600 rounded-lg hover:bg-blue-100"
-                    >
-                      <Download size={16} />
-                    </a>
+                    <div className="flex gap-2">
+                      <a
+                        href={`http://localhost:5000${report.fileUrl}`}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="p-2 bg-blue-50 text-blue-600 rounded-lg hover:bg-blue-100"
+                        title="Download"
+                      >
+                        <Download size={16} />
+                      </a>
+                      <button
+                        onClick={() => handleDeleteReport(report.id)}
+                        className="p-2 bg-red-50 text-red-600 rounded-lg hover:bg-red-100"
+                        title="Delete"
+                      >
+                        <Trash2 size={16} />
+                      </button>
+                    </div>
                   </div>
                 ))}
               </div>

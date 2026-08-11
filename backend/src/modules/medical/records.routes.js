@@ -1,7 +1,7 @@
 import express from 'express';
 import multer from 'multer';
 import path from 'path';
-import { createPrescription, getPrescriptions, uploadLabReport, getLabReports } from './records.controller.js';
+import { createPrescription, getPrescriptions, uploadLabReport, getLabReports, deleteLabReport } from './records.controller.js';
 import { protect } from '../../middleware/authMiddleware.js';
 
 const router = express.Router();
@@ -44,5 +44,8 @@ router.route('/prescriptions')
 router.route('/reports')
   .post(protect, upload.single('report'), uploadLabReport)
   .get(protect, getLabReports);
+
+router.route('/reports/:id')
+  .delete(protect, deleteLabReport);
 
 export default router;
