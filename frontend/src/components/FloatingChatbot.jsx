@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import { createPortal } from 'react-dom';
-import { MessageSquare, X, Send, Loader2, Stethoscope, FileText } from 'lucide-react';
+import { MessageSquare, X, Send, Loader2, Stethoscope, FileText, Paperclip } from 'lucide-react';
 import Draggable from 'react-draggable';
 import axios from 'axios';
 import ReactMarkdown from 'react-markdown';
@@ -13,6 +13,7 @@ const FloatingChatbot = () => {
   ]);
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
+  const [attachment, setAttachment] = useState(null);
   const [mode, setMode] = useState('chat'); // 'chat', 'symptom', 'report'
   const messagesEndRef = useRef(null);
   const nodeRef = useRef(null);
@@ -30,11 +31,17 @@ const FloatingChatbot = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!input.trim()) return;
+    if (!input.trim() && !attachment) return; // Allow sending just an attachment
 
-    const userMessage = { role: 'user', text: input };
+    const userMessage = { role: 'user', text: input, attachment };
     setMessages(prev => [...prev, userMessage]);
+    
+    // Store current values for the API call
+    const currentInput = input;
+    const currentAttachment = attachment;
+
     setInput('');
+    setAttachment(null);
     setLoading(true);
 
     try {
@@ -42,14 +49,14 @@ const FloatingChatbot = () => {
       const chatHistory = messages.slice(1);
       
       let endpoint = '/api/ai/chat';
-      let payload = { message: input, history: chatHistory };
+      let payload = { message: currentInput, history: chatHistory, attachment: currentAttachment };
 
       if (mode === 'symptom') {
         endpoint = '/api/ai/symptom-checker';
-        payload = { symptoms: input, history: chatHistory };
+        payload = { symptoms: currentInput, history: chatHistory, attachment: currentAttachment };
       } else if (mode === 'report') {
         endpoint = '/api/ai/summarize-report';
-        payload = { reportText: input, history: chatHistory };
+        payload = { reportText: currentInput, history: chatHistory, attachment: currentAttachment };
       }
 
       const res = await axios.post(`http://localhost:5000${endpoint}`, payload, {
@@ -65,6 +72,30 @@ const FloatingChatbot = () => {
     } finally {
       setLoading(false);
     }
+  };
+
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    // Optional limit: 5MB
+    if (file.size > 5 * 1024 * 1024) {
+      alert("File is too large! Maximum 5MB allowed.");
+      return;
+    }
+
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      const base64String = reader.result.split(',')[1];
+      setAttachment({
+        previewUrl: URL.createObjectURL(file),
+        base64: base64String,
+        mimeType: file.type,
+        name: file.name
+      });
+    };
+    reader.readAsDataURL(file);
+    e.target.value = null; // reset input
   };
 
   const chatbotContent = (
@@ -128,7 +159,17 @@ const FloatingChatbot = () => {
                   }`}
                 >
                   {msg.role === 'user' ? (
-                    <div className="whitespace-pre-wrap">{msg.text}</div>
+                    <div className="whitespace-pre-wrap flex flex-col gap-2">
+                      {msg.attachment && msg.attachment.mimeType.startsWith('image/') && (
+                        <img src={msg.attachment.previewUrl || `data:${msg.attachment.mimeType};base64,${msg.attachment.base64}`} alt="Attachment" className="max-w-[200px] max-h-[200px] object-cover rounded-lg" />
+                      )}
+                      {msg.attachment && !msg.attachment.mimeType.startsWith('image/') && (
+                        <div className="flex items-center gap-2 bg-blue-700/50 p-2 rounded text-xs">
+                          <FileText size={16} /> {msg.attachment.name}
+                        </div>
+                      )}
+                      <div>{msg.text}</div>
+                    </div>
                   ) : (
                     <ReactMarkdown>{msg.text || ''}</ReactMarkdown>
                   )}
@@ -146,8 +187,46 @@ const FloatingChatbot = () => {
           </div>
 
           {/* Input Area */}
-          <div className="p-3 bg-white dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700">
+          <div className="p-3 bg-white dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700 relative">
+            {/* Attachment Preview */}
+            {attachment && (
+              <div className="absolute bottom-full mb-2 left-3 bg-gray-100 dark:bg-gray-700 p-2 rounded-lg border border-gray-200 dark:border-gray-600 shadow-md flex items-center gap-2">
+                {attachment.mimeType.startsWith('image/') ? (
+                  <img src={attachment.previewUrl} alt="Preview" className="w-12 h-12 object-cover rounded" />
+                ) : (
+                  <div className="w-12 h-12 bg-gray-200 dark:bg-gray-600 rounded flex flex-col items-center justify-center text-xs overflow-hidden p-1">
+                    <FileText size={16} />
+                    <span className="truncate w-full text-center mt-1 text-gray-500">{attachment.name.split('.').pop()}</span>
+                  </div>
+                )}
+                <div className="flex flex-col max-w-[120px]">
+                  <span className="text-xs font-medium text-gray-800 dark:text-gray-200 truncate">{attachment.name}</span>
+                </div>
+                <button 
+                  onClick={() => setAttachment(null)}
+                  className="p-1 bg-red-100 text-red-600 rounded-full hover:bg-red-200 ml-2"
+                >
+                  <X size={14} />
+                </button>
+              </div>
+            )}
+
             <form onSubmit={handleSubmit} className="flex relative items-end group">
+              <input 
+                type="file" 
+                id="chatbot-file-upload" 
+                className="hidden" 
+                accept="image/*,application/pdf" 
+                onChange={handleFileChange}
+              />
+              <label 
+                htmlFor="chatbot-file-upload"
+                className="absolute left-2 bottom-2 p-1.5 text-gray-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg cursor-pointer transition-colors z-10"
+                title="Attach Image or PDF"
+              >
+                <Paperclip size={20} />
+              </label>
+
               <textarea
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
@@ -156,7 +235,7 @@ const FloatingChatbot = () => {
                   mode === 'symptom' ? 'Describe your symptoms...' :
                   'Paste lab report text...'
                 }
-                className="w-full bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-white rounded-xl pl-4 pr-12 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none h-12 max-h-32 transition-all"
+                className="w-full bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-white rounded-xl pl-10 pr-12 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none h-12 max-h-32 transition-all"
                 rows="1"
                 onKeyDown={(e) => {
                   if (e.key === 'Enter' && !e.shiftKey) {
@@ -167,7 +246,7 @@ const FloatingChatbot = () => {
               />
               <button 
                 type="submit" 
-                disabled={!input.trim() || loading}
+                disabled={(!input.trim() && !attachment) || loading}
                 className="absolute right-2 bottom-2 p-1.5 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
               >
                 <Send size={18} className={loading ? 'opacity-0' : 'opacity-100'} />
