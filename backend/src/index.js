@@ -55,6 +55,10 @@ app.use('/api/records', recordsRoutes);
 import billingRoutes from './modules/billing/billing.routes.js';
 app.use('/api/billing', billingRoutes);
 
+// AI Routes
+import aiRoutes from './modules/ai/ai.routes.js';
+app.use('/api/ai', aiRoutes);
+
 // Serve uploads folder as static
 import path from 'path';
 const __dirname = path.resolve();

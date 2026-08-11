@@ -76,10 +76,10 @@ Aapke request ke mutabiq maine plan ko modify kar diya hai taaki **har din ek po
 ## 📌 Phase 4: AI Integration & Analytics (Day 12 - 13)
 
 ### Day 12: AI Medical Assistant (Symptom Checker & Summarizer)
-- **[ ] AI ASSISTANT BACKEND `[backend]` `[ai]`**
+- **[x] AI ASSISTANT BACKEND `[backend]` `[ai]`**
   - Google Gemini API setup.
   - Symptom analysis API aur Lab Report summarizer API banana.
-- **[ ] AI ASSISTANT FRONTEND `[frontend]` `[ai]`**
+- **[x] AI ASSISTANT FRONTEND `[frontend]` `[ai]`**
   - Dashboard par ek floating Chatbot UI banana.
   - AI responses ko frontend par show karna.
 
