@@ -24,12 +24,18 @@ export const getDoctors = async (req, res, next) => {
       query.where.AND = [];
       
       if (search) {
-        query.where.AND.push({
+        // Remove 'dr.' or 'dr ' prefix case-insensitively and trim
+        const cleanSearch = search.replace(/^dr\.?\s*/i, '').trim();
+        const searchParts = cleanSearch.split(/\s+/);
+
+        const nameConditions = searchParts.map(part => ({
           OR: [
-            { firstName: { contains: search, mode: 'insensitive' } },
-            { lastName: { contains: search, mode: 'insensitive' } },
+            { firstName: { contains: part, mode: 'insensitive' } },
+            { lastName: { contains: part, mode: 'insensitive' } },
           ]
-        });
+        }));
+        
+        query.where.AND.push(...nameConditions);
       }
       
       if (specialization) {
