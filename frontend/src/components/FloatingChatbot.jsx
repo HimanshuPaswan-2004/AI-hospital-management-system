@@ -1,5 +1,7 @@
 import { useState, useRef, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import { MessageSquare, X, Send, Loader2, Stethoscope, FileText } from 'lucide-react';
+import Draggable from 'react-draggable';
 import axios from 'axios';
 import ReactMarkdown from 'react-markdown';
 import useAuthStore from '../store/authStore';
@@ -13,6 +15,7 @@ const FloatingChatbot = () => {
   const [loading, setLoading] = useState(false);
   const [mode, setMode] = useState('chat'); // 'chat', 'symptom', 'report'
   const messagesEndRef = useRef(null);
+  const nodeRef = useRef(null);
   
   const { user } = useAuthStore();
   const token = user?.token;
@@ -35,15 +38,18 @@ const FloatingChatbot = () => {
     setLoading(true);
 
     try {
+      // Exclude the first default message from history to save tokens and avoid confusing the prompt
+      const chatHistory = messages.slice(1);
+      
       let endpoint = '/api/ai/chat';
-      let payload = { message: input };
+      let payload = { message: input, history: chatHistory };
 
       if (mode === 'symptom') {
         endpoint = '/api/ai/symptom-checker';
-        payload = { symptoms: input };
+        payload = { symptoms: input, history: chatHistory };
       } else if (mode === 'report') {
         endpoint = '/api/ai/summarize-report';
-        payload = { reportText: input };
+        payload = { reportText: input, history: chatHistory };
       }
 
       const res = await axios.post(`http://localhost:5000${endpoint}`, payload, {
@@ -61,28 +67,29 @@ const FloatingChatbot = () => {
     }
   };
 
-  return (
-    <div className="fixed bottom-6 right-6 z-50">
+  const chatbotContent = (
+    <div className="fixed bottom-6 right-6 z-[9999]">
       {isOpen ? (
-        <div className="w-80 sm:w-96 bg-white dark:bg-gray-800 rounded-2xl shadow-2xl flex flex-col h-[500px] border border-gray-200 dark:border-gray-700 overflow-hidden transition-all duration-300">
-          {/* Header */}
-          <div className="bg-gradient-to-r from-blue-600 to-indigo-600 p-4 text-white flex justify-between items-center shadow-md">
-            <div className="flex items-center space-x-2">
-              <div className="p-2 bg-white/20 rounded-full">
-                <Stethoscope size={20} />
+        <Draggable nodeRef={nodeRef} handle=".chat-header">
+          <div ref={nodeRef} className="w-80 sm:w-96 bg-white dark:bg-gray-800 rounded-2xl shadow-2xl flex flex-col h-[500px] border border-gray-200 dark:border-gray-700 overflow-hidden">
+            {/* Header */}
+            <div className="chat-header cursor-move bg-gradient-to-r from-blue-600 to-indigo-600 p-4 text-white flex justify-between items-center shadow-md">
+              <div className="flex items-center space-x-2">
+                <div className="p-2 bg-white/20 rounded-full">
+                  <Stethoscope size={20} />
+                </div>
+                <div>
+                  <h3 className="font-semibold text-lg">AI Assistant</h3>
+                  <p className="text-xs text-blue-100">MediAI Health</p>
+                </div>
               </div>
-              <div>
-                <h3 className="font-semibold text-lg">AI Assistant</h3>
-                <p className="text-xs text-blue-100">MediAI Health</p>
-              </div>
+              <button 
+                onClick={() => setIsOpen(false)}
+                className="p-1 hover:bg-white/20 rounded-full transition-colors cursor-pointer"
+              >
+                <X size={20} />
+              </button>
             </div>
-            <button 
-              onClick={() => setIsOpen(false)}
-              className="p-1 hover:bg-white/20 rounded-full transition-colors"
-            >
-              <X size={20} />
-            </button>
-          </div>
 
           {/* Mode Selector */}
           <div className="flex border-b border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800/50 p-2 gap-2 overflow-x-auto text-sm">
@@ -169,6 +176,7 @@ const FloatingChatbot = () => {
             </form>
           </div>
         </div>
+        </Draggable>
       ) : (
         <button
           onClick={() => setIsOpen(true)}
@@ -183,6 +191,11 @@ const FloatingChatbot = () => {
       )}
     </div>
   );
+
+  // Use React Portal to render chatbot directly in document.body
+  // This prevents parent CSS properties like `transform`, `overflow: hidden`, or z-index context
+  // from breaking the fixed positioning and floating behavior.
+  return typeof document !== 'undefined' ? createPortal(chatbotContent, document.body) : chatbotContent;
 };
 
 export default FloatingChatbot;
