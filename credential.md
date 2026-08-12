@@ -19,9 +19,9 @@ Use these credentials to log in and test different roles in the MediAI applicati
 
 | Name | Specialization | Email (Login ID) | Password |
 | :--- | :--- | :--- | :--- |
-| **Dr. John Smith** | Cardiologist | `d | `password123` |
+| **Dr. John Smith** | Cardiologist | `dr.smith@example.com`| `password123` |
 | **Dr. Sarah Jones** | Dermatologist | `dr.jones@example.com` | `password123` |
-| **Dr. Raj Patel** | Neurologist | `dr.smith@example.com`r.patel@example.com` | `password123` |
+| **Dr. Raj Patel** | Neurologist | `dr.raj.patel@example.com` | `password123` |
 | **Dr. Emily Lee** | Pediatrician | `dr.lee@example.com` | `password123` |
 | **Dr. Carlos Garcia**| Orthopedic | `dr.garcia@example.com` | `password123` |
 | **Dr. Amanda Wilson**| Psychiatrist | `dr.wilson@example.com` | `password123` |

@@ -11,6 +11,8 @@ import DoctorDashboard from './pages/Dashboard/DoctorDashboard';
 import PatientDashboard from './pages/Dashboard/PatientDashboard';
 import PharmacyDashboard from './pages/Pharmacy/PharmacyDashboard';
 import BillingDashboard from './pages/Billing/BillingDashboard';
+import AdminAnalytics from './pages/Analytics/AdminAnalytics';
+import SymptomChecker from './pages/Patient/SymptomChecker';
 
 function App() {
   return (
@@ -28,11 +30,13 @@ function App() {
           <Route path="/book-appointment/:doctorId" element={<BookAppointment />} />
           <Route path="/admin/pharmacy" element={<PharmacyDashboard />} />
           <Route path="/admin/billing" element={<BillingDashboard />} />
+          <Route path="/admin/analytics" element={<AdminAnalytics />} />
 
           <Route path="/doctor/schedule" element={<DoctorDashboard />} />
 
           <Route path="/patient/appointments" element={<PatientDashboard initialTab="appointments" />} />
           <Route path="/patient/records" element={<PatientDashboard initialTab="records" />} />
+          <Route path="/patient/symptom-checker" element={<SymptomChecker />} />
         </Route>
       </Routes>
     </Router>

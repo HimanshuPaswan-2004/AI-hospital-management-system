@@ -84,9 +84,9 @@ Aapke request ke mutabiq maine plan ko modify kar diya hai taaki **har din ek po
   - AI responses ko frontend par show karna.
 
 ### Day 13: Admin Analytics
-- **[ ] ADMIN ANALYTICS BACKEND `[backend]` `[analytics]`**
+- **[x] ADMIN ANALYTICS BACKEND `[backend]` `[analytics]`**
   - Revenue aur appointments ka data aggregate karne ki API.
-- **[ ] ADMIN ANALYTICS FRONTEND `[frontend]` `[analytics]`**
+- **[x] ADMIN ANALYTICS FRONTEND `[frontend]` `[analytics]`**
   - Recharts/Chart.js use karke data ko visually graphs mein dikhana.
 
 ---

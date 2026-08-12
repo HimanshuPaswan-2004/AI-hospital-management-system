@@ -129,186 +129,234 @@ const PatientDashboard = ({ initialTab = 'appointments' }) => {
           </div>
           <FileText size={32} className="opacity-80 group-hover:scale-110 transition-transform duration-300" />
         </button>
-        <div className="p-6 glass-card rounded-2xl opacity-80 hover:opacity-100 transition-all duration-300 flex items-center justify-between">
-          <div>
-            <h3 className="font-bold text-gray-800 text-lg tracking-tight">AI Assistant</h3>
-            <p className="text-gray-500 text-sm mt-1">Check symptoms (Coming Soon)</p>
+        <Link to="/patient/symptom-checker" className="p-6 bg-gradient-to-r from-amber-500 to-orange-600 text-white rounded-2xl shadow-md hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex items-center justify-between group relative overflow-hidden">
+          <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full blur-2xl -mr-10 -mt-10 group-hover:bg-white/20 transition-colors"></div>
+          <div className="relative z-10">
+            <h3 className="font-bold text-lg tracking-tight flex items-center gap-2">
+              AI Assistant <span className="text-[10px] uppercase tracking-widest bg-white/20 px-2 py-0.5 rounded-full">Beta</span>
+            </h3>
+            <p className="text-orange-100 text-sm mt-1">Check your symptoms instantly</p>
           </div>
-          <Sparkles size={32} className="text-yellow-500 opacity-80" />
+          <Sparkles size={32} className="opacity-90 group-hover:scale-110 group-hover:rotate-12 transition-all duration-300 relative z-10" />
+        </Link>
+      </div>
+
+      <div className="max-w-7xl mx-auto w-full space-y-6">
+        {/* Tabs */}
+        <div className="flex bg-white/60 backdrop-blur-xl p-1.5 rounded-2xl border border-white shadow-sm w-max animate-[fadeInUp_0.4s_ease-out]">
+          <button
+            className={`py-2.5 px-6 font-bold text-sm rounded-xl transition-all duration-300 ${activeTab === 'appointments' ? 'bg-white text-blue-600 shadow-[0_2px_10px_rgb(0,0,0,0.06)]' : 'bg-transparent text-slate-500 hover:text-slate-800 hover:bg-white/40'}`}
+            onClick={() => { setActiveTab('appointments'); navigate('/patient/appointments'); }}
+          >
+            My Appointments
+          </button>
+          <button
+            className={`py-2.5 px-6 font-bold text-sm rounded-xl transition-all duration-300 ${activeTab === 'records' ? 'bg-white text-blue-600 shadow-[0_2px_10px_rgb(0,0,0,0.06)]' : 'bg-transparent text-slate-500 hover:text-slate-800 hover:bg-white/40'}`}
+            onClick={() => { setActiveTab('records'); navigate('/patient/records'); }}
+          >
+            Medical Records
+          </button>
         </div>
-      </div>
 
-      {/* Tabs */}
-      <div className="flex border-b border-gray-200/50 mb-4">
-        <button
-          className={`py-3 px-6 font-medium text-sm border-b-2 transition-all duration-300 ${activeTab === 'appointments' ? 'border-blue-600 text-blue-600' : 'border-transparent text-gray-500 hover:text-gray-800 hover:border-gray-300'}`}
-          onClick={() => { setActiveTab('appointments'); navigate('/patient/appointments'); }}
-        >
-          My Appointments
-        </button>
-        <button
-          className={`py-3 px-6 font-medium text-sm border-b-2 transition-all duration-300 ${activeTab === 'records' ? 'border-blue-600 text-blue-600' : 'border-transparent text-gray-500 hover:text-gray-800 hover:border-gray-300'}`}
-          onClick={() => { setActiveTab('records'); navigate('/patient/records'); }}
-        >
-          Medical Records
-        </button>
-      </div>
-
-      {/* Content */}
-      {loading ? (
-        <div className="p-8 text-center"><div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto"></div></div>
-      ) : error ? (
-        <div className="p-8 text-center text-red-500">{error}</div>
-      ) : activeTab === 'appointments' ? (
-        appointments.length === 0 ? (
-          <div className="glass-card p-10 rounded-2xl text-center text-gray-500">
-            <Calendar className="mx-auto h-16 w-16 text-gray-300 mb-4" />
-            <p className="text-lg">You have no appointments booked yet.</p>
-            <Link to="/doctor-directory" className="mt-6 inline-block bg-blue-600 text-white px-6 py-2 rounded-lg font-medium hover:bg-blue-700 transition-colors shadow-md hover:shadow-lg">Find a Doctor</Link>
-          </div>
-        ) : (
-          <div className="glass-card rounded-2xl overflow-hidden">
-            <ul className="divide-y divide-gray-100/50">
+        {/* Content */}
+        {loading ? (
+          <div className="flex justify-center py-20"><div className="animate-spin rounded-full h-16 w-16 border-4 border-blue-100 border-t-blue-600"></div></div>
+        ) : error ? (
+          <div className="p-12 text-center text-rose-500 bg-rose-50 rounded-3xl font-bold border border-rose-100"><XCircle className="mx-auto mb-3 h-10 w-10" />{error}</div>
+        ) : activeTab === 'appointments' ? (
+          appointments.length === 0 ? (
+            <div className="glass-card p-16 rounded-[2rem] text-center shadow-sm border border-white relative overflow-hidden animate-[fadeInUp_0.3s_ease-out]">
+              <div className="absolute top-0 right-0 w-64 h-64 bg-blue-100 rounded-full mix-blend-multiply filter blur-[80px] opacity-50 pointer-events-none"></div>
+              <div className="w-24 h-24 bg-gradient-to-br from-blue-50 to-indigo-50 border-2 border-white rounded-full flex items-center justify-center mx-auto mb-6 shadow-sm relative z-10">
+                <Calendar className="h-10 w-10 text-blue-500" />
+              </div>
+              <h3 className="text-2xl font-extrabold text-slate-800 mb-2 relative z-10">No Appointments Yet</h3>
+              <p className="text-slate-500 font-medium mb-8 relative z-10">Ready to prioritize your health? Find a specialist today.</p>
+              <Link to="/doctor-directory" className="relative z-10 inline-flex items-center gap-2 bg-gradient-to-r from-blue-600 to-indigo-600 text-white px-8 py-3.5 rounded-2xl font-bold hover:shadow-lg hover:shadow-blue-500/30 hover:-translate-y-0.5 transition-all duration-300">
+                <Sparkles size={18} />
+                Find a Doctor
+              </Link>
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 animate-[fadeInUp_0.3s_ease-out]">
               {appointments.map(app => (
-                <li key={app.id} className="p-4 sm:p-6 hover:bg-white/40 transition-colors flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-                  <div className="flex items-start gap-4">
-                    <div className="w-12 h-12 bg-gradient-to-br from-blue-100 to-blue-200 text-blue-700 rounded-full flex items-center justify-center font-bold text-lg shrink-0 shadow-sm">
-                      {app.doctor.firstName.charAt(0)}
-                    </div>
-                    <div>
-                      <h4 className="font-bold text-gray-900">Dr. {app.doctor.firstName} {app.doctor.lastName}</h4>
-                      <p className="text-sm text-gray-500">{app.doctor.doctorProfile?.specialization || 'Doctor'}</p>
-                      <div className="text-sm text-gray-500 flex items-center gap-2 mt-2">
-                        <Calendar size={14} className="text-blue-400" />
-                        <span className={app.appointmentDate.split('T')[0] === today ? 'font-bold text-blue-600' : ''}>
-                          {new Date(app.appointmentDate).toLocaleDateString()}
-                        </span>
-                        <span className="text-gray-300">•</span>
-                        <Clock size={14} className="text-blue-400" />
-                        <span>{app.timeSlot}</span>
+                <div key={app.id} className="glass-card rounded-[2rem] p-6 flex flex-col group hover:shadow-2xl hover:shadow-blue-900/10 transition-all duration-300">
+                  <div className="flex justify-between items-start mb-6 gap-3">
+                    <div className="flex items-center gap-4 overflow-hidden">
+                      <div className="shrink-0 w-14 h-14 bg-gradient-to-br from-blue-100 to-indigo-100 text-blue-600 rounded-2xl flex items-center justify-center font-extrabold text-xl shadow-sm group-hover:scale-105 transition-transform">
+                        {app.doctor.firstName.charAt(0)}
+                      </div>
+                      <div className="min-w-0">
+                        <h4 className="font-bold text-slate-900 text-lg truncate group-hover:text-blue-600 transition-colors">Dr. {app.doctor.firstName} {app.doctor.lastName}</h4>
+                        <p className="text-xs font-bold text-slate-500 uppercase tracking-wider">{app.doctor.doctorProfile?.specialization || 'Doctor'}</p>
                       </div>
                     </div>
+                    <span className={`shrink-0 px-3 py-1.5 rounded-xl text-xs font-bold uppercase tracking-wide border ${getStatusColor(app.status)} border-opacity-50`}>
+                      {app.status}
+                    </span>
                   </div>
-                  <div className={`px-3 py-1.5 rounded-full text-xs font-semibold flex items-center gap-1.5 shadow-sm ${getStatusColor(app.status)}`}>
-                    {getStatusIcon(app.status)} {app.status}
+                  
+                  <div className="mt-auto bg-slate-50/80 p-4 rounded-xl border border-slate-100">
+                    <div className="flex items-center gap-3 text-sm font-medium text-slate-600">
+                      <div className="p-2 bg-blue-50 text-blue-500 rounded-lg"><Calendar size={16} /></div>
+                      <span className={app.appointmentDate.split('T')[0] === today ? 'font-bold text-blue-600' : ''}>
+                        {new Date(app.appointmentDate).toLocaleDateString()}
+                      </span>
+                    </div>
+                    <div className="flex items-center gap-3 text-sm font-medium text-slate-600 mt-2">
+                      <div className="p-2 bg-amber-50 text-amber-500 rounded-lg"><Clock size={16} /></div>
+                      <span>{app.timeSlot}</span>
+                    </div>
                   </div>
-                </li>
+                </div>
               ))}
-            </ul>
-          </div>
-        )
-      ) : (
-        /* Medical Records View */
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-
-          {/* Prescriptions */}
-          <div>
-            <h3 className="text-lg font-bold text-gray-800 mb-4 flex items-center gap-2">
-              <FileText className="text-purple-600" size={20} /> My Prescriptions
-            </h3>
-            {prescriptions.length === 0 ? (
-              <p className="text-gray-500 text-sm">No prescriptions found.</p>
-            ) : (
-              <div className="space-y-4">
-                {prescriptions.map(pres => (
-                  <div key={pres.id} className="bg-white p-5 rounded-xl border border-gray-100 shadow-sm">
-                    <div className="flex justify-between items-start mb-3">
+            </div>
+          )
+        ) : (
+          /* Medical Records View */
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 animate-[fadeInUp_0.4s_ease-out]">
+            {/* Prescriptions */}
+            <div className="space-y-6">
+              <h3 className="text-2xl font-extrabold text-slate-800 flex items-center gap-3 tracking-tight">
+                <div className="p-2.5 bg-purple-100 text-purple-600 rounded-xl">
+                  <FileText size={24} />
+                </div>
+                My Prescriptions
+              </h3>
+              {prescriptions.length === 0 ? (
+                <div className="glass-card p-12 rounded-[2rem] text-center border border-white shadow-sm">
+                  <div className="w-16 h-16 bg-slate-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <FileText className="text-slate-400 h-8 w-8" />
+                  </div>
+                  <p className="text-slate-500 font-medium">No prescriptions found.</p>
+                </div>
+              ) : (
+                <div className="grid grid-cols-1 gap-4">
+                  {prescriptions.map(pres => (
+                    <div key={pres.id} className="glass-card p-6 rounded-[2rem] border border-white hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group">
+                      <div className="flex justify-between items-start mb-5">
+                        <div className="flex items-center gap-4">
+                          <div className="w-12 h-12 bg-gradient-to-br from-purple-100 to-fuchsia-100 text-purple-600 rounded-xl flex items-center justify-center font-bold text-lg shadow-sm">
+                            {pres.doctor.firstName.charAt(0)}
+                          </div>
+                          <div>
+                            <h4 className="font-bold text-slate-900 group-hover:text-purple-600 transition-colors">Dr. {pres.doctor.firstName} {pres.doctor.lastName}</h4>
+                            <p className="text-xs font-medium text-slate-500">{new Date(pres.createdAt).toLocaleDateString()}</p>
+                          </div>
+                        </div>
+                        <span className="bg-purple-50 text-purple-600 border border-purple-100 text-xs px-3 py-1.5 rounded-xl font-bold uppercase tracking-wider">Prescription</span>
+                      </div>
+                      {pres.diagnosis && (
+                        <div className="mb-5 bg-slate-50/50 p-4 rounded-xl border border-slate-100/50">
+                          <span className="text-xs font-bold text-slate-400 uppercase tracking-wider block mb-1">Diagnosis</span>
+                          <p className="text-sm font-medium text-slate-700">{pres.diagnosis}</p>
+                        </div>
+                      )}
                       <div>
-                        <h4 className="font-bold text-gray-800">Dr. {pres.doctor.firstName} {pres.doctor.lastName}</h4>
-                        <p className="text-xs text-gray-500">{new Date(pres.createdAt).toLocaleDateString()}</p>
+                        <span className="text-xs font-bold text-slate-400 uppercase tracking-wider block mb-3 ml-1">Medicines</span>
+                        <ul className="mt-1 space-y-3">
+                          {pres.medicines && pres.medicines.map((med, idx) => (
+                            <li key={idx} className="bg-white/60 p-4 rounded-xl text-sm border border-slate-100 shadow-sm flex flex-col gap-1">
+                              <div className="flex items-center justify-between">
+                                <span className="font-bold text-slate-800 text-base">{med.name}</span>
+                                <span className="text-xs font-bold bg-slate-100 text-slate-500 px-2 py-1 rounded-lg">{med.duration}</span>
+                              </div>
+                              <span className="text-slate-600 font-medium">{med.dosage}</span>
+                              {med.instructions && <span className="block text-xs font-medium text-slate-400 mt-1 bg-slate-50 p-2 rounded-lg">{med.instructions}</span>}
+                            </li>
+                          ))}
+                        </ul>
                       </div>
-                      <span className="bg-purple-100 text-purple-700 text-xs px-2 py-1 rounded-full font-medium">Prescription</span>
                     </div>
-                    {pres.diagnosis && (
-                      <div className="mb-3">
-                        <span className="text-xs font-semibold text-gray-500 uppercase">Diagnosis</span>
-                        <p className="text-sm text-gray-800">{pres.diagnosis}</p>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            {/* Lab Reports */}
+            <div className="space-y-6">
+              <h3 className="text-2xl font-extrabold text-slate-800 flex items-center gap-3 tracking-tight">
+                <div className="p-2.5 bg-blue-100 text-blue-600 rounded-xl">
+                  <Activity size={24} />
+                </div>
+                Lab Reports
+              </h3>
+
+              {/* Upload Form */}
+              <form onSubmit={handleUploadReport} className="glass-card p-6 rounded-[2rem] border border-white shadow-sm flex flex-col gap-4 relative overflow-hidden">
+                <div className="absolute top-0 right-0 w-32 h-32 bg-blue-50 rounded-full mix-blend-multiply filter blur-2xl opacity-60 pointer-events-none"></div>
+                <h4 className="font-bold text-slate-800 flex items-center gap-2 mb-2 relative z-10">
+                  <FilePlus size={18} className="text-blue-500" /> Upload New Report
+                </h4>
+                <input
+                  type="text"
+                  placeholder="Report Name (e.g., Blood Test)"
+                  required
+                  value={reportName}
+                  onChange={e => setReportName(e.target.value)}
+                  className="w-full text-sm font-medium border-2 border-slate-100 p-3 rounded-xl bg-white/50 focus:bg-white focus:outline-none focus:border-blue-400 transition-colors relative z-10"
+                />
+                <div className="relative z-10">
+                  <input
+                    type="file"
+                    required
+                    onChange={e => setUploadFile(e.target.files[0])}
+                    className="w-full text-sm text-slate-500 file:mr-4 file:py-2.5 file:px-4 file:rounded-xl file:border-0 file:text-sm file:font-bold file:bg-blue-50 file:text-blue-600 hover:file:bg-blue-100 transition-colors"
+                    accept=".pdf, .jpg, .jpeg, .png"
+                  />
+                </div>
+                <button disabled={uploading} type="submit" className="mt-2 bg-gradient-to-r from-blue-600 to-indigo-600 text-white text-sm font-bold py-3.5 rounded-xl shadow-md shadow-blue-500/20 hover:shadow-lg hover:shadow-blue-500/40 hover:-translate-y-0.5 transition-all disabled:opacity-70 relative z-10">
+                  {uploading ? 'Uploading...' : 'Upload Report'}
+                </button>
+              </form>
+
+              {/* List Reports */}
+              {labReports.length === 0 ? (
+                <div className="glass-card p-12 rounded-[2rem] text-center border border-white shadow-sm">
+                  <div className="w-16 h-16 bg-slate-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <Activity className="text-slate-400 h-8 w-8" />
+                  </div>
+                  <p className="text-slate-500 font-medium">No lab reports uploaded.</p>
+                </div>
+              ) : (
+                <div className="grid grid-cols-1 gap-4">
+                  {labReports.map(report => (
+                    <div key={report.id} className="glass-card p-5 rounded-2xl border border-white shadow-sm flex justify-between items-center hover:shadow-md transition-shadow group">
+                      <div className="flex items-center gap-4">
+                        <div className="p-3 bg-blue-50 text-blue-500 rounded-xl group-hover:scale-110 transition-transform">
+                          <FileText size={20} />
+                        </div>
+                        <div>
+                          <h4 className="font-bold text-slate-800 text-base">{report.reportName}</h4>
+                          <p className="text-xs font-medium text-slate-500">{new Date(report.dateUploaded).toLocaleDateString()}</p>
+                        </div>
                       </div>
-                    )}
-                    <div>
-                      <span className="text-xs font-semibold text-gray-500 uppercase">Medicines</span>
-                      <ul className="mt-1 space-y-2">
-                        {pres.medicines && pres.medicines.map((med, idx) => (
-                          <li key={idx} className="bg-gray-50 p-2 rounded text-sm">
-                            <span className="font-semibold">{med.name}</span> — {med.dosage} ({med.duration})
-                            {med.instructions && <span className="block text-xs text-gray-500 mt-1">{med.instructions}</span>}
-                          </li>
-                        ))}
-                      </ul>
+                      <div className="flex gap-2">
+                        <a
+                          href={`http://localhost:5000${report.fileUrl}`}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="p-2.5 bg-slate-100 text-slate-600 rounded-xl hover:bg-blue-50 hover:text-blue-600 transition-colors"
+                          title="Download"
+                        >
+                          <Download size={18} />
+                        </a>
+                        <button
+                          onClick={() => handleDeleteReport(report.id)}
+                          className="p-2.5 bg-slate-100 text-slate-600 rounded-xl hover:bg-rose-50 hover:text-rose-600 transition-colors"
+                          title="Delete"
+                        >
+                          <Trash2 size={18} />
+                        </button>
+                      </div>
                     </div>
-                  </div>
-                ))}
-              </div>
-            )}
+                  ))}
+                </div>
+              )}
+            </div>
           </div>
-
-          {/* Lab Reports */}
-          <div>
-            <h3 className="text-lg font-bold text-gray-800 mb-4 flex items-center gap-2">
-              <Activity className="text-blue-600" size={20} /> Lab Reports
-            </h3>
-
-            {/* Upload Form */}
-            <form onSubmit={handleUploadReport} className="bg-white p-4 rounded-xl border border-gray-100 shadow-sm mb-6 flex flex-col gap-3">
-              <h4 className="font-semibold text-sm text-gray-700 flex items-center gap-2">
-                <FilePlus size={16} /> Upload New Report
-              </h4>
-              <input
-                type="text"
-                placeholder="Report Name (e.g., Blood Test)"
-                required
-                value={reportName}
-                onChange={e => setReportName(e.target.value)}
-                className="w-full text-sm border p-2 rounded"
-              />
-              <input
-                type="file"
-                required
-                onChange={e => setUploadFile(e.target.files[0])}
-                className="w-full text-sm"
-                accept=".pdf, .jpg, .jpeg, .png"
-              />
-              <button disabled={uploading} type="submit" className="bg-blue-600 text-white text-sm font-medium py-2 rounded hover:bg-blue-700 disabled:opacity-50">
-                {uploading ? 'Uploading...' : 'Upload Report'}
-              </button>
-            </form>
-
-            {/* List Reports */}
-            {labReports.length === 0 ? (
-              <p className="text-gray-500 text-sm">No lab reports uploaded.</p>
-            ) : (
-              <div className="space-y-3">
-                {labReports.map(report => (
-                  <div key={report.id} className="bg-white p-4 rounded-xl border border-gray-100 shadow-sm flex justify-between items-center">
-                    <div>
-                      <h4 className="font-semibold text-gray-800 text-sm">{report.reportName}</h4>
-                      <p className="text-xs text-gray-500">{new Date(report.dateUploaded).toLocaleDateString()}</p>
-                    </div>
-                    <div className="flex gap-2">
-                      <a
-                        href={`http://localhost:5000${report.fileUrl}`}
-                        target="_blank"
-                        rel="noreferrer"
-                        className="p-2 bg-blue-50 text-blue-600 rounded-lg hover:bg-blue-100"
-                        title="Download"
-                      >
-                        <Download size={16} />
-                      </a>
-                      <button
-                        onClick={() => handleDeleteReport(report.id)}
-                        className="p-2 bg-red-50 text-red-600 rounded-lg hover:bg-red-100"
-                        title="Delete"
-                      >
-                        <Trash2 size={16} />
-                      </button>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            )}
-          </div>
-        </div>
-      )}
+        )}
+      </div>
     </div>
   );
 };
