@@ -20,7 +20,7 @@ const SymptomChecker = () => {
     setError(null);
     try {
       const response = await axios.post(
-        'http://localhost:5000/api/ai/symptom-checker',
+        (import.meta.env.VITE_API_URL || 'http://localhost:5000') + '/api/ai/symptom-checker',
         { symptoms },
         { headers: { Authorization: `Bearer ${user?.token}` } }
       );

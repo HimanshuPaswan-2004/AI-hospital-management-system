@@ -16,7 +16,7 @@ const DoctorDashboard = () => {
   const fetchSchedule = async () => {
     try {
       setLoading(true);
-      const res = await axios.get('http://localhost:5000/api/appointments/schedule', {
+      const res = await axios.get((import.meta.env.VITE_API_URL || 'http://localhost:5000') + '/api/appointments/schedule', {
         headers: { Authorization: `Bearer ${user?.token}` }
       });
       setAppointments(res.data);
@@ -36,7 +36,7 @@ const DoctorDashboard = () => {
 
   const handleStatusUpdate = async (id, status) => {
     try {
-      await axios.put(`http://localhost:5000/api/appointments/${id}/status`, 
+      await axios.put(`${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api/appointments/${id}/status`, 
         { status },
         { headers: { Authorization: `Bearer ${user?.token}` } }
       );

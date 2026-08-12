@@ -19,7 +19,7 @@ const Profile = () => {
     const fetchProfile = async () => {
       try {
         setLoading(true);
-        const res = await axios.get('http://localhost:5000/api/users/profile', {
+        const res = await axios.get((import.meta.env.VITE_API_URL || 'http://localhost:5000') + '/api/users/profile', {
           headers: { Authorization: `Bearer ${user?.token}` }
         });
         
@@ -83,7 +83,7 @@ const Profile = () => {
           payload.profileData.availableDays = payload.profileData.availableDays.split(',').map(d => d.trim());
       }
 
-      await axios.put('http://localhost:5000/api/users/profile', payload, {
+      await axios.put((import.meta.env.VITE_API_URL || 'http://localhost:5000') + '/api/users/profile', payload, {
         headers: { Authorization: `Bearer ${user?.token}` }
       });
       

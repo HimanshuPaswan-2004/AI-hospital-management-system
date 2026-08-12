@@ -30,9 +30,9 @@ const PatientDashboard = ({ initialTab = 'appointments' }) => {
       const headers = { Authorization: `Bearer ${user?.token}` };
 
       const [appRes, presRes, labRes] = await Promise.all([
-        axios.get('http://localhost:5000/api/appointments/my-appointments', { headers }),
-        axios.get('http://localhost:5000/api/records/prescriptions', { headers }),
-        axios.get('http://localhost:5000/api/records/reports', { headers })
+        axios.get((import.meta.env.VITE_API_URL || 'http://localhost:5000') + '/api/appointments/my-appointments', { headers }),
+        axios.get((import.meta.env.VITE_API_URL || 'http://localhost:5000') + '/api/records/prescriptions', { headers }),
+        axios.get((import.meta.env.VITE_API_URL || 'http://localhost:5000') + '/api/records/reports', { headers })
       ]);
 
       setAppointments(appRes.data);
@@ -60,7 +60,7 @@ const PatientDashboard = ({ initialTab = 'appointments' }) => {
 
     try {
       setUploading(true);
-      await axios.post('http://localhost:5000/api/records/reports', formData, {
+      await axios.post((import.meta.env.VITE_API_URL || 'http://localhost:5000') + '/api/records/reports', formData, {
         headers: {
           Authorization: `Bearer ${user?.token}`
         }
@@ -80,7 +80,7 @@ const PatientDashboard = ({ initialTab = 'appointments' }) => {
   const handleDeleteReport = async (reportId) => {
     if (!window.confirm('Are you sure you want to delete this report?')) return;
     try {
-      await axios.delete(`http://localhost:5000/api/records/reports/${reportId}`, {
+      await axios.delete(`${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api/records/reports/${reportId}`, {
         headers: { Authorization: `Bearer ${user?.token}` }
       });
       alert('Report deleted successfully');
@@ -333,7 +333,7 @@ const PatientDashboard = ({ initialTab = 'appointments' }) => {
                       </div>
                       <div className="flex gap-2">
                         <a
-                          href={`http://localhost:5000${report.fileUrl}`}
+                          href={`${import.meta.env.VITE_API_URL || 'http://localhost:5000'}${report.fileUrl}`}
                           target="_blank"
                           rel="noreferrer"
                           className="p-2.5 bg-slate-100 text-slate-600 rounded-xl hover:bg-blue-50 hover:text-blue-600 transition-colors"

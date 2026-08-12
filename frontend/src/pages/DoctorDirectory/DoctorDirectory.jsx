@@ -14,7 +14,7 @@ const DoctorDirectory = () => {
   const fetchDoctors = async () => {
     try {
       setLoading(true);
-      const res = await axios.get('http://localhost:5000/api/doctors', {
+      const res = await axios.get((import.meta.env.VITE_API_URL || 'http://localhost:5000') + '/api/doctors', {
         headers: { Authorization: `Bearer ${user?.token}` },
         params: { search: searchTerm, specialization: specializationFilter }
       });

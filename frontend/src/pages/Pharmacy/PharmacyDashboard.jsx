@@ -19,7 +19,7 @@ const PharmacyDashboard = () => {
   const fetchMedicines = async () => {
     try {
       setLoading(true);
-      const res = await axios.get('http://localhost:5000/api/medicines', {
+      const res = await axios.get((import.meta.env.VITE_API_URL || 'http://localhost:5000') + '/api/medicines', {
         headers: { Authorization: `Bearer ${user?.token}` }
       });
       setMedicines(res.data);
@@ -37,7 +37,7 @@ const PharmacyDashboard = () => {
   const handleAddSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post('http://localhost:5000/api/medicines', newMedicine, {
+      await axios.post((import.meta.env.VITE_API_URL || 'http://localhost:5000') + '/api/medicines', newMedicine, {
         headers: { Authorization: `Bearer ${user?.token}` }
       });
       setShowAddForm(false);
@@ -50,7 +50,7 @@ const PharmacyDashboard = () => {
 
   const handleUpdateStock = async (id) => {
     try {
-      await axios.put(`http://localhost:5000/api/medicines/${id}`, 
+      await axios.put(`${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api/medicines/${id}`, 
         { stockQuantity: editStock },
         { headers: { Authorization: `Bearer ${user?.token}` } }
       );

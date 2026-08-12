@@ -18,7 +18,7 @@ const BillingDashboard = () => {
       setLoading(true);
       const headers = { Authorization: `Bearer ${user?.token}` };
       
-      const invRes = await axios.get('http://localhost:5000/api/billing', { headers });
+      const invRes = await axios.get((import.meta.env.VITE_API_URL || 'http://localhost:5000') + '/api/billing', { headers });
       setInvoices(invRes.data);
     } catch (err) {
       console.error(err);
@@ -35,7 +35,7 @@ const BillingDashboard = () => {
   const handleMarkPaid = async (id) => {
     if (!window.confirm("Mark this invoice as PAID?")) return;
     try {
-      await axios.put(`http://localhost:5000/api/billing/${id}/pay`, {}, {
+      await axios.put(`${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api/billing/${id}/pay`, {}, {
         headers: { Authorization: `Bearer ${user?.token}` }
       });
       fetchData(); // refresh
@@ -50,7 +50,7 @@ const BillingDashboard = () => {
     e.preventDefault();
     if (!genApptId) return;
     try {
-      await axios.post(`http://localhost:5000/api/billing/generate/${genApptId}`, {}, {
+      await axios.post(`${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api/billing/generate/${genApptId}`, {}, {
         headers: { Authorization: `Bearer ${user?.token}` }
       });
       setGenApptId('');

@@ -36,7 +36,7 @@ const PrescriptionModal = ({ appointment, onClose, onSuccess }) => {
       // Filter out empty medicines
       const validMedicines = medicines.filter(m => m.name.trim() !== '');
       
-      await axios.post('http://localhost:5000/api/records/prescriptions', {
+      await axios.post((import.meta.env.VITE_API_URL || 'http://localhost:5000') + '/api/records/prescriptions', {
         appointmentId: appointment.id,
         symptoms,
         diagnosis,

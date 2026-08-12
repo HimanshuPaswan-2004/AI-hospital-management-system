@@ -22,7 +22,7 @@ const BookAppointment = () => {
   useEffect(() => {
     const fetchDoctorInfo = async () => {
       try {
-        const res = await axios.get('http://localhost:5000/api/doctors', {
+        const res = await axios.get((import.meta.env.VITE_API_URL || 'http://localhost:5000') + '/api/doctors', {
           headers: { Authorization: `Bearer ${user?.token}` }
         });
         const doc = res.data.find(d => d.id === doctorId);
@@ -39,7 +39,7 @@ const BookAppointment = () => {
       if (!selectedDate) return;
       try {
         setLoadingSlots(true);
-        const res = await axios.get('http://localhost:5000/api/appointments/slots', {
+        const res = await axios.get((import.meta.env.VITE_API_URL || 'http://localhost:5000') + '/api/appointments/slots', {
           headers: { Authorization: `Bearer ${user?.token}` },
           params: { doctorId, date: selectedDate }
         });
@@ -62,7 +62,7 @@ const BookAppointment = () => {
     try {
       setBookingStatus({ loading: true, error: null, success: false });
       
-      await axios.post('http://localhost:5000/api/appointments', {
+      await axios.post((import.meta.env.VITE_API_URL || 'http://localhost:5000') + '/api/appointments', {
         doctorId,
         appointmentDate: selectedDate,
         timeSlot: selectedSlot,
