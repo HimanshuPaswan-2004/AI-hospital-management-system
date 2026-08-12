@@ -21,7 +21,7 @@ const formatHistory = (history) => {
     }
     // Fallback if no parts
     if (parts.length === 0) parts.push({ text: '' });
-    
+
     return {
       role: msg.role === 'model' ? 'model' : 'user',
       parts
