@@ -79,4 +79,22 @@ app.listen(port, async () => {
   } catch (error) {
     console.error('Database connection failed ❌:', error);
   }
+
+  // --- Self-Ping Mechanism for Render Free Tier ---
+  // Render spins down free web services after 15 minutes of inactivity.
+  // We ping our own /api/health endpoint every 14 minutes to keep it awake.
+  const RENDER_URL = 'https://ai-hospital-management-system-jqq7.onrender.com';
+  
+  setInterval(async () => {
+    try {
+      const response = await fetch(`${RENDER_URL}/api/health`);
+      if (response.ok) {
+        console.log('Self-ping successful. Server kept alive.');
+      } else {
+        console.log(`Self-ping failed with status: ${response.status}`);
+      }
+    } catch (error) {
+      console.error('Self-ping failed:', error.message);
+    }
+  }, 14 * 60 * 1000); // 14 minutes in milliseconds
 });
