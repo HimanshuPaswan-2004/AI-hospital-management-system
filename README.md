@@ -1,31 +1,40 @@
-# MediAI - AI-Powered Hospital Management System
+# 🏥 MediAI - AI-Powered Hospital Management System
 
 MediAI is an advanced, production-grade Hospital Management System designed to streamline hospital operations while augmenting medical capabilities with Artificial Intelligence. This project is built with a modern tech stack ensuring high performance, scalability, and robust security.
 
 ---
 
-## 🚀 Current Status (Development in Progress)
+## 🌐 Live Deployment Links
 
-- **Phase 1 (Day 1 - 6) - COMPLETED**: 
-  - Project architecture & Database Setup (Prisma + PostgreSQL)
-  - Full Authentication Module (Backend APIs + JWT, Frontend Login/Signup + Global State)
-  - Main Dashboard Layout with Role-based Responsive Sidebar (Admin, Doctor, Patient) & Navbar
+- **Frontend (Live Website):** [https://ai-hospital-management-system-psi.vercel.app](https://ai-hospital-management-system-psi.vercel.app)
+- **Backend API:** [https://ai-hospital-management-system-jqq7.onrender.com](https://ai-hospital-management-system-jqq7.onrender.com)
 
-- **Phase 2 (Day 7 - 9) - COMPLETED**:
-  - Doctor Directory & Appointment Booking System (Patients can select slots)
-  - Doctor Dashboard (View schedule, Approve/Decline meetings)
-  - Patient Profiles and Basic EMR layout
+---
 
-- **Phase 3 (Day 10 - 11) - COMPLETED**:
-  - Medical Records (Lab reports upload via Multer, Digital Prescriptions)
-  - Pharmacy Dashboard (Inventory tracking, low-stock alerts)
-  - Billing & Invoicing (Automatic calculation, PDF generation via jsPDF)
-  - Route Refactoring (Real URL routing for all sub-dashboards)
-  - **UI/UX Polishing**: Glassmorphism, dynamic gradients, and modern typography (Inter/Outfit)
-  - **End-to-End Integration**: Automated testing scripts verifying full booking-to-billing flow
+## 🔐 Test Account Credentials
 
-- **Phase 4 (Day 12 - 13) - IN PROGRESS**:
-  - AI Symptom Checker & Summarizer (Gemini Integration)
+Use these credentials to log in and test different roles in the MediAI application.
+**Default Password for ALL accounts:** `password123`
+
+### 🛡️ Admin Account
+*Has access to Pharmacy Inventory & Billing/Invoicing.*
+- **System Admin:** `admin@example.com`
+
+### 🩺 Doctor Accounts
+*Can view their schedule, approve appointments, and write digital prescriptions.*
+- **Dr. John Smith (Cardiologist):** `dr.smith@example.com`
+- **Dr. Sarah Jones (Dermatologist):** `dr.jones@example.com`
+- **Dr. Raj Patel (Neurologist):** `dr.raj.patel@example.com`
+- **Dr. Emily Lee (Pediatrician):** `dr.lee@example.com`
+- **Dr. Carlos Garcia (Orthopedic):** `dr.garcia@example.com`
+- **Dr. Amanda Wilson (Psychiatrist):** `dr.wilson@example.com`
+- **Dr. David Brown (General Physician):** `dr.brown@example.com`
+
+### 🧑‍⚕️ Patient Accounts
+*Can browse the doctor directory, book appointments, and use AI features.*
+- **Alice Johnson:** `patient1@example.com`
+- **Bob Williams:** `patient2@example.com`
+- **Charlie Davis:** `patient3@example.com`
 
 ---
 
@@ -42,9 +51,10 @@ MediAI is an advanced, production-grade Hospital Management System designed to s
 - **Pharmacy & Lab**: Integrated modules for medicine inventory, secure file uploads for test reports.
 - **Billing**: Automated invoice generation (Consultation + Pharmacy fees) with one-click PDF downloads.
 
-### 3. Advanced AI Capabilities (Powered by Google Gemini) *(Coming Soon)*
+### 3. Advanced AI Capabilities (Powered by Google Gemini)
 - **AI Symptom Checker**: Analyzes patient symptoms and suggests potential medical issues.
 - **AI Medical Report Summarizer**: Extracts and summarizes complex lab reports (PDF/Image) into layman's terms.
+- **Smart Chatbot**: Context-aware floating assistant to guide users across the platform.
 
 ---
 
@@ -91,12 +101,14 @@ npm install
   PORT=5000
   DATABASE_URL="postgresql://user:password@localhost:5432/mediai?schema=public"
   JWT_SECRET="your_super_secret_key"
+  GEMINI_API_KEY="your_google_gemini_api_key"
   ```
-- Initialize the database and run the seeder (loads test users/doctors/medicines):
+- Initialize the database and run the seeder:
   ```bash
   npx prisma migrate dev --name init
   node seed.js
   node seed_medicines.js
+  node seed_analytics.js
   ```
 - Start the backend server:
   ```bash
@@ -114,6 +126,41 @@ npm run dev
 The application will now be running at:
 - **Frontend**: http://localhost:5173
 - **Backend API**: http://localhost:5000
+
+---
+
+## 🌍 Deployment Guide
+
+### Backend Deployment (Render.com)
+1. Go to **Render.com** and create a New Web Service connected to this GitHub repo.
+2. Set Root Directory to `backend`.
+3. Build Command: `npm install`
+4. Start Command: `npm start`
+5. Add Environment Variables: `DATABASE_URL` (Postgres URL), `JWT_SECRET`, `GEMINI_API_KEY`.
+6. Deploy! (Note: Free tier spins down after 15 mins. A self-ping cron is included in `index.js` to keep it awake).
+
+### Frontend Deployment (Vercel)
+1. Go to **Vercel.com** and import this GitHub repo.
+2. Framework Preset will auto-detect `Vite`.
+3. Set Root Directory to `frontend`.
+4. Add Environment Variable: `VITE_API_URL = https://your-render-backend-url.onrender.com`
+5. Deploy!
+
+---
+
+## 🎓 Interview & Study Guide (Project Post-Mortem)
+
+**Q: What is the main tech stack and why?**
+*Answer:* The **MERN Stack** (MongoDB/PostgreSQL, Express, React, Node) was chosen because it allows end-to-end development using a single language (JavaScript). **Zustand** was used instead of Redux for global state management due to its lightweight nature and minimal boilerplate. **TailwindCSS** was chosen over pure CSS/Bootstrap for faster, utility-first UI development resulting in a modern glassmorphism design.
+
+**Q: How does the AI Integration work?**
+*Answer:* When a patient types symptoms or uploads a lab report, the React frontend sends an HTTP POST request via Axios to the Express backend. The backend constructs a structured prompt and sends it to the **Google Gemini AI API (gemini-1.5-flash)**. The JSON response is parsed and sent back to the frontend to be displayed beautifully to the user.
+
+**Q: How did you handle file uploads?**
+*Answer:* We used **Multer** on the Node.js backend to handle `multipart/form-data`. Uploaded files (like lab reports) are saved locally in an `uploads/` directory, and their paths are stored in the PostgreSQL database. The backend serves these static files directly to the frontend.
+
+**Q: What was the biggest challenge?**
+*Answer:* Synchronizing frontend UI states with complex backend logic, especially handling role-based routing (Admin vs Doctor vs Patient) without exposing unauthorized routes. Integrating the Gemini AI while ensuring API Rate Limits (429 Too Many Requests) didn't crash the app was another significant hurdle, solved by proper error handling and model selection.
 
 ---
 
