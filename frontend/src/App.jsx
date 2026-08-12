@@ -1,19 +1,19 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import Login from './pages/Login';
-import Register from './pages/Register';
-import Dashboard from './pages/Dashboard';
-import Profile from './pages/Profile/Profile';
-import DoctorDirectory from './pages/DoctorDirectory/DoctorDirectory';
-import BookAppointment from './pages/Appointments/BookAppointment';
-import ProtectedRoute from './components/ProtectedRoute';
-import MainLayout from './layouts/MainLayout';
-import DoctorDashboard from './pages/Dashboard/DoctorDashboard';
-import PatientDashboard from './pages/Dashboard/PatientDashboard';
-import PharmacyDashboard from './pages/Pharmacy/PharmacyDashboard';
-import BillingDashboard from './pages/Billing/BillingDashboard';
-import AdminAnalytics from './pages/Analytics/AdminAnalytics';
-import SymptomChecker from './pages/Patient/SymptomChecker';
-import ForgotPassword from './pages/Auth/ForgotPassword';
+import Login from './pages/Login.jsx';
+import Register from './pages/Register.jsx';
+import Dashboard from './pages/Dashboard.jsx';
+import Profile from './pages/Profile/Profile.jsx';
+import DoctorDirectory from './pages/DoctorDirectory/DoctorDirectory.jsx';
+import BookAppointment from './pages/Appointments/BookAppointment.jsx';
+import ProtectedRoute from './components/ProtectedRoute.jsx';
+import MainLayout from './layouts/MainLayout.jsx';
+import DoctorDashboard from './pages/Dashboard/DoctorDashboard.jsx';
+import PatientDashboard from './pages/Dashboard/PatientDashboard.jsx';
+import PharmacyDashboard from './pages/Pharmacy/PharmacyDashboard.jsx';
+import BillingDashboard from './pages/Billing/BillingDashboard.jsx';
+import AdminAnalytics from './pages/Analytics/AdminAnalytics.jsx';
+import SymptomChecker from './pages/Patient/SymptomChecker.jsx';
+import ForgotPassword from './pages/Auth/ForgotPassword.jsx';
 
 function App() {
   return (
