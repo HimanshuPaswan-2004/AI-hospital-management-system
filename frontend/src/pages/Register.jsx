@@ -137,7 +137,7 @@ const Register = () => {
 
             <div className="space-y-2">
               <label className="text-xs font-bold text-slate-700 tracking-wide uppercase">Account Type</label>
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-3 gap-4">
                 <label className={`cursor-pointer border-2 rounded-2xl p-4 flex flex-col items-center justify-center gap-2 transition-all ${role === 'PATIENT' ? 'border-blue-500 bg-blue-50 text-blue-700 shadow-md shadow-blue-500/20' : 'border-slate-200 bg-white hover:bg-slate-50 text-slate-500 hover:border-slate-300'}`}>
                   <input type="radio" name="role" value="PATIENT" checked={role === 'PATIENT'} onChange={onChange} className="sr-only" />
                   <HeartPulse size={24} className={role === 'PATIENT' ? 'text-blue-600' : ''} />
@@ -147,6 +147,11 @@ const Register = () => {
                   <input type="radio" name="role" value="DOCTOR" checked={role === 'DOCTOR'} onChange={onChange} className="sr-only" />
                   <Activity size={24} className={role === 'DOCTOR' ? 'text-indigo-600' : ''} />
                   <span className="font-bold">Doctor</span>
+                </label>
+                <label className={`cursor-pointer border-2 rounded-2xl p-4 flex flex-col items-center justify-center gap-2 transition-all ${role === 'ADMIN' ? 'border-purple-500 bg-purple-50 text-purple-700 shadow-md shadow-purple-500/20' : 'border-slate-200 bg-white hover:bg-slate-50 text-slate-500 hover:border-slate-300'}`}>
+                  <input type="radio" name="role" value="ADMIN" checked={role === 'ADMIN'} onChange={onChange} className="sr-only" />
+                  <User size={24} className={role === 'ADMIN' ? 'text-purple-600' : ''} />
+                  <span className="font-bold">Admin</span>
                 </label>
               </div>
             </div>
