@@ -34,7 +34,7 @@ const MainLayout = () => {
       <div className="flex flex-col flex-1 w-full overflow-hidden">
         <Navbar toggleSidebar={() => setSidebarOpen(!sidebarOpen)} />
         
-        <main className="flex-1 overflow-x-hidden overflow-y-auto bg-transparent p-4 md:p-6">
+        <main className="flex-1 overflow-x-hidden overflow-y-auto bg-transparent p-4 md:p-6 pb-28 md:pb-28">
           <Outlet />
         </main>
       </div>
