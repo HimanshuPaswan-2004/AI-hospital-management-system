@@ -117,7 +117,7 @@ const Login = () => {
             <div className="space-y-2">
               <div className="flex justify-between items-center">
                 <label className="text-sm font-bold text-slate-700 tracking-wide uppercase">Password</label>
-                <a href="#" className="text-sm font-bold text-blue-600 hover:text-blue-700">Forgot password?</a>
+                <Link to="/forgot-password" className="text-sm font-bold text-blue-600 hover:text-blue-700">Forgot password?</Link>
               </div>
               <div className="relative group">
                 <div className="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none text-slate-400 group-focus-within:text-blue-500 transition-colors">

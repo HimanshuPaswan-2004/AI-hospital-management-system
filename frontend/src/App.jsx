@@ -13,6 +13,7 @@ import PharmacyDashboard from './pages/Pharmacy/PharmacyDashboard';
 import BillingDashboard from './pages/Billing/BillingDashboard';
 import AdminAnalytics from './pages/Analytics/AdminAnalytics';
 import SymptomChecker from './pages/Patient/SymptomChecker';
+import ForgotPassword from './pages/Auth/ForgotPassword';
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
         <Route path="/" element={<Navigate to="/login" replace />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
 
         {/* Protected Routes inside MainLayout */}
         <Route element={<ProtectedRoute><MainLayout /></ProtectedRoute>}>

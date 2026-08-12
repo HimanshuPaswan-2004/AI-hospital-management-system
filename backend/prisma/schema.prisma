@@ -21,6 +21,8 @@ model User {
   lastName  String
   role      Role     @default(PATIENT)
   phone     String?
+  resetPasswordOtp String?
+  resetPasswordExpires DateTime?
   createdAt DateTime @default(now())
   updatedAt           DateTime          @updatedAt
   doctorProfile       DoctorProfile?
