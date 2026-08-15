@@ -1,12 +1,17 @@
 # 🏥 MediAI - AI-Powered Hospital Management System
 
-MediAI is an advanced, production-grade Hospital Management System designed to streamline hospital operations while augmenting medical capabilities with Artificial Intelligence. This project is built with a modern tech stack ensuring high performance, scalability, and robust security.
+![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
+![Node.js](https://img.shields.io/badge/Node.js-43853D?style=for-the-badge&logo=node.js&logoColor=white)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-316192?style=for-the-badge&logo=postgresql&logoColor=white)
+![TailwindCSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)
+
+MediAI is an advanced, production-grade Hospital Management System designed to streamline hospital operations while augmenting medical capabilities with Artificial Intelligence. This project is built with a modern tech stack ensuring high performance, scalability, and robust security. It represents a comprehensive **Final Project** showcasing full-stack development, AI integration, and complex role-based access control.
 
 ---
 
 ## 🌐 Live Deployment Links
 
-- **Frontend (Live Website):** [https://ai-hospital-management-system-psi.vercel.app](https://ai-hospital-management-system-psi.vercel.app)
+- **Frontend (Live Website):** [https://ai-hospital-management-system-kpnjeg072.vercel.app/login](https://ai-hospital-management-system-kpnjeg072.vercel.app/login)
 - **Backend API:** [https://ai-hospital-management-system-jqq7.onrender.com](https://ai-hospital-management-system-jqq7.onrender.com)
 
 ---
