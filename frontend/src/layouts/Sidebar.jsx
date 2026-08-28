@@ -31,10 +31,10 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
       <div className="flex items-center h-[88px] px-8 border-b border-white/[0.08] relative overflow-hidden">
         <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-blue-500/10 to-transparent opacity-50"></div>
         <div className="flex items-center gap-3 relative z-10">
-          <div className="w-8 h-8 rounded-xl bg-gradient-to-tr from-blue-600 to-purple-600 flex items-center justify-center shadow-lg shadow-blue-500/20">
+          <div className="w-8 h-8 rounded-xl bg-gradient-to-tr from-blue-600 to-purple-600 flex items-center justify-center shadow-lg shadow-teal-500/20">
             <ActivitySquare className="text-white w-5 h-5" />
           </div>
-          <span className="text-2xl font-black text-white tracking-tight">Medi<span className="text-blue-500">AI</span></span>
+          <span className="text-2xl font-black text-white tracking-tight">Medi<span className="text-teal-500">AI</span></span>
         </div>
       </div>
 
@@ -50,14 +50,14 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
               to={link.path}
               className={`flex items-center gap-3.5 px-4 py-3.5 rounded-2xl transition-all duration-300 group relative ${
                 isActive 
-                  ? 'bg-blue-600/10 text-blue-400 font-bold' 
+                  ? 'bg-teal-600/10 text-teal-400 font-bold' 
                   : 'text-slate-400 font-semibold hover:bg-white/5 hover:text-slate-200'
               }`}
             >
               {isActive && (
-                <div className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-8 bg-blue-500 rounded-r-full shadow-[0_0_10px_rgba(59,130,246,0.8)]"></div>
+                <div className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-8 bg-teal-500 rounded-r-full shadow-[0_0_10px_rgba(59,130,246,0.8)]"></div>
               )}
-              <Icon size={20} className={`relative z-10 transition-transform duration-300 ${isActive ? 'text-blue-500' : 'group-hover:scale-110'}`} />
+              <Icon size={20} className={`relative z-10 transition-transform duration-300 ${isActive ? 'text-teal-500' : 'group-hover:scale-110'}`} />
               <span className="tracking-wide text-[15px] relative z-10">{link.name}</span>
             </Link>
           );
@@ -67,7 +67,7 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
       {/* User Profile Area */}
       <div className="p-4 m-4 rounded-2xl bg-white/[0.03] border border-white/[0.05] hover:bg-white/[0.06] transition-colors cursor-pointer group">
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-full bg-gradient-to-br from-slate-700 to-slate-800 flex items-center justify-center text-sm font-bold text-white border border-white/10 group-hover:border-blue-500/50 transition-colors shadow-inner">
+          <div className="w-10 h-10 rounded-full bg-gradient-to-br from-slate-700 to-slate-800 flex items-center justify-center text-sm font-bold text-white border border-white/10 group-hover:border-teal-500/50 transition-colors shadow-inner">
             {user?.firstName?.charAt(0) || 'U'}
           </div>
           <div className="flex-1 overflow-hidden">

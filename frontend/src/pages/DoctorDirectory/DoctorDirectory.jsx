@@ -42,7 +42,7 @@ const DoctorDirectory = () => {
   return (
     <div className="max-w-7xl mx-auto space-y-8 animate-[fadeInUp_0.4s_ease-out] relative">
       {/* Decorative Background */}
-      <div className="absolute top-0 right-0 w-96 h-96 bg-blue-400 rounded-full mix-blend-multiply filter blur-[128px] opacity-10 pointer-events-none z-0"></div>
+      <div className="absolute top-0 right-0 w-96 h-96 bg-teal-400 rounded-full mix-blend-multiply filter blur-[128px] opacity-10 pointer-events-none z-0"></div>
       
       <div className="relative z-10">
         <h1 className="text-4xl font-extrabold text-slate-900 mb-3 tracking-tight">
@@ -54,17 +54,17 @@ const DoctorDirectory = () => {
       {/* Search and Filter */}
       <div className="bg-white/60 backdrop-blur-xl p-6 rounded-[2rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-white mb-8 flex flex-col md:flex-row gap-5 relative z-10">
         <form onSubmit={handleSearchSubmit} className="flex-1 relative group">
-          <div className="absolute inset-y-0 left-0 pl-5 flex items-center pointer-events-none text-slate-400 group-focus-within:text-blue-500 transition-colors">
+          <div className="absolute inset-y-0 left-0 pl-5 flex items-center pointer-events-none text-slate-400 group-focus-within:text-teal-500 transition-colors">
             <Search className="h-5 w-5" />
           </div>
           <input
             type="text"
-            className="block w-full pl-14 pr-32 py-4 border-2 border-slate-100 rounded-2xl focus:ring-4 focus:ring-blue-500/10 focus:border-blue-400 focus:bg-white bg-slate-50/50 text-slate-700 font-medium transition-all"
+            className="block w-full pl-14 pr-32 py-4 border-2 border-slate-100 rounded-2xl focus:ring-4 focus:ring-teal-500/10 focus:border-teal-400 focus:bg-white bg-slate-50/50 text-slate-700 font-medium transition-all"
             placeholder="Search doctors by name..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
-          <button type="submit" className="absolute inset-y-2 right-2 px-6 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-bold rounded-xl hover:shadow-lg hover:shadow-blue-500/30 transition-all">
+          <button type="submit" className="absolute inset-y-2 right-2 px-6 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-bold rounded-xl hover:shadow-lg hover:shadow-teal-500/30 transition-all">
             Search
           </button>
         </form>
@@ -73,7 +73,7 @@ const DoctorDirectory = () => {
           <select 
             value={specializationFilter}
             onChange={(e) => setSpecializationFilter(e.target.value)}
-            className="block w-full py-4 px-5 border-2 border-slate-100 rounded-2xl focus:ring-4 focus:ring-blue-500/10 focus:border-blue-400 focus:bg-white bg-slate-50/50 text-slate-700 font-medium transition-all appearance-none cursor-pointer"
+            className="block w-full py-4 px-5 border-2 border-slate-100 rounded-2xl focus:ring-4 focus:ring-teal-500/10 focus:border-teal-400 focus:bg-white bg-slate-50/50 text-slate-700 font-medium transition-all appearance-none cursor-pointer"
           >
             <option value="">All Specializations</option>
             {specializations.map(spec => (
@@ -86,7 +86,7 @@ const DoctorDirectory = () => {
       {/* Results */}
       {loading ? (
         <div className="flex justify-center py-20 relative z-10">
-          <div className="animate-spin rounded-full h-16 w-16 border-4 border-blue-100 border-t-blue-600"></div>
+          <div className="animate-spin rounded-full h-16 w-16 border-4 border-teal-100 border-t-blue-600"></div>
         </div>
       ) : doctors.length === 0 ? (
         <div className="text-center py-24 bg-white/60 backdrop-blur-xl rounded-[2rem] border border-white shadow-sm relative z-10">
@@ -99,24 +99,24 @@ const DoctorDirectory = () => {
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8 relative z-10">
           {doctors.map((doctor, idx) => (
-            <div key={doctor.id} className="glass-card rounded-[2rem] overflow-hidden group hover:shadow-2xl hover:shadow-blue-900/10 transition-all duration-300" style={{ animationDelay: `${idx * 100}ms` }}>
+            <div key={doctor.id} className="glass-card rounded-[2rem] overflow-hidden group hover:shadow-2xl hover:shadow-teal-900/10 transition-all duration-300" style={{ animationDelay: `${idx * 100}ms` }}>
               <div className="p-8">
                 <div className="flex items-start gap-5 mb-6">
                   <div className="relative">
-                    <div className="w-20 h-20 bg-gradient-to-br from-blue-100 to-indigo-100 border-2 border-white text-blue-600 rounded-2xl flex items-center justify-center text-3xl font-extrabold uppercase shadow-sm group-hover:scale-105 transition-transform duration-300">
+                    <div className="w-20 h-20 bg-gradient-to-br from-blue-100 to-indigo-100 border-2 border-white text-teal-600 rounded-2xl flex items-center justify-center text-3xl font-extrabold uppercase shadow-sm group-hover:scale-105 transition-transform duration-300">
                       {doctor.firstName.charAt(0)}
                     </div>
                     <div className="absolute -bottom-2 -right-2 w-6 h-6 bg-green-500 border-2 border-white rounded-full"></div>
                   </div>
                   <div className="pt-2">
-                    <h3 className="text-xl font-bold text-slate-900 group-hover:text-blue-600 transition-colors">Dr. {doctor.firstName} {doctor.lastName}</h3>
-                    <p className="text-blue-600 font-bold text-sm tracking-wide uppercase mt-1 bg-blue-50 inline-block px-2 py-0.5 rounded-lg">{doctor.profile?.specialization || 'General'}</p>
+                    <h3 className="text-xl font-bold text-slate-900 group-hover:text-teal-600 transition-colors">Dr. {doctor.firstName} {doctor.lastName}</h3>
+                    <p className="text-teal-600 font-bold text-sm tracking-wide uppercase mt-1 bg-teal-50 inline-block px-2 py-0.5 rounded-lg">{doctor.profile?.specialization || 'General'}</p>
                   </div>
                 </div>
 
                 <div className="space-y-4 mt-8 pt-6 border-t border-slate-100/60 text-sm text-slate-600">
                   <div className="flex items-center gap-3 bg-slate-50/50 p-2 rounded-xl">
-                    <div className="p-2 bg-indigo-50 text-indigo-500 rounded-lg"><Award size={18} /></div>
+                    <div className="p-2 bg-sky-50 text-sky-500 rounded-lg"><Award size={18} /></div>
                     <span className="font-medium text-slate-700">{doctor.profile?.experience || 0} Years Experience</span>
                   </div>
                   <div className="flex items-center gap-3 bg-slate-50/50 p-2 rounded-xl">
@@ -134,7 +134,7 @@ const DoctorDirectory = () => {
                 </div>
               </div>
               <div className="p-4 bg-gradient-to-b from-transparent to-slate-50/80">
-                <Link to={`/book-appointment/${doctor.id}`} className="flex w-full items-center justify-center gap-2 bg-slate-900 text-white py-4 rounded-xl font-bold hover:bg-blue-600 hover:shadow-lg hover:shadow-blue-500/30 transition-all duration-300">
+                <Link to={`/book-appointment/${doctor.id}`} className="flex w-full items-center justify-center gap-2 bg-slate-900 text-white py-4 rounded-xl font-bold hover:bg-teal-600 hover:shadow-lg hover:shadow-teal-500/30 transition-all duration-300">
                   <Calendar size={18} />
                   Book Appointment
                 </Link>

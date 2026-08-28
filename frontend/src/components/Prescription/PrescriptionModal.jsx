@@ -73,7 +73,7 @@ const PrescriptionModal = ({ appointment, onClose, onSuccess }) => {
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">Symptoms</label>
               <textarea 
-                className="w-full p-2 border border-gray-200 rounded-lg focus:ring-blue-500" 
+                className="w-full p-2 border border-gray-200 rounded-lg focus:ring-teal-500" 
                 rows="2"
                 value={symptoms}
                 onChange={e => setSymptoms(e.target.value)}
@@ -83,7 +83,7 @@ const PrescriptionModal = ({ appointment, onClose, onSuccess }) => {
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">Diagnosis</label>
               <textarea 
-                className="w-full p-2 border border-gray-200 rounded-lg focus:ring-blue-500" 
+                className="w-full p-2 border border-gray-200 rounded-lg focus:ring-teal-500" 
                 rows="2"
                 value={diagnosis}
                 onChange={e => setDiagnosis(e.target.value)}
@@ -98,7 +98,7 @@ const PrescriptionModal = ({ appointment, onClose, onSuccess }) => {
               <button 
                 type="button" 
                 onClick={handleAddMedicine}
-                className="text-blue-600 text-sm font-medium flex items-center gap-1 hover:text-blue-800"
+                className="text-teal-600 text-sm font-medium flex items-center gap-1 hover:text-teal-800"
               >
                 <Plus size={16} /> Add Medicine
               </button>
@@ -126,7 +126,7 @@ const PrescriptionModal = ({ appointment, onClose, onSuccess }) => {
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">Additional Notes</label>
             <textarea 
-              className="w-full p-2 border border-gray-200 rounded-lg focus:ring-blue-500" 
+              className="w-full p-2 border border-gray-200 rounded-lg focus:ring-teal-500" 
               rows="2"
               value={notes}
               onChange={e => setNotes(e.target.value)}
@@ -136,7 +136,7 @@ const PrescriptionModal = ({ appointment, onClose, onSuccess }) => {
 
           <div className="flex justify-end gap-3 pt-4 border-t border-gray-100">
             <button type="button" onClick={onClose} className="px-4 py-2 text-gray-600 hover:bg-gray-100 rounded-lg font-medium">Cancel</button>
-            <button type="submit" disabled={loading} className="px-6 py-2 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 disabled:opacity-50">
+            <button type="submit" disabled={loading} className="px-6 py-2 bg-teal-600 text-white rounded-lg font-medium hover:bg-teal-700 disabled:opacity-50">
               {loading ? 'Saving...' : 'Save Prescription'}
             </button>
           </div>

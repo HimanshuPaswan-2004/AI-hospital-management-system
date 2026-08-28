@@ -111,7 +111,7 @@ const FloatingChatbot = () => {
                 </div>
                 <div>
                   <h3 className="font-semibold text-lg">AI Assistant</h3>
-                  <p className="text-xs text-blue-100">MediAI Health</p>
+                  <p className="text-xs text-teal-100">MediAI Health</p>
                 </div>
               </div>
               <button 
@@ -126,7 +126,7 @@ const FloatingChatbot = () => {
           <div className="flex border-b border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800/50 p-2 gap-2 overflow-x-auto text-sm">
             <button 
               onClick={() => setMode('chat')}
-              className={`px-3 py-1.5 rounded-full whitespace-nowrap transition-colors flex-1 ${mode === 'chat' ? 'bg-blue-100 text-blue-700 font-medium' : 'text-gray-600 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700'}`}
+              className={`px-3 py-1.5 rounded-full whitespace-nowrap transition-colors flex-1 ${mode === 'chat' ? 'bg-teal-100 text-teal-700 font-medium' : 'text-gray-600 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700'}`}
             >
               General Chat
             </button>
@@ -154,7 +154,7 @@ const FloatingChatbot = () => {
                 <div 
                   className={`max-w-[80%] rounded-2xl px-4 py-2 shadow-sm prose prose-sm dark:prose-invert ${
                     msg.role === 'user' 
-                      ? 'bg-blue-600 text-white rounded-tr-sm' 
+                      ? 'bg-teal-600 text-white rounded-tr-sm' 
                       : 'bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-200 border border-gray-100 dark:border-gray-700 rounded-tl-sm'
                   }`}
                 >
@@ -164,7 +164,7 @@ const FloatingChatbot = () => {
                         <img src={msg.attachment.previewUrl || `data:${msg.attachment.mimeType};base64,${msg.attachment.base64}`} alt="Attachment" className="max-w-[200px] max-h-[200px] object-cover rounded-lg" />
                       )}
                       {msg.attachment && !msg.attachment.mimeType.startsWith('image/') && (
-                        <div className="flex items-center gap-2 bg-blue-700/50 p-2 rounded text-xs">
+                        <div className="flex items-center gap-2 bg-teal-700/50 p-2 rounded text-xs">
                           <FileText size={16} /> {msg.attachment.name}
                         </div>
                       )}
@@ -179,7 +179,7 @@ const FloatingChatbot = () => {
             {loading && (
               <div className="flex justify-start">
                 <div className="bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 rounded-2xl rounded-tl-sm px-4 py-3 shadow-sm">
-                  <Loader2 className="animate-spin text-blue-500" size={20} />
+                  <Loader2 className="animate-spin text-teal-500" size={20} />
                 </div>
               </div>
             )}
@@ -221,7 +221,7 @@ const FloatingChatbot = () => {
               />
               <label 
                 htmlFor="chatbot-file-upload"
-                className="absolute left-2 bottom-2 p-1.5 text-gray-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg cursor-pointer transition-colors z-10"
+                className="absolute left-2 bottom-2 p-1.5 text-gray-400 hover:text-teal-600 hover:bg-teal-50 rounded-lg cursor-pointer transition-colors z-10"
                 title="Attach Image or PDF"
               >
                 <Paperclip size={20} />
@@ -235,7 +235,7 @@ const FloatingChatbot = () => {
                   mode === 'symptom' ? 'Describe your symptoms...' :
                   'Paste lab report text...'
                 }
-                className="w-full bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-white rounded-xl pl-10 pr-12 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none h-12 max-h-32 transition-all"
+                className="w-full bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-white rounded-xl pl-10 pr-12 py-3 focus:outline-none focus:ring-2 focus:ring-teal-500 resize-none h-12 max-h-32 transition-all"
                 rows="1"
                 onKeyDown={(e) => {
                   if (e.key === 'Enter' && !e.shiftKey) {
@@ -247,7 +247,7 @@ const FloatingChatbot = () => {
               <button 
                 type="submit" 
                 disabled={(!input.trim() && !attachment) || loading}
-                className="absolute right-2 bottom-2 p-1.5 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                className="absolute right-2 bottom-2 p-1.5 bg-teal-600 text-white rounded-lg hover:bg-teal-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
               >
                 <Send size={18} className={loading ? 'opacity-0' : 'opacity-100'} />
                 {loading && <Loader2 size={18} className="animate-spin absolute top-1.5 left-1.5" />}
@@ -259,7 +259,7 @@ const FloatingChatbot = () => {
       ) : (
         <button
           onClick={() => setIsOpen(true)}
-          className="bg-blue-600 hover:bg-blue-700 text-white rounded-full p-4 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 group flex items-center justify-center relative"
+          className="bg-teal-600 hover:bg-teal-700 text-white rounded-full p-4 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 group flex items-center justify-center relative"
         >
           <MessageSquare size={28} className="group-hover:scale-110 transition-transform" />
           <span className="absolute -top-1 -right-1 flex h-4 w-4">

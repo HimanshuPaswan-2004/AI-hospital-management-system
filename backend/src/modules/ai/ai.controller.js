@@ -4,7 +4,7 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
-const model = genAI.getGenerativeModel({ model: "gemini-flash-latest" }); // Using gemini-flash-latest as it's the recommended default for text
+const model = genAI.getGenerativeModel({ model: "gemini-3.6-flash" });
 
 const formatHistory = (history) => {
   if (!history || !Array.isArray(history)) return [];

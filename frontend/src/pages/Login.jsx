@@ -43,13 +43,13 @@ const Login = () => {
       <div className="hidden lg:flex w-1/2 bg-gradient-to-br from-blue-600 via-indigo-600 to-purple-700 relative overflow-hidden items-center justify-center">
         {/* Decorative elements */}
         <div className="absolute top-0 left-0 w-full h-full bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-10 mix-blend-overlay"></div>
-        <div className="absolute -top-24 -left-24 w-96 h-96 bg-blue-400 rounded-full mix-blend-multiply filter blur-[100px] opacity-60"></div>
-        <div className="absolute -bottom-24 -right-24 w-96 h-96 bg-purple-400 rounded-full mix-blend-multiply filter blur-[100px] opacity-60"></div>
+        <div className="absolute -top-24 -left-24 w-96 h-96 bg-teal-400 rounded-full mix-blend-multiply filter blur-[100px] opacity-60"></div>
+        <div className="absolute -bottom-24 -right-24 w-96 h-96 bg-emerald-400 rounded-full mix-blend-multiply filter blur-[100px] opacity-60"></div>
         
         <div className="relative z-10 text-white max-w-lg p-12 flex flex-col items-start">
           <div className="flex items-center gap-3 bg-white/20 backdrop-blur-md px-5 py-2.5 rounded-full mb-8 shadow-[0_8px_32px_rgba(0,0,0,0.1)] border border-white/30">
-            <Activity className="text-blue-200" size={20} />
-            <span className="font-semibold tracking-wide text-sm text-blue-50 uppercase">MediAI Ecosystem</span>
+            <Activity className="text-teal-200" size={20} />
+            <span className="font-semibold tracking-wide text-sm text-teal-50 uppercase">MediAI Ecosystem</span>
           </div>
           
           <h1 className="text-5xl font-extrabold tracking-tight leading-[1.1] mb-6 drop-shadow-md">
@@ -59,17 +59,17 @@ const Login = () => {
             </span>
           </h1>
           
-          <p className="text-lg text-blue-100/90 leading-relaxed font-medium">
+          <p className="text-lg text-teal-100/90 leading-relaxed font-medium">
             Experience intelligent workflows, seamless patient interactions, and cutting-edge medical AI assistance all in one unified platform.
           </p>
           
           <div className="mt-12 flex gap-4 items-center">
             <div className="flex -space-x-4">
-              <div className="w-12 h-12 rounded-full border-2 border-indigo-600 bg-blue-100 flex items-center justify-center font-bold text-blue-700 shadow-lg">Dr</div>
-              <div className="w-12 h-12 rounded-full border-2 border-indigo-600 bg-purple-100 flex items-center justify-center font-bold text-purple-700 shadow-lg">Pt</div>
-              <div className="w-12 h-12 rounded-full border-2 border-indigo-600 bg-emerald-100 flex items-center justify-center font-bold text-emerald-700 shadow-lg">Ad</div>
+              <div className="w-12 h-12 rounded-full border-2 border-sky-600 bg-teal-100 flex items-center justify-center font-bold text-teal-700 shadow-lg">Dr</div>
+              <div className="w-12 h-12 rounded-full border-2 border-sky-600 bg-emerald-100 flex items-center justify-center font-bold text-emerald-700 shadow-lg">Pt</div>
+              <div className="w-12 h-12 rounded-full border-2 border-sky-600 bg-emerald-100 flex items-center justify-center font-bold text-emerald-700 shadow-lg">Ad</div>
             </div>
-            <div className="text-sm font-medium text-blue-100">
+            <div className="text-sm font-medium text-teal-100">
               Trusted by 10,000+ <br/> Healthcare Professionals
             </div>
           </div>
@@ -80,14 +80,14 @@ const Login = () => {
       <div className="w-full lg:w-1/2 flex items-center justify-center p-8 relative">
         <div className="absolute top-10 right-10 hidden md:flex items-center gap-2 text-slate-500 font-medium">
           New here? 
-          <Link to="/register" className="text-blue-600 font-bold hover:text-blue-700 transition-colors">
+          <Link to="/register" className="text-teal-600 font-bold hover:text-teal-700 transition-colors">
             Create an account
           </Link>
         </div>
 
         <div className="w-full max-w-md">
           <div className="mb-10 text-center lg:text-left">
-            <div className="inline-flex lg:hidden items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br from-blue-500 to-indigo-600 text-white mb-6 shadow-lg shadow-blue-500/30">
+            <div className="inline-flex lg:hidden items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br from-blue-500 to-indigo-600 text-white mb-6 shadow-lg shadow-teal-500/30">
               <HeartPulse size={32} />
             </div>
             <h2 className="text-3xl font-extrabold text-slate-900 tracking-tight">Welcome Back</h2>
@@ -99,12 +99,12 @@ const Login = () => {
             <div className="space-y-2">
               <label className="text-sm font-bold text-slate-700 tracking-wide uppercase">Email Address</label>
               <div className="relative group">
-                <div className="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none text-slate-400 group-focus-within:text-blue-500 transition-colors">
+                <div className="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none text-slate-400 group-focus-within:text-teal-500 transition-colors">
                   <Mail size={20} />
                 </div>
                 <input
                   type="email"
-                  className="w-full pl-12 pr-4 py-4 bg-white border-2 border-slate-200 rounded-2xl focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all font-medium text-slate-800 placeholder-slate-400"
+                  className="w-full pl-12 pr-4 py-4 bg-white border-2 border-slate-200 rounded-2xl focus:outline-none focus:border-teal-500 focus:ring-4 focus:ring-teal-500/10 transition-all font-medium text-slate-800 placeholder-slate-400"
                   placeholder="Enter your email"
                   name="email"
                   value={email}
@@ -117,15 +117,15 @@ const Login = () => {
             <div className="space-y-2">
               <div className="flex justify-between items-center">
                 <label className="text-sm font-bold text-slate-700 tracking-wide uppercase">Password</label>
-                <Link to="/forgot-password" className="text-sm font-bold text-blue-600 hover:text-blue-700">Forgot password?</Link>
+                <Link to="/forgot-password" className="text-sm font-bold text-teal-600 hover:text-teal-700">Forgot password?</Link>
               </div>
               <div className="relative group">
-                <div className="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none text-slate-400 group-focus-within:text-blue-500 transition-colors">
+                <div className="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none text-slate-400 group-focus-within:text-teal-500 transition-colors">
                   <Lock size={20} />
                 </div>
                 <input
                   type="password"
-                  className="w-full pl-12 pr-4 py-4 bg-white border-2 border-slate-200 rounded-2xl focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all font-medium text-slate-800 placeholder-slate-400"
+                  className="w-full pl-12 pr-4 py-4 bg-white border-2 border-slate-200 rounded-2xl focus:outline-none focus:border-teal-500 focus:ring-4 focus:ring-teal-500/10 transition-all font-medium text-slate-800 placeholder-slate-400"
                   placeholder="••••••••"
                   name="password"
                   value={password}
@@ -154,7 +154,7 @@ const Login = () => {
           
           <div className="mt-8 text-center md:hidden">
             <p className="text-sm text-slate-500 font-medium">
-              Don't have an account? <Link to="/register" className="text-blue-600 font-bold hover:underline">Register</Link>
+              Don't have an account? <Link to="/register" className="text-teal-600 font-bold hover:underline">Register</Link>
             </p>
           </div>
         </div>

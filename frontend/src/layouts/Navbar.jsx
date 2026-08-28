@@ -38,7 +38,7 @@ const Navbar = ({ toggleSidebar }) => {
         <div className="relative">
           <button 
             onClick={() => setDropdownOpen(!dropdownOpen)}
-            className="flex items-center gap-3 p-1.5 pr-4 rounded-full bg-white border border-slate-200 hover:border-blue-300 hover:shadow-md hover:shadow-blue-500/5 transition-all duration-300 group"
+            className="flex items-center gap-3 p-1.5 pr-4 rounded-full bg-white border border-slate-200 hover:border-teal-300 hover:shadow-md hover:shadow-teal-500/5 transition-all duration-300 group"
           >
             <div className="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center text-white font-bold uppercase shadow-sm group-hover:scale-105 transition-transform">
               {user?.firstName?.charAt(0) || 'U'}
@@ -59,7 +59,7 @@ const Navbar = ({ toggleSidebar }) => {
                 </div>
                 <div className="p-2">
                   <button 
-                    className="w-full text-left px-4 py-3 text-sm font-bold text-slate-600 rounded-xl hover:bg-slate-50 hover:text-blue-600 transition-colors flex items-center gap-3"
+                    className="w-full text-left px-4 py-3 text-sm font-bold text-slate-600 rounded-xl hover:bg-slate-50 hover:text-teal-600 transition-colors flex items-center gap-3"
                     onClick={() => {
                       setDropdownOpen(false);
                       navigate('/profile');

@@ -111,10 +111,10 @@ const AdminAnalytics = () => {
     return (
       <div className="flex justify-center items-center h-[calc(100vh-100px)]">
         <div className="relative flex justify-center items-center w-24 h-24">
-          <div className="absolute inset-0 rounded-full border-t-4 border-blue-500 animate-spin"></div>
-          <div className="absolute inset-2 rounded-full border-r-4 border-indigo-500 animate-spin" style={{ animationDirection: 'reverse', animationDuration: '1.2s' }}></div>
+          <div className="absolute inset-0 rounded-full border-t-4 border-teal-500 animate-spin"></div>
+          <div className="absolute inset-2 rounded-full border-r-4 border-sky-500 animate-spin" style={{ animationDirection: 'reverse', animationDuration: '1.2s' }}></div>
           <div className="absolute inset-4 rounded-full border-b-4 border-violet-500 animate-spin" style={{ animationDuration: '0.8s' }}></div>
-          <Activity className="w-6 h-6 text-blue-500 animate-pulse" />
+          <Activity className="w-6 h-6 text-teal-500 animate-pulse" />
         </div>
       </div>
     );
@@ -142,8 +142,8 @@ const AdminAnalytics = () => {
   return (
     <div className="space-y-8 pb-12 relative">
       {/* Decorative Background Blur */}
-      <div className="absolute top-0 left-10 w-72 h-72 bg-blue-400 rounded-full mix-blend-multiply filter blur-[100px] opacity-10 pointer-events-none"></div>
-      <div className="absolute top-0 right-10 w-72 h-72 bg-indigo-400 rounded-full mix-blend-multiply filter blur-[100px] opacity-10 pointer-events-none"></div>
+      <div className="absolute top-0 left-10 w-72 h-72 bg-teal-400 rounded-full mix-blend-multiply filter blur-[100px] opacity-10 pointer-events-none"></div>
+      <div className="absolute top-0 right-10 w-72 h-72 bg-sky-400 rounded-full mix-blend-multiply filter blur-[100px] opacity-10 pointer-events-none"></div>
 
       {/* Header Section */}
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 relative z-10">
@@ -152,7 +152,7 @@ const AdminAnalytics = () => {
             Hospital Insights
           </h1>
           <p className="text-slate-500 mt-2 font-medium flex items-center gap-2">
-            <Clock className="w-4 h-4 text-indigo-500" />
+            <Clock className="w-4 h-4 text-sky-500" />
             Real-time analytics and performance metrics
           </p>
         </div>
@@ -172,7 +172,7 @@ const AdminAnalytics = () => {
         
         {/* Card 1: Revenue */}
         <div className="group bg-gradient-to-br from-white to-slate-50/50 p-6 rounded-3xl border border-slate-100 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_8px_30px_rgb(59,130,246,0.1)] transition-all duration-300 relative overflow-hidden">
-          <div className="absolute -right-4 -top-4 w-24 h-24 bg-blue-500/10 rounded-full blur-2xl group-hover:bg-blue-500/20 transition-all"></div>
+          <div className="absolute -right-4 -top-4 w-24 h-24 bg-teal-500/10 rounded-full blur-2xl group-hover:bg-teal-500/20 transition-all"></div>
           <div className="flex justify-between items-start relative z-10">
             <div>
               <p className="text-slate-500 text-xs font-bold tracking-wider uppercase">Total Revenue</p>
@@ -180,7 +180,7 @@ const AdminAnalytics = () => {
                 ₹{data?.totalRevenue?.toLocaleString()}
               </h3>
             </div>
-            <div className="p-3 bg-blue-50 text-blue-600 rounded-2xl group-hover:scale-110 group-hover:bg-blue-600 group-hover:text-white transition-all duration-300 shadow-sm border border-blue-100 group-hover:border-blue-600">
+            <div className="p-3 bg-teal-50 text-teal-600 rounded-2xl group-hover:scale-110 group-hover:bg-teal-600 group-hover:text-white transition-all duration-300 shadow-sm border border-teal-100 group-hover:border-teal-600">
               <DollarSign className="w-6 h-6" />
             </div>
           </div>
@@ -194,7 +194,7 @@ const AdminAnalytics = () => {
 
         {/* Card 2: Appointments */}
         <div className="group bg-gradient-to-br from-white to-slate-50/50 p-6 rounded-3xl border border-slate-100 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_8px_30px_rgb(99,102,241,0.1)] transition-all duration-300 relative overflow-hidden">
-          <div className="absolute -right-4 -top-4 w-24 h-24 bg-indigo-500/10 rounded-full blur-2xl group-hover:bg-indigo-500/20 transition-all"></div>
+          <div className="absolute -right-4 -top-4 w-24 h-24 bg-sky-500/10 rounded-full blur-2xl group-hover:bg-sky-500/20 transition-all"></div>
           <div className="flex justify-between items-start relative z-10">
             <div>
               <p className="text-slate-500 text-xs font-bold tracking-wider uppercase">Appointments</p>
@@ -202,7 +202,7 @@ const AdminAnalytics = () => {
                 {data?.totalAppointments}
               </h3>
             </div>
-            <div className="p-3 bg-indigo-50 text-indigo-600 rounded-2xl group-hover:scale-110 group-hover:bg-indigo-600 group-hover:text-white transition-all duration-300 shadow-sm border border-indigo-100 group-hover:border-indigo-600">
+            <div className="p-3 bg-sky-50 text-sky-600 rounded-2xl group-hover:scale-110 group-hover:bg-sky-600 group-hover:text-white transition-all duration-300 shadow-sm border border-sky-100 group-hover:border-sky-600">
               <Calendar className="w-6 h-6" />
             </div>
           </div>
@@ -237,7 +237,7 @@ const AdminAnalytics = () => {
 
         {/* Card 4: Doctors & Patients */}
         <div className="group bg-gradient-to-br from-white to-slate-50/50 p-6 rounded-3xl border border-slate-100 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_8px_30px_rgb(139,92,246,0.1)] transition-all duration-300 relative overflow-hidden">
-          <div className="absolute -right-4 -top-4 w-24 h-24 bg-purple-500/10 rounded-full blur-2xl group-hover:bg-purple-500/20 transition-all"></div>
+          <div className="absolute -right-4 -top-4 w-24 h-24 bg-emerald-500/10 rounded-full blur-2xl group-hover:bg-emerald-500/20 transition-all"></div>
           <div className="flex justify-between items-start relative z-10">
             <div>
               <p className="text-slate-500 text-xs font-bold tracking-wider uppercase">Staff & Patients</p>
@@ -251,7 +251,7 @@ const AdminAnalytics = () => {
                 </h3>
               </div>
             </div>
-            <div className="p-3 bg-purple-50 text-purple-600 rounded-2xl group-hover:scale-110 group-hover:bg-purple-600 group-hover:text-white transition-all duration-300 shadow-sm border border-purple-100 group-hover:border-purple-600">
+            <div className="p-3 bg-emerald-50 text-emerald-600 rounded-2xl group-hover:scale-110 group-hover:bg-emerald-600 group-hover:text-white transition-all duration-300 shadow-sm border border-emerald-100 group-hover:border-emerald-600">
               <Users className="w-6 h-6" />
             </div>
           </div>

@@ -61,7 +61,7 @@ const BillingDashboard = () => {
     }
   };
 
-  if (loading) return <div className="p-8 text-center"><div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto"></div></div>;
+  if (loading) return <div className="p-8 text-center"><div className="animate-spin rounded-full h-8 w-8 border-b-2 border-teal-600 mx-auto"></div></div>;
   if (error) return <div className="p-8 text-center text-red-500">{error}</div>;
 
   return (
@@ -79,18 +79,18 @@ const BillingDashboard = () => {
       </div>
 
       <div className="glass-card p-6 rounded-[2rem] flex flex-col md:flex-row items-center gap-4 animate-[fadeInUp_0.3s_ease-out]">
-        <div className="w-12 h-12 bg-blue-50 text-blue-600 rounded-2xl flex items-center justify-center shrink-0 shadow-sm border border-blue-100">
+        <div className="w-12 h-12 bg-teal-50 text-teal-600 rounded-2xl flex items-center justify-center shrink-0 shadow-sm border border-teal-100">
           <RefreshCw size={24} className="opacity-80" />
         </div>
         <form onSubmit={handleGenerateInvoice} className="flex-1 flex flex-col sm:flex-row gap-3 w-full">
           <input 
             type="text" 
             placeholder="Enter Completed Appointment ID to Generate Invoice" 
-            className="flex-1 p-4 bg-slate-50/50 border-2 border-slate-100 rounded-2xl focus:outline-none focus:border-blue-400 focus:bg-white transition-all font-medium text-slate-700"
+            className="flex-1 p-4 bg-slate-50/50 border-2 border-slate-100 rounded-2xl focus:outline-none focus:border-teal-400 focus:bg-white transition-all font-medium text-slate-700"
             value={genApptId}
             onChange={(e) => setGenApptId(e.target.value)}
           />
-          <button type="submit" className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white px-8 py-4 rounded-2xl hover:shadow-lg hover:shadow-blue-500/40 hover:-translate-y-0.5 font-bold whitespace-nowrap transition-all duration-300">
+          <button type="submit" className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white px-8 py-4 rounded-2xl hover:shadow-lg hover:shadow-teal-500/40 hover:-translate-y-0.5 font-bold whitespace-nowrap transition-all duration-300">
             Generate Invoice
           </button>
         </form>
@@ -115,7 +115,7 @@ const BillingDashboard = () => {
                   <td colSpan="6" className="p-12 text-center text-slate-400 font-medium bg-white/40">No invoices generated yet.</td>
                 </tr>
               ) : invoices.map(inv => (
-                <tr key={inv.id} className="hover:bg-blue-50/30 transition-colors group">
+                <tr key={inv.id} className="hover:bg-teal-50/30 transition-colors group">
                   <td className="p-5">
                     <p className="font-bold text-slate-800 font-mono">#{inv.id.split('-')[0].toUpperCase()}</p>
                     <p className="text-xs font-medium text-slate-400 mt-0.5">ID: {inv.id.substring(0, 8)}</p>

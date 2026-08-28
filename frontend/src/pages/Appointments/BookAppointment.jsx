@@ -106,13 +106,13 @@ const BookAppointment = () => {
       ) : (
         <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
           {doctor && (
-            <div className="bg-blue-50 p-6 border-b border-blue-100 flex items-center gap-4">
-              <div className="w-16 h-16 bg-blue-600 text-white rounded-full flex items-center justify-center text-2xl font-bold uppercase shrink-0 shadow-sm">
+            <div className="bg-teal-50 p-6 border-b border-teal-100 flex items-center gap-4">
+              <div className="w-16 h-16 bg-teal-600 text-white rounded-full flex items-center justify-center text-2xl font-bold uppercase shrink-0 shadow-sm">
                 {doctor.firstName.charAt(0)}
               </div>
               <div>
                 <h3 className="text-xl font-bold text-gray-900">Dr. {doctor.firstName} {doctor.lastName}</h3>
-                <p className="text-blue-600 font-medium">{doctor.profile?.specialization}</p>
+                <p className="text-teal-600 font-medium">{doctor.profile?.specialization}</p>
                 <div className="text-sm text-gray-500 mt-1">Consultation Fee: ${doctor.profile?.consultationFee}</div>
               </div>
             </div>
@@ -130,14 +130,14 @@ const BookAppointment = () => {
               {/* Date Selection */}
               <div>
                 <h3 className="text-lg font-semibold text-gray-800 mb-4 flex items-center gap-2">
-                  <CalendarIcon size={20} className="text-blue-600" /> Select Date
+                  <CalendarIcon size={20} className="text-teal-600" /> Select Date
                 </h3>
                 <input 
                   type="date" 
                   min={today}
                   value={selectedDate}
                   onChange={(e) => setSelectedDate(e.target.value)}
-                  className="w-full md:w-1/2 p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                  className="w-full md:w-1/2 p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500"
                   required
                 />
               </div>
@@ -146,12 +146,12 @@ const BookAppointment = () => {
               {selectedDate && (
                 <div>
                   <h3 className="text-lg font-semibold text-gray-800 mb-4 flex items-center gap-2">
-                    <Clock size={20} className="text-blue-600" /> Select Time Slot
+                    <Clock size={20} className="text-teal-600" /> Select Time Slot
                   </h3>
                   
                   {loadingSlots ? (
                     <div className="flex items-center gap-3 text-gray-500">
-                      <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-blue-600"></div>
+                      <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-teal-600"></div>
                       Checking availability...
                     </div>
                   ) : availableSlots.length === 0 ? (
@@ -165,8 +165,8 @@ const BookAppointment = () => {
                           onClick={() => setSelectedSlot(slot)}
                           className={`py-2 px-3 rounded-lg text-sm font-medium border transition-colors ${
                             selectedSlot === slot 
-                              ? 'bg-blue-600 text-white border-blue-600 shadow-sm' 
-                              : 'bg-white text-gray-700 border-gray-200 hover:border-blue-500 hover:bg-blue-50'
+                              ? 'bg-teal-600 text-white border-teal-600 shadow-sm' 
+                              : 'bg-white text-gray-700 border-gray-200 hover:border-teal-500 hover:bg-teal-50'
                           }`}
                         >
                           {slot}
@@ -181,13 +181,13 @@ const BookAppointment = () => {
               {selectedSlot && (
                 <div>
                   <h3 className="text-lg font-semibold text-gray-800 mb-4 flex items-center gap-2">
-                    <User size={20} className="text-blue-600" /> Reason for Visit (Optional)
+                    <User size={20} className="text-teal-600" /> Reason for Visit (Optional)
                   </h3>
                   <textarea 
                     value={reason}
                     onChange={(e) => setReason(e.target.value)}
                     placeholder="Briefly describe your symptoms or reason for consultation..."
-                    className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                    className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500"
                     rows="3"
                   ></textarea>
                 </div>
@@ -198,7 +198,7 @@ const BookAppointment = () => {
                 <button
                   type="submit"
                   disabled={!selectedDate || !selectedSlot || bookingStatus.loading}
-                  className="w-full md:w-auto px-8 py-3 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 disabled:bg-gray-300 disabled:cursor-not-allowed transition-colors shadow-sm"
+                  className="w-full md:w-auto px-8 py-3 bg-teal-600 text-white rounded-lg font-medium hover:bg-teal-700 disabled:bg-gray-300 disabled:cursor-not-allowed transition-colors shadow-sm"
                 >
                   {bookingStatus.loading ? 'Processing...' : 'Confirm Appointment'}
                 </button>

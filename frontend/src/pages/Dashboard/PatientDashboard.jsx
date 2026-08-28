@@ -118,14 +118,14 @@ const PatientDashboard = ({ initialTab = 'appointments' }) => {
         <Link to="/doctor-directory" className="p-6 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-2xl shadow-md hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex items-center justify-between group">
           <div>
             <h3 className="font-bold text-lg tracking-tight">Book Appointment</h3>
-            <p className="text-blue-100 text-sm mt-1">Find a doctor and schedule a visit</p>
+            <p className="text-teal-100 text-sm mt-1">Find a doctor and schedule a visit</p>
           </div>
           <Calendar size={32} className="opacity-80 group-hover:scale-110 transition-transform duration-300" />
         </Link>
         <button onClick={() => { setActiveTab('records'); navigate('/patient/records'); }} className="p-6 bg-gradient-to-r from-purple-600 to-fuchsia-600 text-white rounded-2xl shadow-md hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex items-center justify-between text-left group">
           <div>
             <h3 className="font-bold text-lg tracking-tight">Medical Records</h3>
-            <p className="text-purple-100 text-sm mt-1">View prescriptions & lab reports</p>
+            <p className="text-emerald-100 text-sm mt-1">View prescriptions & lab reports</p>
           </div>
           <FileText size={32} className="opacity-80 group-hover:scale-110 transition-transform duration-300" />
         </button>
@@ -145,13 +145,13 @@ const PatientDashboard = ({ initialTab = 'appointments' }) => {
         {/* Tabs */}
         <div className="flex bg-white/60 backdrop-blur-xl p-1.5 rounded-2xl border border-white shadow-sm w-max animate-[fadeInUp_0.4s_ease-out]">
           <button
-            className={`py-2.5 px-6 font-bold text-sm rounded-xl transition-all duration-300 ${activeTab === 'appointments' ? 'bg-white text-blue-600 shadow-[0_2px_10px_rgb(0,0,0,0.06)]' : 'bg-transparent text-slate-500 hover:text-slate-800 hover:bg-white/40'}`}
+            className={`py-2.5 px-6 font-bold text-sm rounded-xl transition-all duration-300 ${activeTab === 'appointments' ? 'bg-white text-teal-600 shadow-[0_2px_10px_rgb(0,0,0,0.06)]' : 'bg-transparent text-slate-500 hover:text-slate-800 hover:bg-white/40'}`}
             onClick={() => { setActiveTab('appointments'); navigate('/patient/appointments'); }}
           >
             My Appointments
           </button>
           <button
-            className={`py-2.5 px-6 font-bold text-sm rounded-xl transition-all duration-300 ${activeTab === 'records' ? 'bg-white text-blue-600 shadow-[0_2px_10px_rgb(0,0,0,0.06)]' : 'bg-transparent text-slate-500 hover:text-slate-800 hover:bg-white/40'}`}
+            className={`py-2.5 px-6 font-bold text-sm rounded-xl transition-all duration-300 ${activeTab === 'records' ? 'bg-white text-teal-600 shadow-[0_2px_10px_rgb(0,0,0,0.06)]' : 'bg-transparent text-slate-500 hover:text-slate-800 hover:bg-white/40'}`}
             onClick={() => { setActiveTab('records'); navigate('/patient/records'); }}
           >
             Medical Records
@@ -160,19 +160,19 @@ const PatientDashboard = ({ initialTab = 'appointments' }) => {
 
         {/* Content */}
         {loading ? (
-          <div className="flex justify-center py-20"><div className="animate-spin rounded-full h-16 w-16 border-4 border-blue-100 border-t-blue-600"></div></div>
+          <div className="flex justify-center py-20"><div className="animate-spin rounded-full h-16 w-16 border-4 border-teal-100 border-t-blue-600"></div></div>
         ) : error ? (
           <div className="p-12 text-center text-rose-500 bg-rose-50 rounded-3xl font-bold border border-rose-100"><XCircle className="mx-auto mb-3 h-10 w-10" />{error}</div>
         ) : activeTab === 'appointments' ? (
           appointments.length === 0 ? (
             <div className="glass-card p-16 rounded-[2rem] text-center shadow-sm border border-white relative overflow-hidden animate-[fadeInUp_0.3s_ease-out]">
-              <div className="absolute top-0 right-0 w-64 h-64 bg-blue-100 rounded-full mix-blend-multiply filter blur-[80px] opacity-50 pointer-events-none"></div>
+              <div className="absolute top-0 right-0 w-64 h-64 bg-teal-100 rounded-full mix-blend-multiply filter blur-[80px] opacity-50 pointer-events-none"></div>
               <div className="w-24 h-24 bg-gradient-to-br from-blue-50 to-indigo-50 border-2 border-white rounded-full flex items-center justify-center mx-auto mb-6 shadow-sm relative z-10">
-                <Calendar className="h-10 w-10 text-blue-500" />
+                <Calendar className="h-10 w-10 text-teal-500" />
               </div>
               <h3 className="text-2xl font-extrabold text-slate-800 mb-2 relative z-10">No Appointments Yet</h3>
               <p className="text-slate-500 font-medium mb-8 relative z-10">Ready to prioritize your health? Find a specialist today.</p>
-              <Link to="/doctor-directory" className="relative z-10 inline-flex items-center gap-2 bg-gradient-to-r from-blue-600 to-indigo-600 text-white px-8 py-3.5 rounded-2xl font-bold hover:shadow-lg hover:shadow-blue-500/30 hover:-translate-y-0.5 transition-all duration-300">
+              <Link to="/doctor-directory" className="relative z-10 inline-flex items-center gap-2 bg-gradient-to-r from-blue-600 to-indigo-600 text-white px-8 py-3.5 rounded-2xl font-bold hover:shadow-lg hover:shadow-teal-500/30 hover:-translate-y-0.5 transition-all duration-300">
                 <Sparkles size={18} />
                 Find a Doctor
               </Link>
@@ -180,14 +180,14 @@ const PatientDashboard = ({ initialTab = 'appointments' }) => {
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 animate-[fadeInUp_0.3s_ease-out]">
               {appointments.map(app => (
-                <div key={app.id} className="glass-card rounded-[2rem] p-6 flex flex-col group hover:shadow-2xl hover:shadow-blue-900/10 transition-all duration-300">
+                <div key={app.id} className="glass-card rounded-[2rem] p-6 flex flex-col group hover:shadow-2xl hover:shadow-teal-900/10 transition-all duration-300">
                   <div className="flex justify-between items-start mb-6 gap-3">
                     <div className="flex items-center gap-4 overflow-hidden">
-                      <div className="shrink-0 w-14 h-14 bg-gradient-to-br from-blue-100 to-indigo-100 text-blue-600 rounded-2xl flex items-center justify-center font-extrabold text-xl shadow-sm group-hover:scale-105 transition-transform">
+                      <div className="shrink-0 w-14 h-14 bg-gradient-to-br from-blue-100 to-indigo-100 text-teal-600 rounded-2xl flex items-center justify-center font-extrabold text-xl shadow-sm group-hover:scale-105 transition-transform">
                         {app.doctor.firstName.charAt(0)}
                       </div>
                       <div className="min-w-0">
-                        <h4 className="font-bold text-slate-900 text-lg truncate group-hover:text-blue-600 transition-colors">Dr. {app.doctor.firstName} {app.doctor.lastName}</h4>
+                        <h4 className="font-bold text-slate-900 text-lg truncate group-hover:text-teal-600 transition-colors">Dr. {app.doctor.firstName} {app.doctor.lastName}</h4>
                         <p className="text-xs font-bold text-slate-500 uppercase tracking-wider">{app.doctor.doctorProfile?.specialization || 'Doctor'}</p>
                       </div>
                     </div>
@@ -198,8 +198,8 @@ const PatientDashboard = ({ initialTab = 'appointments' }) => {
                   
                   <div className="mt-auto bg-slate-50/80 p-4 rounded-xl border border-slate-100">
                     <div className="flex items-center gap-3 text-sm font-medium text-slate-600">
-                      <div className="p-2 bg-blue-50 text-blue-500 rounded-lg"><Calendar size={16} /></div>
-                      <span className={app.appointmentDate.split('T')[0] === today ? 'font-bold text-blue-600' : ''}>
+                      <div className="p-2 bg-teal-50 text-teal-500 rounded-lg"><Calendar size={16} /></div>
+                      <span className={app.appointmentDate.split('T')[0] === today ? 'font-bold text-teal-600' : ''}>
                         {new Date(app.appointmentDate).toLocaleDateString()}
                       </span>
                     </div>
@@ -218,7 +218,7 @@ const PatientDashboard = ({ initialTab = 'appointments' }) => {
             {/* Prescriptions */}
             <div className="space-y-6">
               <h3 className="text-2xl font-extrabold text-slate-800 flex items-center gap-3 tracking-tight">
-                <div className="p-2.5 bg-purple-100 text-purple-600 rounded-xl">
+                <div className="p-2.5 bg-emerald-100 text-emerald-600 rounded-xl">
                   <FileText size={24} />
                 </div>
                 My Prescriptions
@@ -236,15 +236,15 @@ const PatientDashboard = ({ initialTab = 'appointments' }) => {
                     <div key={pres.id} className="glass-card p-6 rounded-[2rem] border border-white hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group">
                       <div className="flex justify-between items-start mb-5">
                         <div className="flex items-center gap-4">
-                          <div className="w-12 h-12 bg-gradient-to-br from-purple-100 to-fuchsia-100 text-purple-600 rounded-xl flex items-center justify-center font-bold text-lg shadow-sm">
+                          <div className="w-12 h-12 bg-gradient-to-br from-purple-100 to-fuchsia-100 text-emerald-600 rounded-xl flex items-center justify-center font-bold text-lg shadow-sm">
                             {pres.doctor.firstName.charAt(0)}
                           </div>
                           <div>
-                            <h4 className="font-bold text-slate-900 group-hover:text-purple-600 transition-colors">Dr. {pres.doctor.firstName} {pres.doctor.lastName}</h4>
+                            <h4 className="font-bold text-slate-900 group-hover:text-emerald-600 transition-colors">Dr. {pres.doctor.firstName} {pres.doctor.lastName}</h4>
                             <p className="text-xs font-medium text-slate-500">{new Date(pres.createdAt).toLocaleDateString()}</p>
                           </div>
                         </div>
-                        <span className="bg-purple-50 text-purple-600 border border-purple-100 text-xs px-3 py-1.5 rounded-xl font-bold uppercase tracking-wider">Prescription</span>
+                        <span className="bg-emerald-50 text-emerald-600 border border-emerald-100 text-xs px-3 py-1.5 rounded-xl font-bold uppercase tracking-wider">Prescription</span>
                       </div>
                       {pres.diagnosis && (
                         <div className="mb-5 bg-slate-50/50 p-4 rounded-xl border border-slate-100/50">
@@ -276,7 +276,7 @@ const PatientDashboard = ({ initialTab = 'appointments' }) => {
             {/* Lab Reports */}
             <div className="space-y-6">
               <h3 className="text-2xl font-extrabold text-slate-800 flex items-center gap-3 tracking-tight">
-                <div className="p-2.5 bg-blue-100 text-blue-600 rounded-xl">
+                <div className="p-2.5 bg-teal-100 text-teal-600 rounded-xl">
                   <Activity size={24} />
                 </div>
                 Lab Reports
@@ -284,9 +284,9 @@ const PatientDashboard = ({ initialTab = 'appointments' }) => {
 
               {/* Upload Form */}
               <form onSubmit={handleUploadReport} className="glass-card p-6 rounded-[2rem] border border-white shadow-sm flex flex-col gap-4 relative overflow-hidden">
-                <div className="absolute top-0 right-0 w-32 h-32 bg-blue-50 rounded-full mix-blend-multiply filter blur-2xl opacity-60 pointer-events-none"></div>
+                <div className="absolute top-0 right-0 w-32 h-32 bg-teal-50 rounded-full mix-blend-multiply filter blur-2xl opacity-60 pointer-events-none"></div>
                 <h4 className="font-bold text-slate-800 flex items-center gap-2 mb-2 relative z-10">
-                  <FilePlus size={18} className="text-blue-500" /> Upload New Report
+                  <FilePlus size={18} className="text-teal-500" /> Upload New Report
                 </h4>
                 <input
                   type="text"
@@ -294,18 +294,18 @@ const PatientDashboard = ({ initialTab = 'appointments' }) => {
                   required
                   value={reportName}
                   onChange={e => setReportName(e.target.value)}
-                  className="w-full text-sm font-medium border-2 border-slate-100 p-3 rounded-xl bg-white/50 focus:bg-white focus:outline-none focus:border-blue-400 transition-colors relative z-10"
+                  className="w-full text-sm font-medium border-2 border-slate-100 p-3 rounded-xl bg-white/50 focus:bg-white focus:outline-none focus:border-teal-400 transition-colors relative z-10"
                 />
                 <div className="relative z-10">
                   <input
                     type="file"
                     required
                     onChange={e => setUploadFile(e.target.files[0])}
-                    className="w-full text-sm text-slate-500 file:mr-4 file:py-2.5 file:px-4 file:rounded-xl file:border-0 file:text-sm file:font-bold file:bg-blue-50 file:text-blue-600 hover:file:bg-blue-100 transition-colors"
+                    className="w-full text-sm text-slate-500 file:mr-4 file:py-2.5 file:px-4 file:rounded-xl file:border-0 file:text-sm file:font-bold file:bg-teal-50 file:text-teal-600 hover:file:bg-teal-100 transition-colors"
                     accept=".pdf, .jpg, .jpeg, .png"
                   />
                 </div>
-                <button disabled={uploading} type="submit" className="mt-2 bg-gradient-to-r from-blue-600 to-indigo-600 text-white text-sm font-bold py-3.5 rounded-xl shadow-md shadow-blue-500/20 hover:shadow-lg hover:shadow-blue-500/40 hover:-translate-y-0.5 transition-all disabled:opacity-70 relative z-10">
+                <button disabled={uploading} type="submit" className="mt-2 bg-gradient-to-r from-blue-600 to-indigo-600 text-white text-sm font-bold py-3.5 rounded-xl shadow-md shadow-teal-500/20 hover:shadow-lg hover:shadow-teal-500/40 hover:-translate-y-0.5 transition-all disabled:opacity-70 relative z-10">
                   {uploading ? 'Uploading...' : 'Upload Report'}
                 </button>
               </form>
@@ -323,7 +323,7 @@ const PatientDashboard = ({ initialTab = 'appointments' }) => {
                   {labReports.map(report => (
                     <div key={report.id} className="glass-card p-5 rounded-2xl border border-white shadow-sm flex justify-between items-center hover:shadow-md transition-shadow group">
                       <div className="flex items-center gap-4">
-                        <div className="p-3 bg-blue-50 text-blue-500 rounded-xl group-hover:scale-110 transition-transform">
+                        <div className="p-3 bg-teal-50 text-teal-500 rounded-xl group-hover:scale-110 transition-transform">
                           <FileText size={20} />
                         </div>
                         <div>
@@ -336,7 +336,7 @@ const PatientDashboard = ({ initialTab = 'appointments' }) => {
                           href={`${import.meta.env.VITE_API_URL || 'http://localhost:5000'}${report.fileUrl}`}
                           target="_blank"
                           rel="noreferrer"
-                          className="p-2.5 bg-slate-100 text-slate-600 rounded-xl hover:bg-blue-50 hover:text-blue-600 transition-colors"
+                          className="p-2.5 bg-slate-100 text-slate-600 rounded-xl hover:bg-teal-50 hover:text-teal-600 transition-colors"
                           title="Download"
                         >
                           <Download size={18} />
