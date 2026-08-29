@@ -9,15 +9,15 @@ const BillingDashboard = () => {
   const [invoices, setInvoices] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  
+
   // Extra state to fetch un-invoiced completed appointments (to allow cashier to generate bill)
   const [completedAppointments, setCompletedAppointments] = useState([]);
-  
+
   const fetchData = async () => {
     try {
       setLoading(true);
       const headers = { Authorization: `Bearer ${user?.token}` };
-      
+
       const invRes = await axios.get((import.meta.env.VITE_API_URL || 'http://localhost:5000') + '/api/billing', { headers });
       setInvoices(invRes.data);
     } catch (err) {
@@ -83,9 +83,9 @@ const BillingDashboard = () => {
           <RefreshCw size={24} className="opacity-80" />
         </div>
         <form onSubmit={handleGenerateInvoice} className="flex-1 flex flex-col sm:flex-row gap-3 w-full">
-          <input 
-            type="text" 
-            placeholder="Enter Completed Appointment ID to Generate Invoice" 
+          <input
+            type="text"
+            placeholder="Enter Completed Appointment ID to Generate Invoice"
             className="flex-1 p-4 bg-slate-50/50 border-2 border-slate-100 rounded-2xl focus:outline-none focus:border-teal-400 focus:bg-white transition-all font-medium text-slate-700"
             value={genApptId}
             onChange={(e) => setGenApptId(e.target.value)}
@@ -130,25 +130,24 @@ const BillingDashboard = () => {
                     ${inv.totalAmount.toFixed(2)}
                   </td>
                   <td className="p-5 text-center">
-                    <span className={`inline-flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold uppercase tracking-wide mx-auto ${
-                      inv.status === 'PAID' ? 'bg-emerald-100 text-emerald-700' : 'bg-rose-100 text-rose-700'
-                    }`}>
+                    <span className={`inline-flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold uppercase tracking-wide mx-auto ${inv.status === 'PAID' ? 'bg-emerald-100 text-emerald-700' : 'bg-rose-100 text-rose-700'
+                      }`}>
                       {inv.status === 'PAID' ? <CheckCircle size={14} /> : <Clock size={14} />}
                       {inv.status}
                     </span>
                   </td>
                   <td className="p-5">
                     <div className="flex items-center justify-center gap-2 opacity-80 group-hover:opacity-100 transition-opacity">
-                      <button 
+                      <button
                         onClick={() => generateInvoicePDF(inv)}
                         className="p-2.5 bg-slate-100 text-slate-600 hover:bg-slate-200 hover:text-slate-900 rounded-xl transition-colors"
                         title="Download PDF"
                       >
                         <Download size={18} />
                       </button>
-                      
+
                       {inv.status === 'UNPAID' && (
-                        <button 
+                        <button
                           onClick={() => handleMarkPaid(inv.id)}
                           className="px-4 py-2.5 bg-emerald-50 text-emerald-600 hover:bg-emerald-500 hover:text-white rounded-xl text-sm font-bold transition-all shadow-sm"
                           title="Mark as Paid"

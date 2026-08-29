@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import { 
+import {
   BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip as RechartsTooltip, Legend, ResponsiveContainer,
   PieChart, Pie, Cell, Sector
 } from 'recharts';
@@ -58,33 +58,33 @@ const AdminAnalytics = () => {
         });
         if (response.data.status === 'success') {
           const apiData = response.data.data;
-          
+
           // Ensure we always have at least 7 days of data for the chart to look good
           const today = new Date();
-          const last7Days = Array.from({length: 7}, (_, i) => {
+          const last7Days = Array.from({ length: 7 }, (_, i) => {
             const d = new Date(today);
             d.setDate(d.getDate() - (6 - i));
             return d.toISOString().split('T')[0];
           });
-          
+
           // Map existing revenue to the last 7 days
           const revenueMap = {};
           apiData.revenueByDate?.forEach(item => {
             revenueMap[item.date] = item.revenue;
           });
-          
+
           // Format date to a nice string like "Aug 09"
           const formatDate = (dateString) => {
             const date = new Date(dateString);
             return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
           };
-          
+
           const paddedRevenueByDate = last7Days.map(date => ({
             date,
             formattedDate: formatDate(date),
             revenue: revenueMap[date] || 0
           })).reverse(); // Reverse so it goes from oldest to newest
-          
+
           // Merge padded data back with API data
           setData({
             ...apiData,
@@ -169,7 +169,7 @@ const AdminAnalytics = () => {
 
       {/* KPI Cards Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6 relative z-10">
-        
+
         {/* Card 1: Revenue */}
         <div className="group bg-gradient-to-br from-white to-slate-50/50 p-6 rounded-3xl border border-slate-100 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_8px_30px_rgb(59,130,246,0.1)] transition-all duration-300 relative overflow-hidden">
           <div className="absolute -right-4 -top-4 w-24 h-24 bg-teal-500/10 rounded-full blur-2xl group-hover:bg-teal-500/20 transition-all"></div>
@@ -221,7 +221,7 @@ const AdminAnalytics = () => {
             <div>
               <p className="text-slate-500 text-xs font-bold tracking-wider uppercase">Avg Rev / Visit</p>
               <h3 className="text-3xl font-extrabold text-slate-900 mt-2 tracking-tight">
-                ₹{avgRevenue.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0})}
+                ₹{avgRevenue.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 0 })}
               </h3>
             </div>
             <div className="p-3 bg-amber-50 text-amber-600 rounded-2xl group-hover:scale-110 group-hover:bg-amber-500 group-hover:text-white transition-all duration-300 shadow-sm border border-amber-100 group-hover:border-amber-500">
@@ -265,7 +265,7 @@ const AdminAnalytics = () => {
 
       {/* Charts Section */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 relative z-10">
-        
+
         {/* Revenue Bar Chart */}
         <div className="bg-white p-6 md:p-8 rounded-2xl border border-slate-100 shadow-[0_8px_30px_rgb(0,0,0,0.04)] lg:col-span-2">
           <div className="flex justify-between items-center mb-8">
@@ -279,32 +279,32 @@ const AdminAnalytics = () => {
               <BarChart data={data?.revenueByDate} margin={{ top: 10, right: 10, left: -20, bottom: 20 }}>
                 <defs>
                   <linearGradient id="barGradient" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0%" stopColor="#3b82f6" stopOpacity={1}/>
-                    <stop offset="100%" stopColor="#818cf8" stopOpacity={0.8}/>
+                    <stop offset="0%" stopColor="#3b82f6" stopOpacity={1} />
+                    <stop offset="100%" stopColor="#818cf8" stopOpacity={0.8} />
                   </linearGradient>
                 </defs>
                 <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f1f5f9" />
-                <XAxis 
-                  dataKey="formattedDate" 
-                  stroke="#94a3b8" 
+                <XAxis
+                  dataKey="formattedDate"
+                  stroke="#94a3b8"
                   fontSize={12}
                   fontWeight={500}
                   tickLine={false}
                   axisLine={false}
                   dy={10}
                 />
-                <YAxis 
-                  stroke="#94a3b8" 
+                <YAxis
+                  stroke="#94a3b8"
                   fontSize={12}
                   fontWeight={500}
                   tickLine={false}
                   axisLine={false}
-                  tickFormatter={(val) => `₹${val/1000}k`}
+                  tickFormatter={(val) => `₹${val / 1000}k`}
                 />
-                <RechartsTooltip 
+                <RechartsTooltip
                   cursor={{ fill: '#f8fafc' }}
-                  contentStyle={{ 
-                    backgroundColor: '#ffffff', 
+                  contentStyle={{
+                    backgroundColor: '#ffffff',
                     borderRadius: '16px',
                     border: '1px solid #f1f5f9',
                     boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)',
@@ -314,9 +314,9 @@ const AdminAnalytics = () => {
                   labelStyle={{ color: '#64748b', marginBottom: '4px', fontSize: '12px', fontWeight: '600', textTransform: 'uppercase' }}
                   formatter={(value) => [`₹${value.toLocaleString()}`, 'Revenue']}
                 />
-                <Bar 
-                  dataKey="revenue" 
-                  fill="url(#barGradient)" 
+                <Bar
+                  dataKey="revenue"
+                  fill="url(#barGradient)"
                   radius={[8, 8, 0, 0]}
                   maxBarSize={50}
                   animationDuration={1500}
@@ -351,16 +351,16 @@ const AdminAnalytics = () => {
                   animationDuration={1000}
                 >
                   {data?.appointmentsByStatus?.map((entry, index) => (
-                    <Cell 
-                      key={`cell-${index}`} 
-                      fill={PIE_COLORS[index % PIE_COLORS.length]} 
+                    <Cell
+                      key={`cell-${index}`}
+                      fill={PIE_COLORS[index % PIE_COLORS.length]}
                       className="cursor-pointer hover:opacity-90 transition-opacity"
                     />
                   ))}
                 </Pie>
-                <Legend 
-                  verticalAlign="bottom" 
-                  height={40} 
+                <Legend
+                  verticalAlign="bottom"
+                  height={40}
                   iconType="circle"
                   iconSize={10}
                   formatter={(value) => (
@@ -371,7 +371,7 @@ const AdminAnalytics = () => {
             </ResponsiveContainer>
           </div>
         </div>
-        
+
       </div>
     </div>
   );

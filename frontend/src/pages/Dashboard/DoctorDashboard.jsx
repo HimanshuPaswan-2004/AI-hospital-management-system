@@ -9,7 +9,7 @@ const DoctorDashboard = () => {
   const [appointments, setAppointments] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  
+
   // Prescription modal state
   const [prescribingAppt, setPrescribingAppt] = useState(null);
 
@@ -36,7 +36,7 @@ const DoctorDashboard = () => {
 
   const handleStatusUpdate = async (id, status) => {
     try {
-      await axios.put(`${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api/appointments/${id}/status`, 
+      await axios.put(`${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api/appointments/${id}/status`,
         { status },
         { headers: { Authorization: `Bearer ${user?.token}` } }
       );
@@ -73,16 +73,15 @@ const DoctorDashboard = () => {
             </div>
           </div>
         </div>
-        <span className={`shrink-0 px-3 py-1.5 rounded-xl text-xs font-bold uppercase tracking-wide border ${
-          app.status === 'PENDING' ? 'bg-amber-50 text-amber-700 border-amber-200/50' :
-          app.status === 'CONFIRMED' ? 'bg-emerald-50 text-emerald-700 border-emerald-200/50' :
-          app.status === 'COMPLETED' ? 'bg-slate-50 text-slate-700 border-slate-200/50' :
-          'bg-rose-50 text-rose-700 border-rose-200/50'
-        }`}>
+        <span className={`shrink-0 px-3 py-1.5 rounded-xl text-xs font-bold uppercase tracking-wide border ${app.status === 'PENDING' ? 'bg-amber-50 text-amber-700 border-amber-200/50' :
+            app.status === 'CONFIRMED' ? 'bg-emerald-50 text-emerald-700 border-emerald-200/50' :
+              app.status === 'COMPLETED' ? 'bg-slate-50 text-slate-700 border-slate-200/50' :
+                'bg-rose-50 text-rose-700 border-rose-200/50'
+          }`}>
           {app.status}
         </span>
       </div>
-      
+
       {app.reason && (
         <div className="text-sm font-medium text-slate-600 bg-slate-50/80 p-4 rounded-xl mb-6 flex-1 border border-slate-100">
           <span className="font-bold text-slate-800 block mb-1">Reason for visit:</span>
@@ -92,13 +91,13 @@ const DoctorDashboard = () => {
 
       {app.status === 'PENDING' && (
         <div className="flex gap-3 mt-auto pt-5 border-t border-slate-100">
-          <button 
+          <button
             onClick={() => handleStatusUpdate(app.id, 'CONFIRMED')}
             className="flex-1 bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-white py-3 rounded-xl text-sm font-bold shadow-lg shadow-emerald-500/20 transition-all flex justify-center items-center gap-2 hover:-translate-y-0.5"
           >
             <Check size={18} /> Approve
           </button>
-          <button 
+          <button
             onClick={() => handleStatusUpdate(app.id, 'CANCELLED')}
             className="flex-1 bg-white hover:bg-rose-50 text-rose-600 border-2 border-rose-100 hover:border-rose-200 py-3 rounded-xl text-sm font-bold transition-all flex justify-center items-center gap-2 hover:-translate-y-0.5"
           >
@@ -106,10 +105,10 @@ const DoctorDashboard = () => {
           </button>
         </div>
       )}
-      
+
       {app.status === 'CONFIRMED' && (
         <div className="flex gap-3 mt-auto pt-5 border-t border-slate-100">
-           <button 
+          <button
             onClick={() => handleStatusUpdate(app.id, 'COMPLETED')}
             className="flex-1 bg-gradient-to-r from-blue-500 to-indigo-500 hover:from-blue-600 hover:to-indigo-600 text-white py-3 rounded-xl text-sm font-bold shadow-lg shadow-teal-500/20 transition-all flex justify-center items-center gap-2 hover:-translate-y-0.5"
           >
@@ -120,7 +119,7 @@ const DoctorDashboard = () => {
 
       {app.status === 'COMPLETED' && (
         <div className="flex gap-3 mt-auto pt-5 border-t border-slate-100">
-           <button 
+          <button
             onClick={() => setPrescribingAppt(app)}
             className="flex-1 bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white py-3 rounded-xl text-sm font-bold shadow-lg shadow-emerald-500/20 transition-all flex justify-center items-center gap-2 hover:-translate-y-0.5"
           >
@@ -136,7 +135,7 @@ const DoctorDashboard = () => {
 
   return (
     <div className="max-w-7xl mx-auto space-y-10 animate-[fadeInUp_0.4s_ease-out]">
-      
+
       {/* Quick Stats */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
         <div className="pro-card p-6 rounded-3xl border border-slate-200 shadow-[0_8px_30px_rgba(0,0,0,0.04)] hover:-translate-y-1 hover:shadow-xl hover:shadow-teal-500/10 transition-all group">
@@ -146,7 +145,7 @@ const DoctorDashboard = () => {
           <p className="text-sm font-bold text-slate-400 uppercase tracking-widest mb-1">Patients Today</p>
           <h3 className="text-3xl font-black text-slate-800">{todayAppointments.length}</h3>
         </div>
-        
+
         <div className="pro-card p-6 rounded-3xl border border-slate-200 shadow-[0_8px_30px_rgba(0,0,0,0.04)] hover:-translate-y-1 hover:shadow-xl hover:shadow-emerald-500/10 transition-all group">
           <div className="w-12 h-12 bg-emerald-50 rounded-2xl flex items-center justify-center mb-4 group-hover:scale-110 group-hover:-rotate-3 transition-transform">
             <CheckCircle size={24} className="text-emerald-500" />
@@ -168,7 +167,7 @@ const DoctorDashboard = () => {
         </div>
 
         <div className="pro-card p-6 rounded-3xl border border-slate-200 shadow-[0_8px_30px_rgba(0,0,0,0.04)] hover:-translate-y-1 hover:shadow-xl hover:shadow-sky-500/10 transition-all group relative overflow-hidden">
-            <div className="absolute -bottom-6 -right-6 w-24 h-24 bg-sky-100 rounded-full blur-2xl opacity-60"></div>
+          <div className="absolute -bottom-6 -right-6 w-24 h-24 bg-sky-100 rounded-full blur-2xl opacity-60"></div>
           <div className="w-12 h-12 bg-sky-50 rounded-2xl flex items-center justify-center mb-4 group-hover:scale-110 group-hover:-rotate-3 transition-transform relative z-10">
             <span className="font-bold text-sky-500 text-2xl">₹</span>
           </div>
@@ -226,8 +225,8 @@ const DoctorDashboard = () => {
       </div>
 
       {prescribingAppt && (
-        <PrescriptionModal 
-          appointment={prescribingAppt} 
+        <PrescriptionModal
+          appointment={prescribingAppt}
           onClose={() => setPrescribingAppt(null)}
           onSuccess={handlePrescriptionSuccess}
         />

@@ -1,219 +1,215 @@
-import { useState, useEffect } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { ShieldPlus, CheckSquare, Square, Eye, EyeOff } from 'lucide-react';
 import useAuthStore from '../store/authStore';
-import { Activity, UserPlus, Mail, Lock, User, HeartPulse } from 'lucide-react';
+import doctorIllustration from '../assets/doctor_illustration.jpg';
 
 const Register = () => {
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
     email: '',
+    phone: '',
     password: '',
-    role: 'PATIENT',
+    confirmPassword: '',
+    role: 'PATIENT'
   });
-
-  const { firstName, lastName, email, password, role } = formData;
+  
+  const [agree, setAgree] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+  const { register, isLoading, error } = useAuthStore();
   const navigate = useNavigate();
 
-  const { user, isLoading, isError, isSuccess, message, register, reset } = useAuthStore();
-
-  useEffect(() => {
-    if (isError) {
-      alert(message);
-    }
-    if (isSuccess || user) {
-      navigate('/dashboard');
-    }
-    reset();
-  }, [user, isError, isSuccess, message, navigate, reset]);
-
-  const onChange = (e) => {
-    setFormData((prevState) => ({
-      ...prevState,
-      [e.target.name]: e.target.value,
-    }));
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const onSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    register({ firstName, lastName, email, password, role });
+    if (formData.password !== formData.confirmPassword) {
+      alert("Passwords don't match!");
+      return;
+    }
+    if (!agree) {
+      alert("You must agree to the Terms & Conditions.");
+      return;
+    }
+
+    const payload = {
+      firstName: formData.firstName || formData.fullName?.split(' ')[0] || 'User',
+      lastName: formData.lastName || formData.fullName?.split(' ').slice(1).join(' ') || '',
+      email: formData.email,
+      password: formData.password,
+      role: formData.role
+    };
+
+    const success = await register(payload);
+    if (success) {
+      navigate('/patient/dashboard');
+    }
   };
 
   return (
-    <div className="min-h-screen flex w-full bg-slate-50">
-      
-      {/* Left Side - Form */}
-      <div className="w-full lg:w-1/2 flex items-center justify-center p-8 relative overflow-y-auto bg-white border-r border-slate-200 custom-scrollbar">
-        <div className="absolute top-10 left-10 hidden md:flex items-center gap-2 text-slate-500 font-medium z-10">
-          Already have an account? 
-          <Link to="/login" className="text-primary-600 font-bold hover:text-primary-700 transition-colors">
-            Sign In
+    <div className="min-h-screen flex bg-white font-sans">
+      {/* Left Form Section */}
+      <div className="w-full lg:w-[50%] flex flex-col justify-center px-8 sm:px-16 xl:px-24 py-12 relative overflow-y-auto">
+        {/* Logo */}
+        <div className="absolute top-8 left-8 sm:left-16 xl:left-24">
+          <Link to="/" className="flex items-center gap-2">
+            <ShieldPlus className="text-blue-600 w-7 h-7" strokeWidth={2.5} />
+            <span className="text-xl font-bold text-slate-800 tracking-tight">Medi<span className="text-blue-600">AI</span></span>
           </Link>
         </div>
 
-        <div className="w-full max-w-md my-12 z-10">
-          <div className="mb-10 text-center lg:text-left mt-8 md:mt-0">
-            <div className="inline-flex lg:hidden items-center justify-center w-16 h-16 rounded-2xl bg-primary-600 text-white mb-6 shadow-sm">
-              <HeartPulse size={32} />
-            </div>
-            <h2 className="text-3xl font-extrabold text-slate-900 tracking-tight">Join MediAI</h2>
-            <p className="text-slate-500 mt-2 font-medium">Create your account to start managing healthcare intelligently.</p>
-          </div>
+        <div className="max-w-[460px] w-full mx-auto mt-16 lg:mt-0">
+          <h1 className="text-4xl font-extrabold text-slate-900 tracking-tight mb-2">Create Your Account</h1>
+          <p className="text-slate-500 font-medium mb-8">Join MediAI today</p>
 
-          <form className="space-y-5" onSubmit={onSubmit}>
+          {error && (
+            <div className="mb-6 p-4 bg-rose-50 border border-rose-200 text-rose-600 rounded-xl text-sm font-medium">
+              {error}
+            </div>
+          )}
+
+          <form onSubmit={handleSubmit} className="space-y-4">
+            <div>
+              <label className="block text-sm font-bold text-slate-700 mb-1.5">Full Name</label>
+              <input
+                type="text"
+                name="fullName"
+                onChange={handleChange}
+                className="w-full px-4 py-3 bg-white border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-100 focus:border-blue-500 transition-all text-slate-800 placeholder-slate-400"
+                placeholder="Enter your full name"
+                required
+              />
+            </div>
             
+            <div>
+              <label className="block text-sm font-bold text-slate-700 mb-1.5">Email Address</label>
+              <input
+                type="email"
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
+                className="w-full px-4 py-3 bg-white border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-100 focus:border-blue-500 transition-all text-slate-800 placeholder-slate-400"
+                placeholder="Enter your email"
+                required
+              />
+            </div>
+            
+            <div>
+              <label className="block text-sm font-bold text-slate-700 mb-1.5">Phone Number</label>
+              <input
+                type="tel"
+                name="phone"
+                value={formData.phone}
+                onChange={handleChange}
+                className="w-full px-4 py-3 bg-white border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-100 focus:border-blue-500 transition-all text-slate-800 placeholder-slate-400"
+                placeholder="Enter your phone number"
+              />
+            </div>
+
             <div className="grid grid-cols-2 gap-4">
-              <div className="space-y-2">
-                <label className="text-xs font-bold text-slate-700 tracking-wide uppercase">First Name</label>
-                <div className="relative group">
-                  <div className="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none text-slate-400 group-focus-within:text-primary-500 transition-colors">
-                    <User size={18} />
-                  </div>
+              <div>
+                <label className="block text-sm font-bold text-slate-700 mb-1.5">Password</label>
+                <div className="relative">
                   <input
-                    type="text"
-                    className="w-full pl-11 pr-4 py-3 bg-white border border-slate-300 rounded-xl focus:outline-none focus:border-primary-500 focus:ring-1 focus:ring-primary-500 transition-all font-medium text-slate-900 placeholder-slate-400 shadow-sm"
-                    placeholder="John"
-                    name="firstName"
-                    value={firstName}
-                    onChange={onChange}
+                    type={showPassword ? "text" : "password"}
+                    name="password"
+                    value={formData.password}
+                    onChange={handleChange}
+                    className="w-full px-4 py-3 bg-white border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-100 focus:border-blue-500 transition-all text-slate-800 placeholder-slate-400"
+                    placeholder="Create a password"
                     required
                   />
+                  <button type="button" onClick={() => setShowPassword(!showPassword)} className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400">
+                    {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
+                  </button>
                 </div>
               </div>
-              <div className="space-y-2">
-                <label className="text-xs font-bold text-slate-700 tracking-wide uppercase">Last Name</label>
-                <div className="relative group">
-                  <div className="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none text-slate-400 group-focus-within:text-primary-500 transition-colors">
-                    <User size={18} />
-                  </div>
-                  <input
-                    type="text"
-                    className="w-full pl-11 pr-4 py-3 bg-white border border-slate-300 rounded-xl focus:outline-none focus:border-primary-500 focus:ring-1 focus:ring-primary-500 transition-all font-medium text-slate-900 placeholder-slate-400 shadow-sm"
-                    placeholder="Doe"
-                    name="lastName"
-                    value={lastName}
-                    onChange={onChange}
-                    required
-                  />
-                </div>
-              </div>
-            </div>
-
-            <div className="space-y-2">
-              <label className="text-xs font-bold text-slate-700 tracking-wide uppercase">Email Address</label>
-              <div className="relative group">
-                <div className="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none text-slate-400 group-focus-within:text-primary-500 transition-colors">
-                  <Mail size={18} />
-                </div>
+              
+              <div>
+                <label className="block text-sm font-bold text-slate-700 mb-1.5">Confirm Password</label>
                 <input
-                  type="email"
-                  className="w-full pl-11 pr-4 py-3 bg-white border border-slate-300 rounded-xl focus:outline-none focus:border-primary-500 focus:ring-1 focus:ring-primary-500 transition-all font-medium text-slate-900 placeholder-slate-400 shadow-sm"
-                  placeholder="you@example.com"
-                  name="email"
-                  value={email}
-                  onChange={onChange}
+                  type={showPassword ? "text" : "password"}
+                  name="confirmPassword"
+                  value={formData.confirmPassword}
+                  onChange={handleChange}
+                  className="w-full px-4 py-3 bg-white border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-100 focus:border-blue-500 transition-all text-slate-800 placeholder-slate-400"
+                  placeholder="Confirm your password"
                   required
                 />
               </div>
             </div>
 
-            <div className="space-y-2">
-              <label className="text-xs font-bold text-slate-700 tracking-wide uppercase">Password</label>
-              <div className="relative group">
-                <div className="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none text-slate-400 group-focus-within:text-primary-500 transition-colors">
-                  <Lock size={18} />
-                </div>
-                <input
-                  type="password"
-                  className="w-full pl-11 pr-4 py-3 bg-white border border-slate-300 rounded-xl focus:outline-none focus:border-primary-500 focus:ring-1 focus:ring-primary-500 transition-all font-medium text-slate-900 placeholder-slate-400 shadow-sm"
-                  placeholder="••••••••"
-                  name="password"
-                  value={password}
-                  onChange={onChange}
-                  required
-                />
-              </div>
+            <div>
+              <label className="block text-sm font-bold text-slate-700 mb-1.5">Role</label>
+              <select
+                name="role"
+                value={formData.role}
+                onChange={handleChange}
+                className="w-full px-4 py-3 bg-white border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-100 focus:border-blue-500 transition-all text-slate-800 appearance-none"
+              >
+                <option value="PATIENT">Patient</option>
+                <option value="DOCTOR">Doctor</option>
+                <option value="ADMIN">Admin</option>
+              </select>
             </div>
 
-            <div className="space-y-2">
-              <label className="text-xs font-bold text-slate-700 tracking-wide uppercase">Account Type</label>
-              <div className="grid grid-cols-3 gap-4">
-                <label className={`cursor-pointer border-2 rounded-xl p-4 flex flex-col items-center justify-center gap-2 transition-all ${role === 'PATIENT' ? 'border-primary-500 bg-primary-50 text-primary-700 shadow-sm' : 'border-slate-200 hover:bg-slate-50 text-slate-500 hover:border-slate-300'}`}>
-                  <input type="radio" name="role" value="PATIENT" checked={role === 'PATIENT'} onChange={onChange} className="sr-only" />
-                  <HeartPulse size={24} className={role === 'PATIENT' ? 'text-primary-600' : ''} />
-                  <span className="font-bold text-sm">Patient</span>
-                </label>
-                <label className={`cursor-pointer border-2 rounded-xl p-4 flex flex-col items-center justify-center gap-2 transition-all ${role === 'DOCTOR' ? 'border-primary-500 bg-primary-50 text-primary-700 shadow-sm' : 'border-slate-200 hover:bg-slate-50 text-slate-500 hover:border-slate-300'}`}>
-                  <input type="radio" name="role" value="DOCTOR" checked={role === 'DOCTOR'} onChange={onChange} className="sr-only" />
-                  <Activity size={24} className={role === 'DOCTOR' ? 'text-primary-600' : ''} />
-                  <span className="font-bold text-sm">Doctor</span>
-                </label>
-                <label className={`cursor-pointer border-2 rounded-xl p-4 flex flex-col items-center justify-center gap-2 transition-all ${role === 'ADMIN' ? 'border-primary-500 bg-primary-50 text-primary-700 shadow-sm' : 'border-slate-200 hover:bg-slate-50 text-slate-500 hover:border-slate-300'}`}>
-                  <input type="radio" name="role" value="ADMIN" checked={role === 'ADMIN'} onChange={onChange} className="sr-only" />
-                  <User size={24} className={role === 'ADMIN' ? 'text-primary-600' : ''} />
-                  <span className="font-bold text-sm">Admin</span>
-                </label>
-              </div>
+            <div className="pt-2 pb-4">
+              <button
+                type="button"
+                onClick={() => setAgree(!agree)}
+                className="flex items-center gap-2 text-sm font-medium text-slate-600 hover:text-slate-900"
+              >
+                {agree ? <CheckSquare size={18} className="text-blue-600" /> : <Square size={18} className="text-slate-300" />}
+                I agree to the <span className="text-blue-600 font-bold underline decoration-blue-200 underline-offset-2">Terms & Conditions</span>.
+              </button>
             </div>
 
             <button
               type="submit"
               disabled={isLoading}
-              className="w-full py-3.5 mt-6 bg-primary-600 hover:bg-primary-700 text-white rounded-xl font-bold text-lg shadow-sm transition-colors duration-200 flex items-center justify-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed"
+              className="w-full py-3.5 px-4 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl shadow-lg shadow-blue-600/20 transition-all flex justify-center items-center disabled:opacity-70 disabled:cursor-not-allowed"
             >
               {isLoading ? (
                 <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
               ) : (
-                <>
-                  <UserPlus size={20} />
-                  <span>Create Account</span>
-                </>
+                'Create Account'
               )}
             </button>
           </form>
-          
-          <div className="mt-8 text-center md:hidden">
-            <p className="text-sm text-slate-500 font-medium">
-              Already have an account? <Link to="/login" className="text-primary-600 font-bold hover:underline">Sign In</Link>
-            </p>
-          </div>
+
+          <p className="text-center text-sm font-medium text-slate-500 mt-8">
+            Already have an account?{' '}
+            <Link to="/login" className="text-blue-600 font-bold hover:underline">Login</Link>
+          </p>
         </div>
       </div>
 
-      {/* Right Side - Visuals (Hidden on small screens) */}
-      <div className="hidden lg:flex w-1/2 bg-slate-900 relative overflow-hidden items-center justify-center">
-        {/* Subtle decorative background pattern */}
-        <div className="absolute inset-0 opacity-10 bg-[radial-gradient(#ffffff_1px,transparent_1px)] [background-size:20px_20px]"></div>
-        
-        <div className="relative z-10 text-white max-w-lg p-12 flex flex-col items-start">
-          <div className="w-20 h-20 bg-white/10 rounded-2xl border border-slate-700 flex items-center justify-center mb-8 shadow-md">
-            <HeartPulse size={40} className="text-primary-300" />
-          </div>
-          
-          <h2 className="text-4xl font-extrabold tracking-tight leading-tight mb-6">
-            Your Health Data, <br/>
-            <span className="text-primary-300">
-              Secured & Analyzed.
-            </span>
-          </h2>
-          
-          <p className="text-lg text-slate-300 leading-relaxed font-medium mb-10">
-            Join thousands of patients and doctors experiencing the next generation of healthcare management powered by Artificial Intelligence.
-          </p>
-          
-          <div className="space-y-4 w-full">
-            <div className="flex items-center gap-4 bg-white/5 p-4 rounded-xl border border-slate-700">
-              <div className="p-2 bg-primary-500/20 text-primary-300 rounded-lg"><Lock size={20} /></div>
-              <p className="font-semibold text-sm">Enterprise-grade Security</p>
+      {/* Right Illustration Section */}
+      <div className="hidden lg:flex w-[50%] bg-blue-50/50 p-12 items-center justify-center relative overflow-hidden">
+         <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-blue-100/50 rounded-full blur-3xl -translate-y-1/2 translate-x-1/3"></div>
+         <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-indigo-100/50 rounded-full blur-3xl translate-y-1/3 -translate-x-1/4"></div>
+         
+         <div className="relative z-10 max-w-lg w-full aspect-square bg-gradient-to-b from-blue-100 to-transparent rounded-[3rem] border border-white/50 shadow-2xl flex items-center justify-center overflow-hidden">
+            <img 
+               src={doctorIllustration} 
+               alt="Doctor Illustration" 
+               className="w-full h-full object-cover mix-blend-multiply opacity-90"
+            />
+            
+            <div className="absolute -right-8 bottom-1/4 bg-white p-4 rounded-2xl shadow-xl border border-slate-100 flex items-center gap-4 animate-bounce" style={{ animationDuration: '4s' }}>
+              <div className="w-10 h-10 bg-indigo-100 rounded-full flex items-center justify-center">
+                <CheckSquare className="w-5 h-5 text-indigo-600" />
+              </div>
+              <div>
+                <p className="text-xs font-bold text-slate-800">Quick Registration</p>
+                <p className="text-[10px] font-medium text-slate-500">Takes 2 minutes</p>
+              </div>
             </div>
-            <div className="flex items-center gap-4 bg-white/5 p-4 rounded-xl border border-slate-700">
-              <div className="p-2 bg-primary-500/20 text-primary-300 rounded-lg"><Activity size={20} /></div>
-              <p className="font-semibold text-sm">Real-time AI Health Insights</p>
-            </div>
-          </div>
-        </div>
+         </div>
       </div>
-      
     </div>
   );
 };

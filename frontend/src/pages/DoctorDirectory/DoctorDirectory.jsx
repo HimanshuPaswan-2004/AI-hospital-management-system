@@ -43,7 +43,7 @@ const DoctorDirectory = () => {
     <div className="max-w-7xl mx-auto space-y-8 animate-[fadeInUp_0.4s_ease-out] relative">
       {/* Decorative Background */}
       <div className="absolute top-0 right-0 w-96 h-96 bg-teal-400 rounded-full mix-blend-multiply filter blur-[128px] opacity-10 pointer-events-none z-0"></div>
-      
+
       <div className="relative z-10">
         <h1 className="text-4xl font-extrabold text-slate-900 mb-3 tracking-tight">
           Find Your <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600">Specialist</span>
@@ -70,7 +70,7 @@ const DoctorDirectory = () => {
         </form>
 
         <div className="w-full md:w-72">
-          <select 
+          <select
             value={specializationFilter}
             onChange={(e) => setSpecializationFilter(e.target.value)}
             className="block w-full py-4 px-5 border-2 border-slate-100 rounded-2xl focus:ring-4 focus:ring-teal-500/10 focus:border-teal-400 focus:bg-white bg-slate-50/50 text-slate-700 font-medium transition-all appearance-none cursor-pointer"
@@ -126,8 +126,8 @@ const DoctorDirectory = () => {
                   <div className="flex items-center gap-3 bg-slate-50/50 p-2 rounded-xl">
                     <div className="p-2 bg-amber-50 text-amber-500 rounded-lg"><Clock size={18} /></div>
                     <span className="font-medium text-slate-700 truncate">
-                      {doctor.profile?.availableDays?.length > 0 
-                        ? doctor.profile.availableDays.join(', ') 
+                      {doctor.profile?.availableDays?.length > 0
+                        ? doctor.profile.availableDays.join(', ')
                         : 'Contact for availability'}
                     </span>
                   </div>

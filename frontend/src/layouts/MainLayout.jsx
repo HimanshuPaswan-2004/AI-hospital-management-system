@@ -20,25 +20,25 @@ const MainLayout = () => {
   }, [location.pathname]);
 
   return (
-    <div className="flex h-screen bg-transparent overflow-hidden">
+    <div className="flex h-screen bg-slate-50 overflow-hidden">
       {/* Overlay for mobile */}
       {sidebarOpen && (
-        <div 
+        <div
           className="fixed inset-0 z-40 bg-gray-800/50 md:hidden"
           onClick={() => setSidebarOpen(false)}
         />
       )}
-      
+
       <Sidebar isOpen={sidebarOpen} setIsOpen={setSidebarOpen} />
-      
+
       <div className="flex flex-col flex-1 w-full overflow-hidden">
         <Navbar toggleSidebar={() => setSidebarOpen(!sidebarOpen)} />
-        
-        <main className="flex-1 overflow-x-hidden overflow-y-auto bg-transparent p-4 md:p-6 pb-28 md:pb-28">
+
+        <main className="flex-1 overflow-x-hidden overflow-y-auto bg-slate-50 p-4 md:p-8 pb-28 md:pb-8">
           <Outlet />
         </main>
       </div>
-      
+
       {/* AI Medical Assistant Chatbot */}
       <FloatingChatbot />
     </div>

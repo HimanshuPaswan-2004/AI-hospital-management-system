@@ -2,10 +2,11 @@
 @plugin "@tailwindcss/typography";
 
 :root {
-  --primary-color: #0f766e;
+  --primary-color: #2563eb; /* blue-600 */
   --bg-color: #f8fafc;
   --text-color: #0f172a;
 }
+
 
 body {
   margin: 0;
@@ -65,13 +66,23 @@ code {
 }
 
 @keyframes shimmer {
-  0% { transform: translateX(-100%); }
-  100% { transform: translateX(200%); }
+  0% {
+    transform: translateX(-100%);
+  }
+
+  100% {
+    transform: translateX(200%);
+  }
 }
 
 @keyframes spin-slow {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 .animate-spin-slow {
