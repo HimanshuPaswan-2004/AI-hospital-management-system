@@ -19,6 +19,18 @@ import Prescriptions from './pages/Patient/Prescriptions.jsx';
 import HealthSummary from './pages/Patient/HealthSummary.jsx';
 import Messages from './pages/Patient/Messages.jsx';
 
+// Doctor Pages
+import DoctorDashboard from './pages/Doctor/DoctorDashboard.jsx';
+import DoctorAppointments from './pages/Doctor/DoctorAppointments.jsx';
+import DoctorPatients from './pages/Doctor/DoctorPatients.jsx';
+import DoctorSchedule from './pages/Doctor/DoctorSchedule.jsx';
+import DoctorPrescriptions from './pages/Doctor/DoctorPrescriptions.jsx';
+import DoctorReports from './pages/Doctor/DoctorReports.jsx';
+import DoctorAIAssistant from './pages/Doctor/DoctorAIAssistant.jsx';
+import DoctorMessages from './pages/Doctor/DoctorMessages.jsx';
+import DoctorProfile from './pages/Doctor/DoctorProfile.jsx';
+import DoctorSettings from './pages/Doctor/DoctorSettings.jsx';
+
 // AI Assistant Suite
 import AIAssistantHome from './pages/Patient/AIAssistantHome.jsx';
 import AISymptomChecker from './pages/Patient/AISymptomChecker.jsx';
@@ -53,6 +65,18 @@ function App() {
           <Route path="/patient/messages" element={<Messages />} />
           <Route path="/patient/profile" element={<Profile />} />
           <Route path="/patient/settings" element={<Settings />} />
+
+          {/* Doctor Routes */}
+          <Route path="/doctor/dashboard" element={<DoctorDashboard />} />
+          <Route path="/doctor/appointments" element={<DoctorAppointments />} />
+          <Route path="/doctor/patients" element={<DoctorPatients />} />
+          <Route path="/doctor/schedule" element={<DoctorSchedule />} />
+          <Route path="/doctor/prescriptions" element={<DoctorPrescriptions />} />
+          <Route path="/doctor/reports" element={<DoctorReports />} />
+          <Route path="/doctor/ai-assistant" element={<DoctorAIAssistant />} />
+          <Route path="/doctor/messages" element={<DoctorMessages />} />
+          <Route path="/doctor/profile" element={<DoctorProfile />} />
+          <Route path="/doctor/settings" element={<DoctorSettings />} />
 
           {/* AI Assistant Suite */}
           <Route path="/patient/ai-assistant" element={<AIAssistantHome />} />

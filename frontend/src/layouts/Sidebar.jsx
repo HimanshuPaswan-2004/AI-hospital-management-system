@@ -10,7 +10,10 @@ import {
   User, 
   Settings, 
   LogOut,
-  ShieldPlus
+  ShieldPlus,
+  Users,
+  Clock,
+  ClipboardList
 } from 'lucide-react';
 import useAuthStore from '../store/authStore';
 
@@ -26,11 +29,23 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
       { name: 'Appointments', icon: Calendar, path: '/patient/appointments' },
       { name: 'AI Assistant', icon: Bot, path: '/patient/ai-assistant' },
       { name: 'Medical Records', icon: FileText, path: '/patient/records' },
-      { name: 'Prescriptions', icon: Pill, path: '/patient/prescriptions' }, // Placeholder path
-      { name: 'Health Summary', icon: Activity, path: '/patient/health-summary' }, // Placeholder path
-      { name: 'Messages', icon: MessageSquare, path: '/patient/messages' }, // Placeholder path
+      { name: 'Prescriptions', icon: Pill, path: '/patient/prescriptions' },
+      { name: 'Health Summary', icon: Activity, path: '/patient/health-summary' },
+      { name: 'Messages', icon: MessageSquare, path: '/patient/messages' },
       { name: 'Profile', icon: User, path: '/patient/profile' },
       { name: 'Settings', icon: Settings, path: '/patient/settings' },
+    ],
+    DOCTOR: [
+      { name: 'Dashboard', icon: LayoutDashboard, path: '/doctor/dashboard' },
+      { name: 'Appointments', icon: Calendar, path: '/doctor/appointments' },
+      { name: 'Patients', icon: Users, path: '/doctor/patients' },
+      { name: 'My Schedule', icon: Clock, path: '/doctor/schedule' },
+      { name: 'Prescriptions', icon: Pill, path: '/doctor/prescriptions' },
+      { name: 'Reports', icon: ClipboardList, path: '/doctor/reports' },
+      { name: 'AI Assistant', icon: Bot, path: '/doctor/ai-assistant' },
+      { name: 'Messages', icon: MessageSquare, path: '/doctor/messages' },
+      { name: 'Profile', icon: User, path: '/doctor/profile' },
+      { name: 'Settings', icon: Settings, path: '/doctor/settings' },
     ]
   };
 

@@ -64,3 +64,116 @@ export const getDoctors = async (req, res, next) => {
     next(error);
   }
 };
+
+// @desc    Get dashboard aggregate stats for the doctor
+// @route   GET /api/doctors/dashboard
+// @access  Private (Doctors only)
+export const getDashboardStats = async (req, res, next) => {
+  try {
+    if (req.user.role !== 'DOCTOR') {
+      res.status(403);
+      throw new Error('Only doctors can access this resource');
+    }
+
+    const doctorId = req.user.id;
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    // 1. Today's Appointments
+    const todaysAppointmentsCount = await prisma.appointment.count({
+      where: {
+        doctorId,
+        appointmentDate: {
+          gte: today,
+          lt: new Date(today.getTime() + 24 * 60 * 60 * 1000)
+        }
+      }
+    });
+
+    // 2. Total Patients (Unique patients who have an appointment with this doctor)
+    // Prisma doesn't support distinct count easily with relations, so we fetch distinct patientIds
+    const uniquePatients = await prisma.appointment.findMany({
+      where: { doctorId },
+      select: { patientId: true },
+      distinct: ['patientId']
+    });
+    const totalPatientsCount = uniquePatients.length;
+
+    // 3. Pending Reports (For simplicity, count of all LabReports of these unique patients)
+    const patientIds = uniquePatients.map(p => p.patientId);
+    const pendingReportsCount = await prisma.labReport.count({
+      where: {
+        patientId: { in: patientIds }
+      }
+    });
+
+    // 4. Consultations (Completed appointments)
+    const consultationsCount = await prisma.appointment.count({
+      where: {
+        doctorId,
+        status: 'COMPLETED'
+      }
+    });
+
+    res.json({
+      todaysAppointments: todaysAppointmentsCount,
+      totalPatients: totalPatientsCount,
+      pendingReports: pendingReportsCount,
+      consultations: consultationsCount
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+// @desc    Get all unique patients for the doctor
+// @route   GET /api/doctors/patients
+// @access  Private (Doctors only)
+export const getDoctorPatients = async (req, res, next) => {
+  try {
+    if (req.user.role !== 'DOCTOR') {
+      res.status(403);
+      throw new Error('Only doctors can access this resource');
+    }
+
+    const doctorId = req.user.id;
+
+    // Fetch appointments to get distinct patients, including their latest appointment
+    const appointments = await prisma.appointment.findMany({
+      where: { doctorId },
+      include: {
+        patient: {
+          select: {
+            id: true,
+            firstName: true,
+            lastName: true,
+            email: true,
+            phone: true,
+            patientProfile: true
+          }
+        }
+      },
+      orderBy: {
+        appointmentDate: 'desc'
+      }
+    });
+
+    // Extract unique patients and keep the most recent appointment date as lastVisit
+    const patientMap = new Map();
+    
+    appointments.forEach(apt => {
+      if (!patientMap.has(apt.patient.id)) {
+        patientMap.set(apt.patient.id, {
+          ...apt.patient,
+          lastVisit: apt.appointmentDate
+        });
+      }
+    });
+
+    const patients = Array.from(patientMap.values());
+
+    res.json(patients);
+  } catch (error) {
+    next(error);
+  }
+};

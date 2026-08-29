@@ -110,12 +110,22 @@ export const getDoctorSchedule = async (req, res, next) => {
       throw new Error('Only doctors can view their schedule');
     }
 
+    const { date } = req.query;
+    let dateFilter = { gte: startOfDay(new Date()) }; // Default: today and future
+
+    if (date) {
+      const queryDate = new Date(date);
+      dateFilter = {
+        gte: startOfDay(queryDate),
+        lte: endOfDay(queryDate),
+      };
+    }
+
     const appointments = await prisma.appointment.findMany({
       where: {
         doctorId: req.user.id,
-        appointmentDate: {
-          gte: startOfDay(new Date()) // Only fetch today and future appointments
-        }
+        appointmentDate: dateFilter,
+        status: { not: 'CANCELLED' } // Usually don't show cancelled on schedule
       },
       include: {
         patient: {

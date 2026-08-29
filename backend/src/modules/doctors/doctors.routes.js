@@ -1,10 +1,11 @@
 import express from 'express';
-import { getDoctors } from './doctors.controller.js';
+import { getDoctors, getDashboardStats, getDoctorPatients } from './doctors.controller.js';
 import { protect } from '../../middleware/authMiddleware.js';
 
 const router = express.Router();
 
-// Allow authenticated users to view the doctor directory
 router.get('/', protect, getDoctors);
+router.get('/dashboard', protect, getDashboardStats);
+router.get('/patients', protect, getDoctorPatients);
 
 export default router;
