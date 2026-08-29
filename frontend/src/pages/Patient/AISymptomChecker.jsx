@@ -1,19 +1,38 @@
 import { useState } from 'react';
 import { ClipboardList, ShieldCheck, AlertCircle, Activity, ChevronRight, CheckCircle2, ShieldAlert, HeartPulse, Microscope } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
+import useAuthStore from '../../store/authStore';
 
 const AISymptomChecker = () => {
   const [isAnalyzed, setIsAnalyzed] = useState(false);
   const [isAnalyzing, setIsAnalyzing] = useState(false);
+  const [symptoms, setSymptoms] = useState('');
+  const [resultData, setResultData] = useState(null);
+  const { user } = useAuthStore();
 
-  const handleAnalyze = (e) => {
+  const handleAnalyze = async (e) => {
     e.preventDefault();
+    if (!symptoms.trim()) return;
+    
     setIsAnalyzing(true);
-    // Simulate API call
-    setTimeout(() => {
-      setIsAnalyzing(false);
+    try {
+      const config = {
+        headers: { Authorization: `Bearer ${user?.token}` }
+      };
+      const { data } = await axios.post(
+        `${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api/ai/symptom-checker`, 
+        { symptoms }, 
+        config
+      );
+      setResultData(data);
       setIsAnalyzed(true);
-    }, 1500);
+    } catch (error) {
+      console.error(error);
+      alert('Failed to analyze symptoms. Please try again.');
+    } finally {
+      setIsAnalyzing(false);
+    }
   };
 
   if (isAnalyzed) {
@@ -41,24 +60,17 @@ const AISymptomChecker = () => {
                     Possible Conditions
                  </h2>
                  <div className="space-y-3">
-                    <div className="flex justify-between items-center p-3 rounded-xl bg-slate-50 border border-slate-100">
-                       <div className="flex items-center gap-3">
-                          <div className="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center text-blue-600">
-                             <HeartPulse size={16} />
-                          </div>
-                          <span className="font-bold text-slate-700 text-sm">Viral Infection</span>
-                       </div>
-                       <span className="text-xs font-bold text-slate-500">High Possibility</span>
-                    </div>
-                    <div className="flex justify-between items-center p-3 rounded-xl bg-slate-50 border border-slate-100">
-                       <div className="flex items-center gap-3">
-                          <div className="w-8 h-8 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-600">
-                             <HeartPulse size={16} />
-                          </div>
-                          <span className="font-bold text-slate-700 text-sm">Influenza</span>
-                       </div>
-                       <span className="text-xs font-bold text-slate-500">Moderate Possibility</span>
-                    </div>
+                    {resultData?.possibleConditions?.map((condition, idx) => (
+                      <div key={idx} className="flex justify-between items-center p-3 rounded-xl bg-slate-50 border border-slate-100">
+                         <div className="flex items-center gap-3">
+                            <div className={`w-8 h-8 rounded-full flex items-center justify-center ${idx === 0 ? 'bg-blue-100 text-blue-600' : 'bg-indigo-100 text-indigo-600'}`}>
+                               <HeartPulse size={16} />
+                            </div>
+                            <span className="font-bold text-slate-700 text-sm">{condition.name}</span>
+                         </div>
+                         <span className="text-xs font-bold text-slate-500">{condition.probability}</span>
+                      </div>
+                    ))}
                  </div>
               </div>
 
@@ -67,14 +79,14 @@ const AISymptomChecker = () => {
                  <div className="pro-card p-6">
                     <h2 className="text-[13px] font-bold text-slate-500 mb-2">Severity</h2>
                     <div className="flex items-center gap-2">
-                       <AlertCircle size={20} className="text-amber-500" />
-                       <span className="font-bold text-amber-500 text-lg">Moderate</span>
+                       <AlertCircle size={20} className={`${resultData?.severity?.toLowerCase().includes('high') || resultData?.severity?.toLowerCase().includes('severe') ? 'text-rose-500' : 'text-amber-500'}`} />
+                       <span className={`font-bold text-lg ${resultData?.severity?.toLowerCase().includes('high') || resultData?.severity?.toLowerCase().includes('severe') ? 'text-rose-500' : 'text-amber-500'}`}>{resultData?.severity || 'Moderate'}</span>
                     </div>
                  </div>
                  <div className="pro-card p-6">
                     <h2 className="text-[13px] font-bold text-slate-500 mb-2">Recommended Dept</h2>
                     <div className="flex items-center gap-2">
-                       <span className="font-bold text-blue-600 text-sm">General Medicine</span>
+                       <span className="font-bold text-blue-600 text-sm">{resultData?.recommendedDepartment || 'General Medicine'}</span>
                     </div>
                  </div>
               </div>
@@ -86,8 +98,9 @@ const AISymptomChecker = () => {
                     Recommended Tests
                  </h2>
                  <ul className="space-y-2">
-                   <li className="flex items-center gap-2 text-sm font-medium text-slate-600"><div className="w-1.5 h-1.5 rounded-full bg-slate-300"></div> CBC</li>
-                   <li className="flex items-center gap-2 text-sm font-medium text-slate-600"><div className="w-1.5 h-1.5 rounded-full bg-slate-300"></div> Temperature Monitoring</li>
+                   {resultData?.recommendedTests?.map((test, idx) => (
+                     <li key={idx} className="flex items-center gap-2 text-sm font-medium text-slate-600"><div className="w-1.5 h-1.5 rounded-full bg-slate-300"></div> {test}</li>
+                   ))}
                  </ul>
               </div>
            </div>
@@ -101,14 +114,12 @@ const AISymptomChecker = () => {
                     Warning Signs
                  </h2>
                  <ul className="space-y-3">
-                   <li className="flex items-start gap-2 text-sm font-medium text-rose-700">
-                      <AlertCircle size={16} className="text-rose-500 mt-0.5 shrink-0" />
-                      Difficulty Breathing
-                   </li>
-                   <li className="flex items-start gap-2 text-sm font-medium text-rose-700">
-                      <AlertCircle size={16} className="text-rose-500 mt-0.5 shrink-0" />
-                      Severe Weakness
-                   </li>
+                   {resultData?.warningSigns?.map((warning, idx) => (
+                     <li key={idx} className="flex items-start gap-2 text-sm font-medium text-rose-700">
+                        <AlertCircle size={16} className="text-rose-500 mt-0.5 shrink-0" />
+                        {warning}
+                     </li>
+                   ))}
                  </ul>
               </div>
 
@@ -119,18 +130,12 @@ const AISymptomChecker = () => {
                     What You Can Do
                  </h2>
                  <ul className="space-y-3">
-                   <li className="flex items-start gap-2 text-sm font-medium text-emerald-700">
-                      <CheckCircle2 size={16} className="text-emerald-500 mt-0.5 shrink-0" />
-                      Rest and stay hydrated
-                   </li>
-                   <li className="flex items-start gap-2 text-sm font-medium text-emerald-700">
-                      <CheckCircle2 size={16} className="text-emerald-500 mt-0.5 shrink-0" />
-                      Take plenty of fluids
-                   </li>
-                   <li className="flex items-start gap-2 text-sm font-medium text-emerald-700">
-                      <CheckCircle2 size={16} className="text-emerald-500 mt-0.5 shrink-0" />
-                      Consult a doctor if symptoms worsen
-                   </li>
+                   {resultData?.actions?.map((action, idx) => (
+                     <li key={idx} className="flex items-start gap-2 text-sm font-medium text-emerald-700">
+                        <CheckCircle2 size={16} className="text-emerald-500 mt-0.5 shrink-0" />
+                        {action}
+                     </li>
+                   ))}
                  </ul>
               </div>
 
@@ -183,6 +188,8 @@ const AISymptomChecker = () => {
             <textarea
               className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-100 focus:border-blue-500 transition-all min-h-[120px] resize-none placeholder-slate-400"
               placeholder="Fever, headache, cough..."
+              value={symptoms}
+              onChange={(e) => setSymptoms(e.target.value)}
               required
             ></textarea>
           </div>

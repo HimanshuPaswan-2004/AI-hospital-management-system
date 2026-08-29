@@ -1,11 +1,24 @@
-import { useState } from 'react';
-import { Send, Bot, User, MessageSquare, Search, FileText, Building } from 'lucide-react';
+import { useState, useRef, useEffect } from 'react';
+import { Send, Bot, User, MessageSquare, Search, FileText, Building, Loader2 } from 'lucide-react';
+import axios from 'axios';
+import useAuthStore from '../../store/authStore';
 
 const AIChatbot = () => {
   const [messages, setMessages] = useState([
     { id: 1, type: 'bot', text: 'Hello! I\'m your AI health assistant. How can I help you today?' }
   ]);
   const [inputValue, setInputValue] = useState('');
+  const [isTyping, setIsTyping] = useState(false);
+  const messagesEndRef = useRef(null);
+  const { user } = useAuthStore();
+  
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [messages, isTyping]);
   
   const quickQuestions = [
     { text: 'How to book an appointment?', icon: MessageSquare },
@@ -14,28 +27,40 @@ const AIChatbot = () => {
     { text: 'Hospital services', icon: Building }
   ];
 
-  const handleSend = (e) => {
-    e.preventDefault();
+  const handleSend = async (e) => {
+    if (e) e.preventDefault();
     if (!inputValue.trim()) return;
     
-    // Add user message
-    const userMsg = { id: messages.length + 1, type: 'user', text: inputValue };
-    setMessages([...messages, userMsg]);
+    const userText = inputValue;
+    const userMsg = { id: messages.length + 1, type: 'user', text: userText };
+    setMessages(prev => [...prev, userMsg]);
     setInputValue('');
+    setIsTyping(true);
     
-    // Simulate bot response
-    setTimeout(() => {
-      let botResponse = "I'm a demo bot, but I can help you with medical questions soon!";
-      if (inputValue.toLowerCase().includes('book') || inputValue.toLowerCase().includes('appointment')) {
-         botResponse = "You can book an appointment by selecting a department, doctor and available date and time slots.";
-      }
-      setMessages(prev => [...prev, { id: prev.length + 1, type: 'bot', text: botResponse }]);
-    }, 1000);
+    try {
+      const config = {
+        headers: { Authorization: `Bearer ${user?.token}` }
+      };
+      
+      const history = messages.map(m => ({ role: m.type, text: m.text }));
+      
+      const { data } = await axios.post(
+        `${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api/ai/chat`,
+        { message: userText, history },
+        config
+      );
+      
+      setMessages(prev => [...prev, { id: prev.length + 1, type: 'bot', text: data.reply }]);
+    } catch (error) {
+      console.error(error);
+      setMessages(prev => [...prev, { id: prev.length + 1, type: 'bot', text: "I'm sorry, I encountered an error. Please try again." }]);
+    } finally {
+      setIsTyping(false);
+    }
   };
   
   const handleQuickQuestion = (text) => {
     setInputValue(text);
-    // Optionally auto-send
   };
 
   return (
@@ -74,7 +99,7 @@ const AIChatbot = () => {
                     <div className={`w-10 h-10 rounded-full flex items-center justify-center shrink-0 shadow-sm ${msg.type === 'bot' ? 'bg-blue-600 text-white' : 'bg-slate-800 text-white'}`}>
                        {msg.type === 'bot' ? <Bot size={20} /> : <User size={20} />}
                     </div>
-                    <div className={`p-4 rounded-2xl text-[15px] leading-relaxed shadow-sm ${
+                    <div className={`p-4 rounded-2xl text-[15px] leading-relaxed shadow-sm whitespace-pre-wrap ${
                       msg.type === 'user' 
                         ? 'bg-blue-600 text-white rounded-tr-sm' 
                         : 'bg-slate-50 border border-slate-100 text-slate-700 rounded-tl-sm'
@@ -83,6 +108,20 @@ const AIChatbot = () => {
                     </div>
                  </div>
                ))}
+               
+               {isTyping && (
+                 <div className="flex gap-4 max-w-[80%]">
+                    <div className="w-10 h-10 rounded-full flex items-center justify-center shrink-0 shadow-sm bg-blue-600 text-white">
+                       <Bot size={20} />
+                    </div>
+                    <div className="p-4 rounded-2xl bg-slate-50 border border-slate-100 rounded-tl-sm flex items-center gap-1.5">
+                       <div className="w-2 h-2 bg-blue-400 rounded-full animate-bounce"></div>
+                       <div className="w-2 h-2 bg-blue-400 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
+                       <div className="w-2 h-2 bg-blue-400 rounded-full animate-bounce" style={{ animationDelay: '0.4s' }}></div>
+                    </div>
+                 </div>
+               )}
+               <div ref={messagesEndRef} />
             </div>
 
             {/* Input Area */}
@@ -97,10 +136,10 @@ const AIChatbot = () => {
                  />
                  <button 
                    type="submit"
-                   disabled={!inputValue.trim()}
+                   disabled={!inputValue.trim() || isTyping}
                    className="absolute right-2 w-10 h-10 bg-blue-600 hover:bg-blue-700 disabled:opacity-50 text-white rounded-full flex items-center justify-center shadow-md transition-all"
                  >
-                   <Send size={18} className="ml-1" />
+                   {isTyping ? <Loader2 size={18} className="animate-spin" /> : <Send size={18} className="ml-1" />}
                  </button>
                </form>
             </div>

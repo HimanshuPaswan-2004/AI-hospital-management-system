@@ -37,10 +37,11 @@ const Register = () => {
 
     const payload = {
       firstName: formData.firstName || formData.fullName?.split(' ')[0] || 'User',
-      lastName: formData.lastName || formData.fullName?.split(' ').slice(1).join(' ') || '',
+      lastName: formData.lastName || formData.fullName?.split(' ').slice(1).join(' ') || '.',
       email: formData.email,
       password: formData.password,
-      role: formData.role
+      role: formData.role,
+      phone: formData.phone || ''
     };
 
     const success = await register(payload);
