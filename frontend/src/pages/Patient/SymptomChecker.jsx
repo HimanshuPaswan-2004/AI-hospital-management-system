@@ -48,7 +48,7 @@ const SymptomChecker = () => {
       <div className="max-w-6xl mx-auto relative z-10 space-y-8">
         
         {/* Header */}
-        <div className="flex items-center gap-4 bg-white/60 backdrop-blur-md p-4 rounded-3xl border border-white/50 shadow-sm">
+        <div className="flex items-center gap-4   p-4 rounded-3xl border border-slate-200 shadow-sm">
           <Link to="/patient/appointments" className="p-3 bg-white rounded-2xl shadow-sm hover:shadow-md hover:bg-gray-50 transition-all text-gray-600 hover:text-teal-600 group">
             <ArrowLeft size={20} className="group-hover:-translate-x-1 transition-transform" />
           </Link>
@@ -65,7 +65,7 @@ const SymptomChecker = () => {
           
           {/* Input Section */}
           <div className="lg:col-span-5 space-y-6">
-            <div className="bg-white/80 backdrop-blur-xl p-8 rounded-[2rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-white">
+            <div className="  p-8 rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-slate-200">
               <div className="flex items-center gap-3 mb-6">
                 <div className="p-3 bg-teal-50 text-teal-600 rounded-2xl">
                   <Activity size={24} />
@@ -142,7 +142,7 @@ const SymptomChecker = () => {
             )}
 
             {!result && !loading && !error && (
-              <div className="h-full bg-white/40 backdrop-blur-sm border-2 border-dashed border-gray-200 rounded-[2rem] flex flex-col items-center justify-center p-12 text-center">
+              <div className="h-full   border-2 border-dashed border-gray-200 rounded-2xl flex flex-col items-center justify-center p-12 text-center">
                 <div className="relative">
                   <div className="absolute inset-0 bg-teal-100 rounded-full blur-xl opacity-60 animate-pulse"></div>
                   <Bot size={64} className="text-teal-300 relative z-10 mb-6 mx-auto" />
@@ -153,7 +153,7 @@ const SymptomChecker = () => {
             )}
 
             {loading && (
-              <div className="h-full bg-white/60 backdrop-blur-md border border-white rounded-[2rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)] flex flex-col items-center justify-center p-12">
+              <div className="h-full   border border-slate-200 rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] flex flex-col items-center justify-center p-12">
                 <div className="relative flex items-center justify-center mb-8">
                   <div className="absolute w-24 h-24 border-4 border-teal-100 rounded-full animate-ping opacity-75"></div>
                   <div className="absolute w-20 h-20 border-4 border-sky-200 rounded-full animate-spin" style={{ animationDuration: '3s' }}></div>
@@ -167,7 +167,7 @@ const SymptomChecker = () => {
             )}
 
             {result && !loading && (
-              <div className="bg-white/90 backdrop-blur-xl border border-white rounded-[2rem] shadow-[0_20px_50px_rgb(0,0,0,0.05)] overflow-hidden animate-[fadeInUp_0.5s_ease-out]">
+              <div className="  border border-slate-200 rounded-2xl shadow-[0_20px_50px_rgb(0,0,0,0.05)] overflow-hidden animate-[fadeInUp_0.5s_ease-out]">
                 <div className="bg-gradient-to-r from-blue-50 to-indigo-50 border-b border-teal-100/50 p-6 flex items-center gap-4">
                   <div className="p-3 bg-white rounded-2xl shadow-sm text-teal-600">
                     <Stethoscope size={28} />

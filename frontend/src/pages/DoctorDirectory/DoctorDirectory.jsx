@@ -52,7 +52,7 @@ const DoctorDirectory = () => {
       </div>
 
       {/* Search and Filter */}
-      <div className="bg-white/60 backdrop-blur-xl p-6 rounded-[2rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-white mb-8 flex flex-col md:flex-row gap-5 relative z-10">
+      <div className="  p-6 rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-slate-200 mb-8 flex flex-col md:flex-row gap-5 relative z-10">
         <form onSubmit={handleSearchSubmit} className="flex-1 relative group">
           <div className="absolute inset-y-0 left-0 pl-5 flex items-center pointer-events-none text-slate-400 group-focus-within:text-teal-500 transition-colors">
             <Search className="h-5 w-5" />
@@ -89,7 +89,7 @@ const DoctorDirectory = () => {
           <div className="animate-spin rounded-full h-16 w-16 border-4 border-teal-100 border-t-blue-600"></div>
         </div>
       ) : doctors.length === 0 ? (
-        <div className="text-center py-24 bg-white/60 backdrop-blur-xl rounded-[2rem] border border-white shadow-sm relative z-10">
+        <div className="text-center py-24   rounded-2xl border border-slate-200 shadow-sm relative z-10">
           <div className="w-24 h-24 bg-slate-100 rounded-full flex items-center justify-center mx-auto mb-6">
             <Stethoscope className="h-10 w-10 text-slate-400" />
           </div>
@@ -99,14 +99,14 @@ const DoctorDirectory = () => {
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8 relative z-10">
           {doctors.map((doctor, idx) => (
-            <div key={doctor.id} className="glass-card rounded-[2rem] overflow-hidden group hover:shadow-2xl hover:shadow-teal-900/10 transition-all duration-300" style={{ animationDelay: `${idx * 100}ms` }}>
+            <div key={doctor.id} className="pro-card rounded-2xl overflow-hidden group hover:shadow-2xl hover:shadow-teal-900/10 transition-all duration-300" style={{ animationDelay: `${idx * 100}ms` }}>
               <div className="p-8">
                 <div className="flex items-start gap-5 mb-6">
                   <div className="relative">
-                    <div className="w-20 h-20 bg-gradient-to-br from-blue-100 to-indigo-100 border-2 border-white text-teal-600 rounded-2xl flex items-center justify-center text-3xl font-extrabold uppercase shadow-sm group-hover:scale-105 transition-transform duration-300">
+                    <div className="w-20 h-20 bg-gradient-to-br from-blue-100 to-indigo-100 border border-slate-200 text-teal-600 rounded-2xl flex items-center justify-center text-3xl font-extrabold uppercase shadow-sm group-hover:scale-105 transition-transform duration-300">
                       {doctor.firstName.charAt(0)}
                     </div>
-                    <div className="absolute -bottom-2 -right-2 w-6 h-6 bg-green-500 border-2 border-white rounded-full"></div>
+                    <div className="absolute -bottom-2 -right-2 w-6 h-6 bg-green-500 border border-slate-200 rounded-full"></div>
                   </div>
                   <div className="pt-2">
                     <h3 className="text-xl font-bold text-slate-900 group-hover:text-teal-600 transition-colors">Dr. {doctor.firstName} {doctor.lastName}</h3>

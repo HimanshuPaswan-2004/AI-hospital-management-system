@@ -65,7 +65,7 @@ const PharmacyDashboard = () => {
 
   return (
     <div className="space-y-8 animate-[fadeInUp_0.4s_ease-out]">
-      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-white/60 backdrop-blur-xl p-6 rounded-[2rem] border border-white shadow-sm">
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4   p-6 rounded-2xl border border-slate-200 shadow-sm">
         <div>
           <h2 className="text-3xl font-extrabold text-slate-800 flex items-center gap-3 tracking-tight">
             <div className="p-3 bg-gradient-to-tr from-blue-500 to-indigo-500 rounded-2xl shadow-lg shadow-teal-500/30 text-white">
@@ -85,7 +85,7 @@ const PharmacyDashboard = () => {
       </div>
 
       {showAddForm && (
-        <form onSubmit={handleAddSubmit} className="glass-card p-8 rounded-[2rem] grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 animate-[fadeInUp_0.3s_ease-out]">
+        <form onSubmit={handleAddSubmit} className="pro-card p-8 rounded-2xl grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 animate-[fadeInUp_0.3s_ease-out]">
           <div className="space-y-1">
             <label className="text-xs font-bold text-slate-500 uppercase tracking-wider ml-1">Medicine Name</label>
             <input required type="text" placeholder="e.g. Paracetamol 500mg" className="w-full p-4 bg-slate-50/50 border-2 border-slate-100 rounded-2xl focus:outline-none focus:border-teal-400 focus:bg-white transition-all font-medium" value={newMedicine.name} onChange={e => setNewMedicine({...newMedicine, name: e.target.value})} />
@@ -112,7 +112,7 @@ const PharmacyDashboard = () => {
         </form>
       )}
 
-      <div className="bg-white/80 backdrop-blur-xl rounded-[2rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-white overflow-hidden">
+      <div className="  rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-slate-200 overflow-hidden">
         <div className="overflow-x-auto custom-scrollbar">
           <table className="w-full text-left border-collapse whitespace-nowrap">
             <thead>
@@ -127,7 +127,7 @@ const PharmacyDashboard = () => {
             <tbody className="divide-y divide-slate-100/50">
               {medicines.length === 0 ? (
                 <tr>
-                  <td colSpan="5" className="p-12 text-center text-slate-400 font-medium bg-white/40">No medicines in inventory yet.</td>
+                  <td colSpan="5" className="p-12 text-center text-slate-400 font-medium ">No medicines in inventory yet.</td>
                 </tr>
               ) : medicines.map((med, index) => (
                 <tr key={med.id} className="hover:bg-teal-50/30 transition-colors group">

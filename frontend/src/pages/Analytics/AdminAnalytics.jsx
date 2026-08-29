@@ -122,7 +122,7 @@ const AdminAnalytics = () => {
 
   if (error) {
     return (
-      <div className="p-6 bg-red-50/80 backdrop-blur-sm border border-red-200 text-red-700 rounded-2xl shadow-sm flex items-center gap-3 max-w-2xl mx-auto mt-10">
+      <div className="p-6 bg-red-50/80  border border-red-200 text-red-700 rounded-2xl shadow-sm flex items-center gap-3 max-w-2xl mx-auto mt-10">
         <div className="p-3 bg-red-100 rounded-full"><Activity className="w-6 h-6" /></div>
         <div>
           <h3 className="font-bold text-lg">Error Loading Data</h3>
@@ -157,7 +157,7 @@ const AdminAnalytics = () => {
           </p>
         </div>
         <div className="flex gap-3">
-          <div className="bg-white/80 backdrop-blur-md px-5 py-2.5 rounded-2xl shadow-[0_2px_10px_-3px_rgba(6,81,237,0.1)] border border-slate-100 text-sm font-semibold text-slate-700 flex items-center gap-2 transition-all hover:shadow-md">
+          <div className="  px-5 py-2.5 rounded-2xl shadow-[0_2px_10px_-3px_rgba(6,81,237,0.1)] border border-slate-100 text-sm font-semibold text-slate-700 flex items-center gap-2 transition-all hover:shadow-md">
             <span className="relative flex h-3 w-3">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
               <span className="relative inline-flex rounded-full h-3 w-3 bg-emerald-500"></span>
@@ -267,7 +267,7 @@ const AdminAnalytics = () => {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 relative z-10">
         
         {/* Revenue Bar Chart */}
-        <div className="bg-white p-6 md:p-8 rounded-[2rem] border border-slate-100 shadow-[0_8px_30px_rgb(0,0,0,0.04)] lg:col-span-2">
+        <div className="bg-white p-6 md:p-8 rounded-2xl border border-slate-100 shadow-[0_8px_30px_rgb(0,0,0,0.04)] lg:col-span-2">
           <div className="flex justify-between items-center mb-8">
             <div>
               <h3 className="text-xl font-bold text-slate-800">Revenue Trajectory</h3>
@@ -327,7 +327,7 @@ const AdminAnalytics = () => {
         </div>
 
         {/* Appointments Interactive Donut Chart */}
-        <div className="bg-white p-6 md:p-8 rounded-[2rem] border border-slate-100 shadow-[0_8px_30px_rgb(0,0,0,0.04)] flex flex-col">
+        <div className="bg-white p-6 md:p-8 rounded-2xl border border-slate-100 shadow-[0_8px_30px_rgb(0,0,0,0.04)] flex flex-col">
           <div>
             <h3 className="text-xl font-bold text-slate-800">Status Distribution</h3>
             <p className="text-sm font-medium text-slate-400 mt-1">Appointments breakdown</p>

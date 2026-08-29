@@ -59,7 +59,7 @@ const DoctorDashboard = () => {
   const upcomingAppointments = appointments.filter(app => app.appointmentDate.split('T')[0] > today);
 
   const renderAppointmentCard = (app) => (
-    <div key={app.id} className="glass-card rounded-[2rem] p-6 flex flex-col group hover:shadow-2xl hover:shadow-teal-900/10 transition-all duration-300">
+    <div key={app.id} className="pro-card rounded-2xl p-6 flex flex-col group hover:shadow-2xl hover:shadow-teal-900/10 transition-all duration-300">
       <div className="flex justify-between items-start mb-6 gap-3">
         <div className="flex items-center gap-4 overflow-hidden">
           <div className="shrink-0 w-14 h-14 bg-gradient-to-br from-blue-100 to-indigo-100 text-teal-600 rounded-2xl flex items-center justify-center font-extrabold text-xl shadow-sm group-hover:scale-105 transition-transform">
@@ -139,7 +139,7 @@ const DoctorDashboard = () => {
       
       {/* Quick Stats */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-        <div className="glass-card p-6 rounded-3xl border border-white/50 shadow-[0_8px_30px_rgba(0,0,0,0.04)] hover:-translate-y-1 hover:shadow-xl hover:shadow-teal-500/10 transition-all group">
+        <div className="pro-card p-6 rounded-3xl border border-slate-200 shadow-[0_8px_30px_rgba(0,0,0,0.04)] hover:-translate-y-1 hover:shadow-xl hover:shadow-teal-500/10 transition-all group">
           <div className="w-12 h-12 bg-teal-50 rounded-2xl flex items-center justify-center mb-4 group-hover:scale-110 group-hover:rotate-3 transition-transform">
             <User size={24} className="text-teal-500" />
           </div>
@@ -147,7 +147,7 @@ const DoctorDashboard = () => {
           <h3 className="text-3xl font-black text-slate-800">{todayAppointments.length}</h3>
         </div>
         
-        <div className="glass-card p-6 rounded-3xl border border-white/50 shadow-[0_8px_30px_rgba(0,0,0,0.04)] hover:-translate-y-1 hover:shadow-xl hover:shadow-emerald-500/10 transition-all group">
+        <div className="pro-card p-6 rounded-3xl border border-slate-200 shadow-[0_8px_30px_rgba(0,0,0,0.04)] hover:-translate-y-1 hover:shadow-xl hover:shadow-emerald-500/10 transition-all group">
           <div className="w-12 h-12 bg-emerald-50 rounded-2xl flex items-center justify-center mb-4 group-hover:scale-110 group-hover:-rotate-3 transition-transform">
             <CheckCircle size={24} className="text-emerald-500" />
           </div>
@@ -157,7 +157,7 @@ const DoctorDashboard = () => {
           </h3>
         </div>
 
-        <div className="glass-card p-6 rounded-3xl border border-white/50 shadow-[0_8px_30px_rgba(0,0,0,0.04)] hover:-translate-y-1 hover:shadow-xl hover:shadow-amber-500/10 transition-all group">
+        <div className="pro-card p-6 rounded-3xl border border-slate-200 shadow-[0_8px_30px_rgba(0,0,0,0.04)] hover:-translate-y-1 hover:shadow-xl hover:shadow-amber-500/10 transition-all group">
           <div className="w-12 h-12 bg-amber-50 rounded-2xl flex items-center justify-center mb-4 group-hover:scale-110 group-hover:rotate-3 transition-transform">
             <Clock size={24} className="text-amber-500" />
           </div>
@@ -167,7 +167,7 @@ const DoctorDashboard = () => {
           </h3>
         </div>
 
-        <div className="glass-card p-6 rounded-3xl border border-white/50 shadow-[0_8px_30px_rgba(0,0,0,0.04)] hover:-translate-y-1 hover:shadow-xl hover:shadow-sky-500/10 transition-all group relative overflow-hidden">
+        <div className="pro-card p-6 rounded-3xl border border-slate-200 shadow-[0_8px_30px_rgba(0,0,0,0.04)] hover:-translate-y-1 hover:shadow-xl hover:shadow-sky-500/10 transition-all group relative overflow-hidden">
             <div className="absolute -bottom-6 -right-6 w-24 h-24 bg-sky-100 rounded-full blur-2xl opacity-60"></div>
           <div className="w-12 h-12 bg-sky-50 rounded-2xl flex items-center justify-center mb-4 group-hover:scale-110 group-hover:-rotate-3 transition-transform relative z-10">
             <span className="font-bold text-sky-500 text-2xl">₹</span>
@@ -186,7 +186,7 @@ const DoctorDashboard = () => {
           Today's Schedule
         </h2>
         {todayAppointments.length === 0 ? (
-          <div className="bg-white/60 backdrop-blur-xl p-16 rounded-[2.5rem] border border-white text-center shadow-sm relative overflow-hidden">
+          <div className="  p-16 rounded-2xl border border-slate-200 text-center shadow-sm relative overflow-hidden">
             <div className="absolute -top-10 -right-10 w-40 h-40 bg-teal-50 rounded-full blur-3xl opacity-50"></div>
             <div className="w-24 h-24 bg-slate-50 border border-slate-100 rounded-full flex items-center justify-center mx-auto mb-6 relative z-10">
               <Calendar className="h-10 w-10 text-slate-300" />
@@ -210,7 +210,7 @@ const DoctorDashboard = () => {
           Upcoming Appointments
         </h2>
         {upcomingAppointments.length === 0 ? (
-          <div className="bg-white/60 backdrop-blur-xl p-16 rounded-[2.5rem] border border-white text-center shadow-sm relative overflow-hidden">
+          <div className="  p-16 rounded-2xl border border-slate-200 text-center shadow-sm relative overflow-hidden">
             <div className="absolute -top-10 -left-10 w-40 h-40 bg-sky-50 rounded-full blur-3xl opacity-50"></div>
             <div className="w-24 h-24 bg-slate-50 border border-slate-100 rounded-full flex items-center justify-center mx-auto mb-6 relative z-10">
               <Clock className="h-10 w-10 text-slate-300" />

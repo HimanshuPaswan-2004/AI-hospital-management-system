@@ -130,7 +130,7 @@ const PatientDashboard = ({ initialTab = 'appointments' }) => {
           <FileText size={32} className="opacity-80 group-hover:scale-110 transition-transform duration-300" />
         </button>
         <Link to="/patient/symptom-checker" className="p-6 bg-gradient-to-r from-amber-500 to-orange-600 text-white rounded-2xl shadow-md hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex items-center justify-between group relative overflow-hidden">
-          <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full blur-2xl -mr-10 -mt-10 group-hover:bg-white/20 transition-colors"></div>
+          <div className="absolute top-0 right-0 w-32 h-32  rounded-full blur-2xl -mr-10 -mt-10 group-hover:bg-white/20 transition-colors"></div>
           <div className="relative z-10">
             <h3 className="font-bold text-lg tracking-tight flex items-center gap-2">
               AI Assistant <span className="text-[10px] uppercase tracking-widest bg-white/20 px-2 py-0.5 rounded-full">Beta</span>
@@ -143,15 +143,15 @@ const PatientDashboard = ({ initialTab = 'appointments' }) => {
 
       <div className="max-w-7xl mx-auto w-full space-y-6">
         {/* Tabs */}
-        <div className="flex bg-white/60 backdrop-blur-xl p-1.5 rounded-2xl border border-white shadow-sm w-max animate-[fadeInUp_0.4s_ease-out]">
+        <div className="flex   p-1.5 rounded-2xl border border-slate-200 shadow-sm w-max animate-[fadeInUp_0.4s_ease-out]">
           <button
-            className={`py-2.5 px-6 font-bold text-sm rounded-xl transition-all duration-300 ${activeTab === 'appointments' ? 'bg-white text-teal-600 shadow-[0_2px_10px_rgb(0,0,0,0.06)]' : 'bg-transparent text-slate-500 hover:text-slate-800 hover:bg-white/40'}`}
+            className={`py-2.5 px-6 font-bold text-sm rounded-xl transition-all duration-300 ${activeTab === 'appointments' ? 'bg-white text-teal-600 shadow-[0_2px_10px_rgb(0,0,0,0.06)]' : 'bg-transparent text-slate-500 hover:text-slate-800 hover:'}`}
             onClick={() => { setActiveTab('appointments'); navigate('/patient/appointments'); }}
           >
             My Appointments
           </button>
           <button
-            className={`py-2.5 px-6 font-bold text-sm rounded-xl transition-all duration-300 ${activeTab === 'records' ? 'bg-white text-teal-600 shadow-[0_2px_10px_rgb(0,0,0,0.06)]' : 'bg-transparent text-slate-500 hover:text-slate-800 hover:bg-white/40'}`}
+            className={`py-2.5 px-6 font-bold text-sm rounded-xl transition-all duration-300 ${activeTab === 'records' ? 'bg-white text-teal-600 shadow-[0_2px_10px_rgb(0,0,0,0.06)]' : 'bg-transparent text-slate-500 hover:text-slate-800 hover:'}`}
             onClick={() => { setActiveTab('records'); navigate('/patient/records'); }}
           >
             Medical Records
@@ -165,9 +165,9 @@ const PatientDashboard = ({ initialTab = 'appointments' }) => {
           <div className="p-12 text-center text-rose-500 bg-rose-50 rounded-3xl font-bold border border-rose-100"><XCircle className="mx-auto mb-3 h-10 w-10" />{error}</div>
         ) : activeTab === 'appointments' ? (
           appointments.length === 0 ? (
-            <div className="glass-card p-16 rounded-[2rem] text-center shadow-sm border border-white relative overflow-hidden animate-[fadeInUp_0.3s_ease-out]">
+            <div className="pro-card p-16 rounded-2xl text-center shadow-sm border border-slate-200 relative overflow-hidden animate-[fadeInUp_0.3s_ease-out]">
               <div className="absolute top-0 right-0 w-64 h-64 bg-teal-100 rounded-full mix-blend-multiply filter blur-[80px] opacity-50 pointer-events-none"></div>
-              <div className="w-24 h-24 bg-gradient-to-br from-blue-50 to-indigo-50 border-2 border-white rounded-full flex items-center justify-center mx-auto mb-6 shadow-sm relative z-10">
+              <div className="w-24 h-24 bg-gradient-to-br from-blue-50 to-indigo-50 border border-slate-200 rounded-full flex items-center justify-center mx-auto mb-6 shadow-sm relative z-10">
                 <Calendar className="h-10 w-10 text-teal-500" />
               </div>
               <h3 className="text-2xl font-extrabold text-slate-800 mb-2 relative z-10">No Appointments Yet</h3>
@@ -180,7 +180,7 @@ const PatientDashboard = ({ initialTab = 'appointments' }) => {
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 animate-[fadeInUp_0.3s_ease-out]">
               {appointments.map(app => (
-                <div key={app.id} className="glass-card rounded-[2rem] p-6 flex flex-col group hover:shadow-2xl hover:shadow-teal-900/10 transition-all duration-300">
+                <div key={app.id} className="pro-card rounded-2xl p-6 flex flex-col group hover:shadow-2xl hover:shadow-teal-900/10 transition-all duration-300">
                   <div className="flex justify-between items-start mb-6 gap-3">
                     <div className="flex items-center gap-4 overflow-hidden">
                       <div className="shrink-0 w-14 h-14 bg-gradient-to-br from-blue-100 to-indigo-100 text-teal-600 rounded-2xl flex items-center justify-center font-extrabold text-xl shadow-sm group-hover:scale-105 transition-transform">
@@ -224,7 +224,7 @@ const PatientDashboard = ({ initialTab = 'appointments' }) => {
                 My Prescriptions
               </h3>
               {prescriptions.length === 0 ? (
-                <div className="glass-card p-12 rounded-[2rem] text-center border border-white shadow-sm">
+                <div className="pro-card p-12 rounded-2xl text-center border border-slate-200 shadow-sm">
                   <div className="w-16 h-16 bg-slate-100 rounded-full flex items-center justify-center mx-auto mb-4">
                     <FileText className="text-slate-400 h-8 w-8" />
                   </div>
@@ -233,7 +233,7 @@ const PatientDashboard = ({ initialTab = 'appointments' }) => {
               ) : (
                 <div className="grid grid-cols-1 gap-4">
                   {prescriptions.map(pres => (
-                    <div key={pres.id} className="glass-card p-6 rounded-[2rem] border border-white hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group">
+                    <div key={pres.id} className="pro-card p-6 rounded-2xl border border-slate-200 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group">
                       <div className="flex justify-between items-start mb-5">
                         <div className="flex items-center gap-4">
                           <div className="w-12 h-12 bg-gradient-to-br from-purple-100 to-fuchsia-100 text-emerald-600 rounded-xl flex items-center justify-center font-bold text-lg shadow-sm">
@@ -256,7 +256,7 @@ const PatientDashboard = ({ initialTab = 'appointments' }) => {
                         <span className="text-xs font-bold text-slate-400 uppercase tracking-wider block mb-3 ml-1">Medicines</span>
                         <ul className="mt-1 space-y-3">
                           {pres.medicines && pres.medicines.map((med, idx) => (
-                            <li key={idx} className="bg-white/60 p-4 rounded-xl text-sm border border-slate-100 shadow-sm flex flex-col gap-1">
+                            <li key={idx} className=" p-4 rounded-xl text-sm border border-slate-100 shadow-sm flex flex-col gap-1">
                               <div className="flex items-center justify-between">
                                 <span className="font-bold text-slate-800 text-base">{med.name}</span>
                                 <span className="text-xs font-bold bg-slate-100 text-slate-500 px-2 py-1 rounded-lg">{med.duration}</span>
@@ -283,7 +283,7 @@ const PatientDashboard = ({ initialTab = 'appointments' }) => {
               </h3>
 
               {/* Upload Form */}
-              <form onSubmit={handleUploadReport} className="glass-card p-6 rounded-[2rem] border border-white shadow-sm flex flex-col gap-4 relative overflow-hidden">
+              <form onSubmit={handleUploadReport} className="pro-card p-6 rounded-2xl border border-slate-200 shadow-sm flex flex-col gap-4 relative overflow-hidden">
                 <div className="absolute top-0 right-0 w-32 h-32 bg-teal-50 rounded-full mix-blend-multiply filter blur-2xl opacity-60 pointer-events-none"></div>
                 <h4 className="font-bold text-slate-800 flex items-center gap-2 mb-2 relative z-10">
                   <FilePlus size={18} className="text-teal-500" /> Upload New Report
@@ -312,7 +312,7 @@ const PatientDashboard = ({ initialTab = 'appointments' }) => {
 
               {/* List Reports */}
               {labReports.length === 0 ? (
-                <div className="glass-card p-12 rounded-[2rem] text-center border border-white shadow-sm">
+                <div className="pro-card p-12 rounded-2xl text-center border border-slate-200 shadow-sm">
                   <div className="w-16 h-16 bg-slate-100 rounded-full flex items-center justify-center mx-auto mb-4">
                     <Activity className="text-slate-400 h-8 w-8" />
                   </div>
@@ -321,7 +321,7 @@ const PatientDashboard = ({ initialTab = 'appointments' }) => {
               ) : (
                 <div className="grid grid-cols-1 gap-4">
                   {labReports.map(report => (
-                    <div key={report.id} className="glass-card p-5 rounded-2xl border border-white shadow-sm flex justify-between items-center hover:shadow-md transition-shadow group">
+                    <div key={report.id} className="pro-card p-5 rounded-2xl border border-slate-200 shadow-sm flex justify-between items-center hover:shadow-md transition-shadow group">
                       <div className="flex items-center gap-4">
                         <div className="p-3 bg-teal-50 text-teal-500 rounded-xl group-hover:scale-110 transition-transform">
                           <FileText size={20} />

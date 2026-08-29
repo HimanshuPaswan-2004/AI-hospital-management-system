@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import useAuthStore from '../store/authStore';
-import { Activity, UserPlus, Mail, Lock, User, ArrowRight, HeartPulse } from 'lucide-react';
+import { Activity, UserPlus, Mail, Lock, User, HeartPulse } from 'lucide-react';
 
 const Register = () => {
   const [formData, setFormData] = useState({
@@ -43,17 +43,17 @@ const Register = () => {
     <div className="min-h-screen flex w-full bg-slate-50">
       
       {/* Left Side - Form */}
-      <div className="w-full lg:w-1/2 flex items-center justify-center p-8 relative overflow-y-auto">
+      <div className="w-full lg:w-1/2 flex items-center justify-center p-8 relative overflow-y-auto bg-white border-r border-slate-200 custom-scrollbar">
         <div className="absolute top-10 left-10 hidden md:flex items-center gap-2 text-slate-500 font-medium z-10">
           Already have an account? 
-          <Link to="/login" className="text-teal-600 font-bold hover:text-teal-700 transition-colors">
+          <Link to="/login" className="text-primary-600 font-bold hover:text-primary-700 transition-colors">
             Sign In
           </Link>
         </div>
 
         <div className="w-full max-w-md my-12 z-10">
           <div className="mb-10 text-center lg:text-left mt-8 md:mt-0">
-            <div className="inline-flex lg:hidden items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br from-blue-500 to-indigo-600 text-white mb-6 shadow-lg shadow-teal-500/30">
+            <div className="inline-flex lg:hidden items-center justify-center w-16 h-16 rounded-2xl bg-primary-600 text-white mb-6 shadow-sm">
               <HeartPulse size={32} />
             </div>
             <h2 className="text-3xl font-extrabold text-slate-900 tracking-tight">Join MediAI</h2>
@@ -66,12 +66,12 @@ const Register = () => {
               <div className="space-y-2">
                 <label className="text-xs font-bold text-slate-700 tracking-wide uppercase">First Name</label>
                 <div className="relative group">
-                  <div className="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none text-slate-400 group-focus-within:text-teal-500 transition-colors">
+                  <div className="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none text-slate-400 group-focus-within:text-primary-500 transition-colors">
                     <User size={18} />
                   </div>
                   <input
                     type="text"
-                    className="w-full pl-11 pr-4 py-3.5 bg-white border-2 border-slate-200 rounded-2xl focus:outline-none focus:border-teal-500 focus:ring-4 focus:ring-teal-500/10 transition-all font-medium text-slate-800 placeholder-slate-400"
+                    className="w-full pl-11 pr-4 py-3 bg-white border border-slate-300 rounded-xl focus:outline-none focus:border-primary-500 focus:ring-1 focus:ring-primary-500 transition-all font-medium text-slate-900 placeholder-slate-400 shadow-sm"
                     placeholder="John"
                     name="firstName"
                     value={firstName}
@@ -83,12 +83,12 @@ const Register = () => {
               <div className="space-y-2">
                 <label className="text-xs font-bold text-slate-700 tracking-wide uppercase">Last Name</label>
                 <div className="relative group">
-                  <div className="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none text-slate-400 group-focus-within:text-teal-500 transition-colors">
+                  <div className="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none text-slate-400 group-focus-within:text-primary-500 transition-colors">
                     <User size={18} />
                   </div>
                   <input
                     type="text"
-                    className="w-full pl-11 pr-4 py-3.5 bg-white border-2 border-slate-200 rounded-2xl focus:outline-none focus:border-teal-500 focus:ring-4 focus:ring-teal-500/10 transition-all font-medium text-slate-800 placeholder-slate-400"
+                    className="w-full pl-11 pr-4 py-3 bg-white border border-slate-300 rounded-xl focus:outline-none focus:border-primary-500 focus:ring-1 focus:ring-primary-500 transition-all font-medium text-slate-900 placeholder-slate-400 shadow-sm"
                     placeholder="Doe"
                     name="lastName"
                     value={lastName}
@@ -102,12 +102,12 @@ const Register = () => {
             <div className="space-y-2">
               <label className="text-xs font-bold text-slate-700 tracking-wide uppercase">Email Address</label>
               <div className="relative group">
-                <div className="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none text-slate-400 group-focus-within:text-teal-500 transition-colors">
+                <div className="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none text-slate-400 group-focus-within:text-primary-500 transition-colors">
                   <Mail size={18} />
                 </div>
                 <input
                   type="email"
-                  className="w-full pl-11 pr-4 py-3.5 bg-white border-2 border-slate-200 rounded-2xl focus:outline-none focus:border-teal-500 focus:ring-4 focus:ring-teal-500/10 transition-all font-medium text-slate-800 placeholder-slate-400"
+                  className="w-full pl-11 pr-4 py-3 bg-white border border-slate-300 rounded-xl focus:outline-none focus:border-primary-500 focus:ring-1 focus:ring-primary-500 transition-all font-medium text-slate-900 placeholder-slate-400 shadow-sm"
                   placeholder="you@example.com"
                   name="email"
                   value={email}
@@ -120,12 +120,12 @@ const Register = () => {
             <div className="space-y-2">
               <label className="text-xs font-bold text-slate-700 tracking-wide uppercase">Password</label>
               <div className="relative group">
-                <div className="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none text-slate-400 group-focus-within:text-teal-500 transition-colors">
+                <div className="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none text-slate-400 group-focus-within:text-primary-500 transition-colors">
                   <Lock size={18} />
                 </div>
                 <input
                   type="password"
-                  className="w-full pl-11 pr-4 py-3.5 bg-white border-2 border-slate-200 rounded-2xl focus:outline-none focus:border-teal-500 focus:ring-4 focus:ring-teal-500/10 transition-all font-medium text-slate-800 placeholder-slate-400"
+                  className="w-full pl-11 pr-4 py-3 bg-white border border-slate-300 rounded-xl focus:outline-none focus:border-primary-500 focus:ring-1 focus:ring-primary-500 transition-all font-medium text-slate-900 placeholder-slate-400 shadow-sm"
                   placeholder="••••••••"
                   name="password"
                   value={password}
@@ -138,20 +138,20 @@ const Register = () => {
             <div className="space-y-2">
               <label className="text-xs font-bold text-slate-700 tracking-wide uppercase">Account Type</label>
               <div className="grid grid-cols-3 gap-4">
-                <label className={`cursor-pointer border-2 rounded-2xl p-4 flex flex-col items-center justify-center gap-2 transition-all ${role === 'PATIENT' ? 'border-teal-500 bg-teal-50 text-teal-700 shadow-md shadow-teal-500/20' : 'border-slate-200 bg-white hover:bg-slate-50 text-slate-500 hover:border-slate-300'}`}>
+                <label className={`cursor-pointer border-2 rounded-xl p-4 flex flex-col items-center justify-center gap-2 transition-all ${role === 'PATIENT' ? 'border-primary-500 bg-primary-50 text-primary-700 shadow-sm' : 'border-slate-200 hover:bg-slate-50 text-slate-500 hover:border-slate-300'}`}>
                   <input type="radio" name="role" value="PATIENT" checked={role === 'PATIENT'} onChange={onChange} className="sr-only" />
-                  <HeartPulse size={24} className={role === 'PATIENT' ? 'text-teal-600' : ''} />
-                  <span className="font-bold">Patient</span>
+                  <HeartPulse size={24} className={role === 'PATIENT' ? 'text-primary-600' : ''} />
+                  <span className="font-bold text-sm">Patient</span>
                 </label>
-                <label className={`cursor-pointer border-2 rounded-2xl p-4 flex flex-col items-center justify-center gap-2 transition-all ${role === 'DOCTOR' ? 'border-sky-500 bg-sky-50 text-sky-700 shadow-md shadow-sky-500/20' : 'border-slate-200 bg-white hover:bg-slate-50 text-slate-500 hover:border-slate-300'}`}>
+                <label className={`cursor-pointer border-2 rounded-xl p-4 flex flex-col items-center justify-center gap-2 transition-all ${role === 'DOCTOR' ? 'border-primary-500 bg-primary-50 text-primary-700 shadow-sm' : 'border-slate-200 hover:bg-slate-50 text-slate-500 hover:border-slate-300'}`}>
                   <input type="radio" name="role" value="DOCTOR" checked={role === 'DOCTOR'} onChange={onChange} className="sr-only" />
-                  <Activity size={24} className={role === 'DOCTOR' ? 'text-sky-600' : ''} />
-                  <span className="font-bold">Doctor</span>
+                  <Activity size={24} className={role === 'DOCTOR' ? 'text-primary-600' : ''} />
+                  <span className="font-bold text-sm">Doctor</span>
                 </label>
-                <label className={`cursor-pointer border-2 rounded-2xl p-4 flex flex-col items-center justify-center gap-2 transition-all ${role === 'ADMIN' ? 'border-emerald-500 bg-emerald-50 text-emerald-700 shadow-md shadow-emerald-500/20' : 'border-slate-200 bg-white hover:bg-slate-50 text-slate-500 hover:border-slate-300'}`}>
+                <label className={`cursor-pointer border-2 rounded-xl p-4 flex flex-col items-center justify-center gap-2 transition-all ${role === 'ADMIN' ? 'border-primary-500 bg-primary-50 text-primary-700 shadow-sm' : 'border-slate-200 hover:bg-slate-50 text-slate-500 hover:border-slate-300'}`}>
                   <input type="radio" name="role" value="ADMIN" checked={role === 'ADMIN'} onChange={onChange} className="sr-only" />
-                  <User size={24} className={role === 'ADMIN' ? 'text-emerald-600' : ''} />
-                  <span className="font-bold">Admin</span>
+                  <User size={24} className={role === 'ADMIN' ? 'text-primary-600' : ''} />
+                  <span className="font-bold text-sm">Admin</span>
                 </label>
               </div>
             </div>
@@ -159,11 +159,10 @@ const Register = () => {
             <button
               type="submit"
               disabled={isLoading}
-              className="w-full py-4 mt-6 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white rounded-2xl font-bold text-lg shadow-[0_8px_30px_rgb(59,130,246,0.3)] hover:shadow-[0_8px_30px_rgb(59,130,246,0.5)] transition-all duration-300 flex items-center justify-center gap-2 group relative overflow-hidden disabled:opacity-70 disabled:cursor-not-allowed"
+              className="w-full py-3.5 mt-6 bg-primary-600 hover:bg-primary-700 text-white rounded-xl font-bold text-lg shadow-sm transition-colors duration-200 flex items-center justify-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed"
             >
-              <div className="absolute inset-0 w-full h-full bg-white/20 -translate-x-full group-hover:animate-[shimmer_1.5s_infinite]"></div>
               {isLoading ? (
-                <div className="w-6 h-6 border-3 border-white/30 border-t-white rounded-full animate-spin"></div>
+                <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
               ) : (
                 <>
                   <UserPlus size={20} />
@@ -175,7 +174,7 @@ const Register = () => {
           
           <div className="mt-8 text-center md:hidden">
             <p className="text-sm text-slate-500 font-medium">
-              Already have an account? <Link to="/login" className="text-teal-600 font-bold hover:underline">Sign In</Link>
+              Already have an account? <Link to="/login" className="text-primary-600 font-bold hover:underline">Sign In</Link>
             </p>
           </div>
         </div>
@@ -183,22 +182,17 @@ const Register = () => {
 
       {/* Right Side - Visuals (Hidden on small screens) */}
       <div className="hidden lg:flex w-1/2 bg-slate-900 relative overflow-hidden items-center justify-center">
-        {/* Decorative elements */}
-        <div className="absolute inset-0 bg-gradient-to-tr from-slate-900 via-indigo-900 to-blue-900 opacity-90"></div>
-        <div className="absolute top-0 right-0 w-full h-full bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-10 mix-blend-overlay"></div>
-        
-        {/* Animated glowing orbs */}
-        <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-teal-500 rounded-full mix-blend-screen filter blur-[100px] opacity-40 animate-pulse"></div>
-        <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-sky-500 rounded-full mix-blend-screen filter blur-[120px] opacity-30" style={{ animationDuration: '4s' }}></div>
+        {/* Subtle decorative background pattern */}
+        <div className="absolute inset-0 opacity-10 bg-[radial-gradient(#ffffff_1px,transparent_1px)] [background-size:20px_20px]"></div>
         
         <div className="relative z-10 text-white max-w-lg p-12 flex flex-col items-start">
-          <div className="w-20 h-20 bg-white/10 backdrop-blur-xl rounded-3xl border border-white/20 flex items-center justify-center mb-8 shadow-2xl">
-            <HeartPulse size={40} className="text-teal-300" />
+          <div className="w-20 h-20 bg-white/10 rounded-2xl border border-slate-700 flex items-center justify-center mb-8 shadow-md">
+            <HeartPulse size={40} className="text-primary-300" />
           </div>
           
           <h2 className="text-4xl font-extrabold tracking-tight leading-tight mb-6">
             Your Health Data, <br/>
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-300 to-indigo-200">
+            <span className="text-primary-300">
               Secured & Analyzed.
             </span>
           </h2>
@@ -208,12 +202,12 @@ const Register = () => {
           </p>
           
           <div className="space-y-4 w-full">
-            <div className="flex items-center gap-4 bg-white/5 backdrop-blur-sm p-4 rounded-2xl border border-white/10">
-              <div className="p-2 bg-emerald-500/20 text-emerald-300 rounded-xl"><Lock size={20} /></div>
+            <div className="flex items-center gap-4 bg-white/5 p-4 rounded-xl border border-slate-700">
+              <div className="p-2 bg-primary-500/20 text-primary-300 rounded-lg"><Lock size={20} /></div>
               <p className="font-semibold text-sm">Enterprise-grade Security</p>
             </div>
-            <div className="flex items-center gap-4 bg-white/5 backdrop-blur-sm p-4 rounded-2xl border border-white/10">
-              <div className="p-2 bg-teal-500/20 text-teal-300 rounded-xl"><Activity size={20} /></div>
+            <div className="flex items-center gap-4 bg-white/5 p-4 rounded-xl border border-slate-700">
+              <div className="p-2 bg-primary-500/20 text-primary-300 rounded-lg"><Activity size={20} /></div>
               <p className="font-semibold text-sm">Real-time AI Health Insights</p>
             </div>
           </div>

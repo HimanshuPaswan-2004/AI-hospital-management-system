@@ -66,7 +66,7 @@ const BillingDashboard = () => {
 
   return (
     <div className="space-y-8 animate-[fadeInUp_0.4s_ease-out]">
-      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-white/60 backdrop-blur-xl p-6 rounded-[2rem] border border-white shadow-sm">
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4   p-6 rounded-2xl border border-slate-200 shadow-sm">
         <div>
           <h2 className="text-3xl font-extrabold text-slate-800 flex items-center gap-3 tracking-tight">
             <div className="p-3 bg-gradient-to-tr from-emerald-500 to-teal-500 rounded-2xl shadow-lg shadow-emerald-500/30 text-white">
@@ -78,7 +78,7 @@ const BillingDashboard = () => {
         </div>
       </div>
 
-      <div className="glass-card p-6 rounded-[2rem] flex flex-col md:flex-row items-center gap-4 animate-[fadeInUp_0.3s_ease-out]">
+      <div className="pro-card p-6 rounded-2xl flex flex-col md:flex-row items-center gap-4 animate-[fadeInUp_0.3s_ease-out]">
         <div className="w-12 h-12 bg-teal-50 text-teal-600 rounded-2xl flex items-center justify-center shrink-0 shadow-sm border border-teal-100">
           <RefreshCw size={24} className="opacity-80" />
         </div>
@@ -96,7 +96,7 @@ const BillingDashboard = () => {
         </form>
       </div>
 
-      <div className="bg-white/80 backdrop-blur-xl rounded-[2rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-white overflow-hidden">
+      <div className="  rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-slate-200 overflow-hidden">
         <div className="overflow-x-auto custom-scrollbar">
           <table className="w-full text-left border-collapse whitespace-nowrap">
             <thead>
@@ -112,7 +112,7 @@ const BillingDashboard = () => {
             <tbody className="divide-y divide-slate-100/50">
               {invoices.length === 0 ? (
                 <tr>
-                  <td colSpan="6" className="p-12 text-center text-slate-400 font-medium bg-white/40">No invoices generated yet.</td>
+                  <td colSpan="6" className="p-12 text-center text-slate-400 font-medium ">No invoices generated yet.</td>
                 </tr>
               ) : invoices.map(inv => (
                 <tr key={inv.id} className="hover:bg-teal-50/30 transition-colors group">
