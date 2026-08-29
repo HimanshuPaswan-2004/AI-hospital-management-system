@@ -42,7 +42,7 @@ const LandingPage = () => {
               Explore Features
             </button>
           </div>
-          
+
           {/* Stats */}
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 pt-8 border-t border-slate-100">
             <div>
@@ -66,21 +66,21 @@ const LandingPage = () => {
 
         {/* Image/Illustration Placeholder */}
         <div className="relative h-[500px] w-full rounded-[2.5rem] bg-gradient-to-tr from-blue-50 to-blue-100 flex items-center justify-center overflow-hidden border-8 border-white shadow-2xl">
-           <img 
-               src={doctorIllustration} 
-               alt="Doctor Illustration" 
-               className="absolute inset-0 w-full h-full object-cover mix-blend-multiply opacity-90"
-           />
-           {/* Floating elements */}
-           <div className="absolute top-12 -left-6 bg-white p-3 rounded-2xl shadow-xl flex items-center gap-3 animate-bounce shadow-blue-900/5">
-             <div className="w-10 h-10 bg-emerald-100 rounded-xl flex items-center justify-center text-emerald-600">
-               <CheckCircle size={20} />
-             </div>
-             <div>
-               <p className="text-xs font-bold text-slate-800">Verified</p>
-               <p className="text-[10px] text-slate-500">Professionals</p>
-             </div>
-           </div>
+          <img
+            src={doctorIllustration}
+            alt="Doctor Illustration"
+            className="absolute inset-0 w-full h-full object-cover mix-blend-multiply opacity-90"
+          />
+          {/* Floating elements */}
+          <div className="absolute top-12 -left-6 bg-white p-3 rounded-2xl shadow-xl flex items-center gap-3 animate-bounce shadow-blue-900/5">
+            <div className="w-10 h-10 bg-emerald-100 rounded-xl flex items-center justify-center text-emerald-600">
+              <CheckCircle size={20} />
+            </div>
+            <div>
+              <p className="text-xs font-bold text-slate-800">Verified</p>
+              <p className="text-[10px] text-slate-500">Professionals</p>
+            </div>
+          </div>
         </div>
       </div>
     </div>

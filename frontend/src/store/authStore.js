@@ -17,10 +17,12 @@ const useAuthStore = create((set) => ({
       if (response.data) {
         sessionStorage.setItem('user', JSON.stringify(response.data));
         set({ user: response.data, isLoading: false, isSuccess: true });
+        return true;
       }
     } catch (error) {
       const message = error.response?.data?.message || error.message || error.toString();
       set({ isLoading: false, isError: true, message });
+      return false;
     }
   },
 
@@ -31,10 +33,12 @@ const useAuthStore = create((set) => ({
       if (response.data) {
         sessionStorage.setItem('user', JSON.stringify(response.data));
         set({ user: response.data, isLoading: false, isSuccess: true });
+        return true;
       }
     } catch (error) {
       const message = error.response?.data?.message || error.message || error.toString();
       set({ isLoading: false, isError: true, message });
+      return false;
     }
   },
 

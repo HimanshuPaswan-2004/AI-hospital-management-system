@@ -17,7 +17,7 @@ const Register = () => {
   
   const [agree, setAgree] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
-  const { register, isLoading, error } = useAuthStore();
+  const { register, isLoading, message: error } = useAuthStore();
   const navigate = useNavigate();
 
   const handleChange = (e) => {

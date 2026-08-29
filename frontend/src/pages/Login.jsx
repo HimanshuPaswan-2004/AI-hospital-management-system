@@ -9,7 +9,7 @@ const Login = () => {
   const [password, setPassword] = useState('');
   const [rememberMe, setRememberMe] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
-  const { login, isLoading, error } = useAuthStore();
+  const { login, isLoading, message: error } = useAuthStore();
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -129,28 +129,28 @@ const Login = () => {
 
       {/* Right Illustration Section */}
       <div className="hidden lg:flex w-[50%] bg-blue-50/50 p-12 items-center justify-center relative overflow-hidden">
-         {/* Decorative Background Elements */}
-         <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-blue-100/50 rounded-full blur-3xl -translate-y-1/2 translate-x-1/3"></div>
-         <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-indigo-100/50 rounded-full blur-3xl translate-y-1/3 -translate-x-1/4"></div>
-         
-         <div className="relative z-10 max-w-lg w-full aspect-square bg-gradient-to-b from-blue-100 to-transparent rounded-[3rem] border border-white/50 shadow-2xl flex items-center justify-center overflow-hidden">
-            <img 
-               src={doctorIllustration} 
-               alt="Doctor Illustration" 
-               className="w-full h-full object-cover mix-blend-multiply opacity-90"
-            />
-            
-            {/* Floating UI element */}
-            <div className="absolute -left-8 top-1/4 bg-white p-4 rounded-2xl shadow-xl border border-slate-100 flex items-center gap-4 animate-bounce" style={{ animationDuration: '3s' }}>
-              <div className="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center">
-                <ShieldPlus className="w-5 h-5 text-blue-600" />
-              </div>
-              <div>
-                <p className="text-xs font-bold text-slate-800">Secure Login</p>
-                <p className="text-[10px] font-medium text-slate-500">Data Encrypted</p>
-              </div>
+        {/* Decorative Background Elements */}
+        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-blue-100/50 rounded-full blur-3xl -translate-y-1/2 translate-x-1/3"></div>
+        <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-indigo-100/50 rounded-full blur-3xl translate-y-1/3 -translate-x-1/4"></div>
+
+        <div className="relative z-10 max-w-lg w-full aspect-square bg-gradient-to-b from-blue-100 to-transparent rounded-[3rem] border border-white/50 shadow-2xl flex items-center justify-center overflow-hidden">
+          <img
+            src={doctorIllustration}
+            alt="Doctor Illustration"
+            className="w-full h-full object-cover mix-blend-multiply opacity-90"
+          />
+
+          {/* Floating UI element */}
+          <div className="absolute -left-8 top-1/4 bg-white p-4 rounded-2xl shadow-xl border border-slate-100 flex items-center gap-4 animate-bounce" style={{ animationDuration: '3s' }}>
+            <div className="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center">
+              <ShieldPlus className="w-5 h-5 text-blue-600" />
             </div>
-         </div>
+            <div>
+              <p className="text-xs font-bold text-slate-800">Secure Login</p>
+              <p className="text-[10px] font-medium text-slate-500">Data Encrypted</p>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );
