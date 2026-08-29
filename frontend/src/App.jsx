@@ -12,9 +12,12 @@ import MainLayout from './layouts/MainLayout.jsx';
 import PatientDashboard from './pages/Dashboard/PatientDashboard.jsx';
 import Profile from './pages/Profile/Profile.jsx';
 
-// New Patient Pages
 import Appointments from './pages/Patient/Appointments.jsx';
 import MedicalRecords from './pages/Patient/MedicalRecords.jsx';
+import Settings from './pages/Patient/Settings.jsx';
+import Prescriptions from './pages/Patient/Prescriptions.jsx';
+import HealthSummary from './pages/Patient/HealthSummary.jsx';
+import Messages from './pages/Patient/Messages.jsx';
 
 // AI Assistant Suite
 import AIAssistantHome from './pages/Patient/AIAssistantHome.jsx';
@@ -29,8 +32,6 @@ import AIAppointmentAssistant from './pages/Patient/AIAppointmentAssistant.jsx';
 import DoctorDirectory from './pages/DoctorDirectory/DoctorDirectory.jsx';
 import BookAppointment from './pages/Appointments/BookAppointment.jsx';
 
-// Dummy Settings component if it doesn't exist
-const DummySettings = () => <div className="p-6">Settings Placeholder</div>;
 
 function App() {
   return (
@@ -47,8 +48,11 @@ function App() {
           <Route path="/patient/dashboard" element={<PatientDashboard />} />
           <Route path="/patient/appointments" element={<Appointments />} />
           <Route path="/patient/records" element={<MedicalRecords />} />
+          <Route path="/patient/prescriptions" element={<Prescriptions />} />
+          <Route path="/patient/health-summary" element={<HealthSummary />} />
+          <Route path="/patient/messages" element={<Messages />} />
           <Route path="/patient/profile" element={<Profile />} />
-          <Route path="/patient/settings" element={<DummySettings />} />
+          <Route path="/patient/settings" element={<Settings />} />
 
           {/* AI Assistant Suite */}
           <Route path="/patient/ai-assistant" element={<AIAssistantHome />} />
