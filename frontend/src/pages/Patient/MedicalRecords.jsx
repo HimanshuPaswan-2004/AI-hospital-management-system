@@ -1,73 +1,176 @@
-import { Search, FileText, Image, File } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { Search, FileText, Image, File, UploadCloud, X } from 'lucide-react';
+import { patientService } from '../../services/patientService';
+import dayjs from 'dayjs';
+import { Link, useNavigate } from 'react-router-dom';
 
 const MedicalRecords = () => {
-  const records = [
-    { id: 1, name: 'Blood Test Report', date: '28 Aug 2024', type: 'PDF', icon: FileText, action: 'AI Summarize', color: 'text-rose-500', bg: 'bg-rose-50' },
-    { id: 2, hoverName: 'X-Ray Chest', name: 'X-Ray Chest', date: '15 Aug 2024', type: 'Image', icon: Image, action: 'AI Summarize', color: 'text-blue-500', bg: 'bg-blue-50' },
-    { id: 3, name: 'Prescription', date: '10 Aug 2024', type: 'PDF', icon: File, action: 'AI Explain', color: 'text-emerald-500', bg: 'bg-emerald-50' },
-    { id: 4, name: 'MRI Scan', date: '05 Aug 2024', type: 'Image', icon: Image, action: 'AI Summarize', color: 'text-indigo-500', bg: 'bg-indigo-50' }
-  ];
+  const [records, setRecords] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [search, setSearch] = useState('');
+  const [isUploading, setIsUploading] = useState(false);
+  const [uploadFile, setUploadFile] = useState(null);
+  const [uploadTitle, setUploadTitle] = useState('');
+  const navigate = useNavigate();
+
+  const fetchRecords = async () => {
+    try {
+      const data = await patientService.getLabReports();
+      setRecords(data);
+    } catch (error) {
+      console.error("Failed to fetch reports", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchRecords();
+  }, []);
+
+  const handleUpload = async (e) => {
+    e.preventDefault();
+    if (!uploadFile || !uploadTitle) return;
+
+    try {
+      const formData = new FormData();
+      formData.append('title', uploadTitle);
+      formData.append('file', uploadFile);
+
+      await patientService.uploadLabReport(formData);
+      setIsUploading(false);
+      setUploadFile(null);
+      setUploadTitle('');
+      fetchRecords(); // Refresh list
+    } catch (error) {
+      console.error("Upload failed", error);
+      alert("Failed to upload report");
+    }
+  };
+
+  const filteredRecords = records.filter(r => r.title.toLowerCase().includes(search.toLowerCase()));
+
+  const getIcon = (type) => {
+    if (type.includes('image')) return <Image size={18} className="text-blue-500" />;
+    return <FileText size={18} className="text-rose-500" />;
+  };
+  const getBg = (type) => {
+    if (type.includes('image')) return 'bg-blue-50';
+    return 'bg-rose-50';
+  };
 
   return (
     <div className="max-w-5xl mx-auto space-y-6">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
         <h1 className="text-2xl font-extrabold text-slate-900 tracking-tight">Medical Records</h1>
         
-        <div className="relative">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 w-4 h-4" />
-          <input 
-            type="text" 
-            placeholder="Search records..." 
-            className="w-full sm:w-64 pl-9 pr-4 py-2 bg-white border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-100 focus:border-blue-500 transition-all text-slate-800 placeholder-slate-400 shadow-sm"
-          />
+        <div className="flex items-center gap-4">
+          <div className="relative">
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 w-4 h-4" />
+            <input 
+              type="text" 
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              placeholder="Search records..." 
+              className="w-full sm:w-64 pl-9 pr-4 py-2 bg-white border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-100 focus:border-blue-500 transition-all text-slate-800 placeholder-slate-400 shadow-sm"
+            />
+          </div>
+          <button 
+            onClick={() => setIsUploading(true)}
+            className="px-4 py-2 bg-blue-600 text-white font-bold rounded-xl hover:bg-blue-700 transition-colors shadow-sm text-sm whitespace-nowrap"
+          >
+            Upload New
+          </button>
         </div>
       </div>
 
+      {isUploading && (
+        <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 mb-6 relative">
+          <button onClick={() => setIsUploading(false)} className="absolute top-4 right-4 text-slate-400 hover:text-slate-600">
+            <X size={20} />
+          </button>
+          <h2 className="text-lg font-bold mb-4">Upload Lab Report</h2>
+          <form onSubmit={handleUpload} className="space-y-4 max-w-md">
+            <div>
+              <label className="block text-sm font-bold text-slate-700 mb-1">Report Title</label>
+              <input 
+                type="text" 
+                value={uploadTitle}
+                onChange={(e) => setUploadTitle(e.target.value)}
+                required
+                className="w-full p-2 border border-slate-200 rounded-lg text-sm"
+                placeholder="e.g. Blood Test - Aug 2024"
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-bold text-slate-700 mb-1">File</label>
+              <input 
+                type="file" 
+                onChange={(e) => setUploadFile(e.target.files[0])}
+                required
+                className="w-full text-sm"
+              />
+            </div>
+            <button type="submit" className="px-4 py-2 bg-blue-600 text-white font-bold rounded-lg text-sm hover:bg-blue-700">
+              Upload Report
+            </button>
+          </form>
+        </div>
+      )}
+
       <div className="pro-card overflow-hidden">
         <div className="overflow-x-auto">
-          <table className="w-full text-left border-collapse">
-            <thead>
-              <tr className="border-b border-slate-200 bg-slate-50/50">
-                <th className="p-4 sm:px-6 py-3 text-xs font-bold text-slate-500 uppercase tracking-wider">Record</th>
-                <th className="p-4 sm:px-6 py-3 text-xs font-bold text-slate-500 uppercase tracking-wider">Date</th>
-                <th className="p-4 sm:px-6 py-3 text-xs font-bold text-slate-500 uppercase tracking-wider">Type</th>
-                <th className="p-4 sm:px-6 py-3 text-xs font-bold text-slate-500 uppercase tracking-wider text-right">Action</th>
-              </tr>
-            </thead>
-            <tbody>
-              {records.map((record) => {
-                const Icon = record.icon;
-                return (
-                  <tr key={record.id} className="border-b border-slate-100 last:border-0 hover:bg-slate-50 transition-colors">
-                    <td className="p-4 sm:px-6 py-4">
-                      <div className="flex items-center gap-3">
-                        <div className={`w-10 h-10 rounded-lg flex items-center justify-center ${record.bg}`}>
-                          <Icon size={18} className={record.color} />
+          {loading ? (
+             <div className="p-8 text-center text-slate-500 font-medium">Loading medical records...</div>
+          ) : filteredRecords.length === 0 ? (
+             <div className="p-8 text-center text-slate-500 font-medium">No medical records found.</div>
+          ) : (
+            <table className="w-full text-left border-collapse">
+              <thead>
+                <tr className="border-b border-slate-200 bg-slate-50/50">
+                  <th className="p-4 sm:px-6 py-3 text-xs font-bold text-slate-500 uppercase tracking-wider">Record</th>
+                  <th className="p-4 sm:px-6 py-3 text-xs font-bold text-slate-500 uppercase tracking-wider">Date</th>
+                  <th className="p-4 sm:px-6 py-3 text-xs font-bold text-slate-500 uppercase tracking-wider">Type</th>
+                  <th className="p-4 sm:px-6 py-3 text-xs font-bold text-slate-500 uppercase tracking-wider text-right">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                {filteredRecords.map((record) => {
+                  return (
+                    <tr key={record.id} className="border-b border-slate-100 last:border-0 hover:bg-slate-50 transition-colors">
+                      <td className="p-4 sm:px-6 py-4">
+                        <div className="flex items-center gap-3">
+                          <div className={`w-10 h-10 rounded-lg flex items-center justify-center ${getBg(record.reportType)}`}>
+                            {getIcon(record.reportType)}
+                          </div>
+                          <span className="font-bold text-slate-800">{record.title}</span>
                         </div>
-                        <span className="font-bold text-slate-800">{record.name}</span>
-                      </div>
-                    </td>
-                    <td className="p-4 sm:px-6 py-4">
-                      <span className="text-sm font-semibold text-slate-600">{record.date}</span>
-                    </td>
-                    <td className="p-4 sm:px-6 py-4">
-                      <span className="text-sm font-semibold text-slate-600">{record.type}</span>
-                    </td>
-                    <td className="p-4 sm:px-6 py-4 text-right">
-                      <div className="flex items-center justify-end gap-4">
-                        <button className="text-sm font-bold text-slate-500 hover:text-slate-800 transition-colors">
-                          View
-                        </button>
-                        <button className="text-sm font-bold text-blue-600 hover:text-blue-800 transition-colors">
-                          {record.action}
-                        </button>
-                      </div>
-                    </td>
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
+                      </td>
+                      <td className="p-4 sm:px-6 py-4">
+                        <span className="text-sm font-semibold text-slate-600">{dayjs(record.dateUploaded).format('DD MMM YYYY')}</span>
+                      </td>
+                      <td className="p-4 sm:px-6 py-4">
+                        <span className="text-sm font-semibold text-slate-600">{record.reportType.split('/')[1]?.toUpperCase() || 'DOCUMENT'}</span>
+                      </td>
+                      <td className="p-4 sm:px-6 py-4 text-right">
+                        <div className="flex items-center justify-end gap-4">
+                          <a href={`http://localhost:5000${record.fileUrl}`} target="_blank" rel="noopener noreferrer" className="text-sm font-bold text-slate-500 hover:text-slate-800 transition-colors">
+                            View
+                          </a>
+                          <button 
+                            onClick={() => navigate('/patient/ai-summarizer', { state: { reportTitle: record.title } })}
+                            className="text-sm font-bold text-blue-600 hover:text-blue-800 transition-colors"
+                          >
+                            AI Summarize
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          )}
         </div>
       </div>
     </div>

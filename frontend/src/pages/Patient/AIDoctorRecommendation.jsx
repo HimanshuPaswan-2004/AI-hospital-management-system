@@ -1,8 +1,7 @@
 import { useState } from 'react';
 import { Search, HeartPulse, User, Star, ChevronRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import axios from 'axios';
-import useAuthStore from '../../store/authStore';
+import { patientService } from '../../services/patientService';
 
 const AIDoctorRecommendation = () => {
   const [isAnalyzed, setIsAnalyzed] = useState(false);
@@ -17,15 +16,7 @@ const AIDoctorRecommendation = () => {
 
     setIsAnalyzing(true);
     try {
-      const config = {
-        headers: { Authorization: `Bearer ${user?.token}` }
-      };
-      
-      const { data } = await axios.post(
-        `${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api/ai/recommend-doctor`,
-        { concern },
-        config
-      );
+      const data = await patientService.aiRecommendDoctor(concern);
       
       setResultData(data);
       setIsAnalyzed(true);

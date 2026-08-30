@@ -1,16 +1,29 @@
 import { useState } from 'react';
-import { Settings as SettingsIcon, Bell, Shield, Key, Moon, Globe, CheckCircle2 } from 'lucide-react';
+import { Settings as SettingsIcon, Bell, Shield, Key, Moon, CheckCircle2 } from 'lucide-react';
 import useAuthStore from '../../store/authStore';
+import { patientService } from '../../services/patientService';
 
 const Settings = () => {
-  const { user } = useAuthStore();
+  const { user, login } = useAuthStore();
   const [activeTab, setActiveTab] = useState('account');
   const [saved, setSaved] = useState(false);
+  const [formData, setFormData] = useState({
+    firstName: user?.firstName || '',
+    lastName: user?.lastName || '',
+    phone: user?.phone || '',
+  });
 
-  const handleSave = (e) => {
+  const handleSave = async (e) => {
     e.preventDefault();
-    setSaved(true);
-    setTimeout(() => setSaved(false), 3000);
+    try {
+      const updatedUser = await patientService.updateProfile(formData);
+      // Update local store with the new user data (keeping token intact)
+      login({ ...user, ...updatedUser }, user.token);
+      setSaved(true);
+      setTimeout(() => setSaved(false), 3000);
+    } catch (error) {
+      console.error("Failed to update profile", error);
+    }
   };
 
   return (
@@ -76,19 +89,19 @@ const Settings = () => {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
                   <label className="block text-sm font-medium text-slate-700 mb-2">First Name</label>
-                  <input type="text" defaultValue={user?.firstName} className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-100 focus:border-blue-500" />
+                  <input type="text" value={formData.firstName} onChange={e => setFormData({...formData, firstName: e.target.value})} className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-100 focus:border-blue-500" />
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-slate-700 mb-2">Last Name</label>
-                  <input type="text" defaultValue={user?.lastName} className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-100 focus:border-blue-500" />
+                  <input type="text" value={formData.lastName} onChange={e => setFormData({...formData, lastName: e.target.value})} className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-100 focus:border-blue-500" />
                 </div>
                 <div className="md:col-span-2">
                   <label className="block text-sm font-medium text-slate-700 mb-2">Email Address</label>
-                  <input type="email" defaultValue={user?.email} className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-100 focus:border-blue-500" />
+                  <input type="email" value={user?.email} disabled className="w-full px-4 py-2.5 bg-slate-100 border border-slate-200 rounded-xl text-sm text-slate-500 cursor-not-allowed" />
                 </div>
                 <div className="md:col-span-2">
                   <label className="block text-sm font-medium text-slate-700 mb-2">Phone Number</label>
-                  <input type="tel" defaultValue={user?.phone} className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-100 focus:border-blue-500" />
+                  <input type="tel" value={formData.phone} onChange={e => setFormData({...formData, phone: e.target.value})} className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-100 focus:border-blue-500" />
                 </div>
               </div>
               <div className="pt-4 flex items-center justify-between border-t border-slate-100">
@@ -179,17 +192,6 @@ const Settings = () => {
                     <input type="checkbox" className="sr-only peer" />
                     <div className="w-11 h-6 bg-slate-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-100 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
                   </label>
-                </div>
-                <div className="flex items-center justify-between p-4 border border-slate-100 rounded-xl">
-                  <div>
-                    <p className="text-sm font-bold text-slate-800 flex items-center gap-2"><Globe size={16} /> Language</p>
-                    <p className="text-xs text-slate-500 mt-1">Choose your preferred language.</p>
-                  </div>
-                  <select className="px-4 py-2 bg-slate-50 border border-slate-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-100 text-slate-700">
-                    <option>English (US)</option>
-                    <option>Spanish</option>
-                    <option>French</option>
-                  </select>
                 </div>
               </div>
             </div>

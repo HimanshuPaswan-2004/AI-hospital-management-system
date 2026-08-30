@@ -1,18 +1,47 @@
+import { useState, useEffect } from 'react';
 import { Calendar, FileText, Pill, Activity, ChevronRight, Droplets } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { patientService } from '../../services/patientService';
+import useAuthStore from '../../store/authStore';
+import dayjs from 'dayjs';
 
 const PatientDashboard = () => {
+  const { user } = useAuthStore();
+  const [dashboardData, setDashboardData] = useState({
+    upcomingAppointmentsCount: 0,
+    upcomingAppointments: [],
+    totalPrescriptions: 0,
+    totalLabReports: 0,
+  });
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const data = await patientService.getDashboardStats();
+        setDashboardData(data);
+      } catch (error) {
+        console.error("Failed to fetch patient dashboard stats", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchData();
+  }, []);
+
   const stats = [
-    { title: 'Upcoming Appointments', value: '02', icon: Calendar, color: 'text-blue-600', bg: 'bg-blue-50', link: '/patient/appointments' },
-    { title: 'Medical Records', value: '12', icon: FileText, color: 'text-indigo-600', bg: 'bg-indigo-50', link: '/patient/records' },
-    { title: 'Prescriptions', value: '05', icon: Pill, color: 'text-emerald-600', bg: 'bg-emerald-50', link: '/patient/prescriptions' },
+    { title: 'Upcoming Appointments', value: dashboardData.upcomingAppointmentsCount < 10 ? `0${dashboardData.upcomingAppointmentsCount}` : dashboardData.upcomingAppointmentsCount, icon: Calendar, color: 'text-blue-600', bg: 'bg-blue-50', link: '/patient/appointments' },
+    { title: 'Medical Records', value: dashboardData.totalLabReports < 10 ? `0${dashboardData.totalLabReports}` : dashboardData.totalLabReports, icon: FileText, color: 'text-indigo-600', bg: 'bg-indigo-50', link: '/patient/records' },
+    { title: 'Prescriptions', value: dashboardData.totalPrescriptions < 10 ? `0${dashboardData.totalPrescriptions}` : dashboardData.totalPrescriptions, icon: Pill, color: 'text-emerald-600', bg: 'bg-emerald-50', link: '/patient/prescriptions' },
     { title: 'Health Score', value: '85%', subtext: 'Good', icon: Activity, color: 'text-emerald-500', bg: 'bg-emerald-50/50', link: '/patient/health-summary' }
   ];
+
+  const nextAppointment = dashboardData.upcomingAppointments[0];
 
   return (
     <div className="max-w-6xl mx-auto space-y-6">
       <div className="mb-8">
-        <h1 className="text-3xl font-extrabold text-slate-900 tracking-tight">Welcome back, John Doe 👋</h1>
+        <h1 className="text-3xl font-extrabold text-slate-900 tracking-tight">Welcome back, {user?.firstName || 'Patient'} 👋</h1>
         <p className="text-slate-500 mt-2 text-[15px] font-medium">Here's what's happening with your health today.</p>
       </div>
 
@@ -53,29 +82,36 @@ const PatientDashboard = () => {
             <h2 className="text-lg font-bold text-slate-800">Upcoming Appointment</h2>
           </div>
           
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between bg-slate-50 p-5 rounded-2xl border border-slate-100">
-            <div className="flex items-center gap-4 mb-4 sm:mb-0">
-              <div className="w-14 h-14 rounded-full bg-blue-100 overflow-hidden border-2 border-white shadow-sm flex items-center justify-center">
-                 {/* Doctor Image Placeholder */}
-                 <span className="text-blue-600 font-bold text-xl">SJ</span>
+          {nextAppointment ? (
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between bg-slate-50 p-5 rounded-2xl border border-slate-100">
+              <div className="flex items-center gap-4 mb-4 sm:mb-0">
+                <div className="w-14 h-14 rounded-full bg-blue-100 overflow-hidden border-2 border-white shadow-sm flex items-center justify-center">
+                   <span className="text-blue-600 font-bold text-xl">{nextAppointment.doctor?.firstName[0]}{nextAppointment.doctor?.lastName[0]}</span>
+                </div>
+                <div>
+                  <h3 className="font-bold text-slate-800">Dr. {nextAppointment.doctor?.firstName} {nextAppointment.doctor?.lastName}</h3>
+                  <p className="text-sm font-medium text-slate-500">{nextAppointment.doctor?.doctorProfile?.specialization || 'Doctor'}</p>
+                </div>
               </div>
-              <div>
-                <h3 className="font-bold text-slate-800">Dr. Sarah Johnson</h3>
-                <p className="text-sm font-medium text-slate-500">Cardiologist</p>
+              
+              <div className="flex flex-col sm:items-end gap-1">
+                 <div className="flex items-center gap-2 text-sm font-bold text-slate-700">
+                    <Calendar size={16} className="text-blue-600" />
+                    {dayjs(nextAppointment.appointmentDate).format('DD MMM YYYY')}
+                 </div>
+                 <div className="flex items-center gap-2 text-sm font-bold text-slate-700">
+                    <Activity size={16} className="text-blue-600" />
+                    {nextAppointment.timeSlot}
+                 </div>
               </div>
             </div>
-            
-            <div className="flex flex-col sm:items-end gap-1">
-               <div className="flex items-center gap-2 text-sm font-bold text-slate-700">
-                  <Calendar size={16} className="text-blue-600" />
-                  30 Aug 2024
-               </div>
-               <div className="flex items-center gap-2 text-sm font-bold text-slate-700">
-                  <Activity size={16} className="text-blue-600" />
-                  10:30 AM
-               </div>
+          ) : (
+            <div className="flex flex-col items-center justify-center p-8 bg-slate-50 rounded-2xl border border-slate-100 text-slate-500">
+              <Calendar size={32} className="text-slate-300 mb-3" />
+              <p className="font-medium text-sm">No upcoming appointments</p>
+              <Link to="/patient/appointments" className="mt-2 text-blue-600 text-sm font-bold hover:underline">Book one now</Link>
             </div>
-          </div>
+          )}
           
           <div className="mt-6">
             <Link to="/patient/appointments" className="text-sm font-bold text-blue-600 hover:underline">

@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { Search, Calendar, Clock, User } from 'lucide-react';
-import axios from 'axios';
-import useAuthStore from '../../store/authStore';
+import { patientService } from '../../services/patientService';
 
 const AIAppointmentAssistant = () => {
   const [isAnalyzed, setIsAnalyzed] = useState(false);
@@ -16,15 +15,7 @@ const AIAppointmentAssistant = () => {
     
     setIsAnalyzing(true);
     try {
-      const config = {
-        headers: { Authorization: `Bearer ${user?.token}` }
-      };
-      
-      const { data } = await axios.post(
-        `${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api/ai/find-appointment-slots`,
-        { requestText },
-        config
-      );
+      const data = await patientService.aiFindAppointmentSlots(requestText);
       
       setResultData(data);
       setIsAnalyzed(true);

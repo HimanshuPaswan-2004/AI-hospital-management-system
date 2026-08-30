@@ -1,8 +1,7 @@
 import { useState } from 'react';
 import { ClipboardList, ShieldCheck, AlertCircle, Activity, ChevronRight, CheckCircle2, ShieldAlert, HeartPulse, Microscope } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import axios from 'axios';
-import useAuthStore from '../../store/authStore';
+import { patientService } from '../../services/patientService';
 
 const AISymptomChecker = () => {
   const [isAnalyzed, setIsAnalyzed] = useState(false);
@@ -17,14 +16,7 @@ const AISymptomChecker = () => {
     
     setIsAnalyzing(true);
     try {
-      const config = {
-        headers: { Authorization: `Bearer ${user?.token}` }
-      };
-      const { data } = await axios.post(
-        `${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api/ai/symptom-checker`, 
-        { symptoms }, 
-        config
-      );
+      const data = await patientService.aiSymptomChecker(symptoms);
       setResultData(data);
       setIsAnalyzed(true);
     } catch (error) {

@@ -1,15 +1,15 @@
 import { useState, useRef } from 'react';
 import { UploadCloud, CheckCircle2, AlertCircle, FileText, Download, X } from 'lucide-react';
-import axios from 'axios';
-import useAuthStore from '../../store/authStore';
+import { useLocation } from 'react-router-dom';
+import { patientService } from '../../services/patientService';
 
 const AIReportSummarizer = () => {
+  const location = useLocation();
   const [isAnalyzed, setIsAnalyzed] = useState(false);
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [resultData, setResultData] = useState(null);
   const [file, setFile] = useState(null);
   const fileInputRef = useRef(null);
-  const { user } = useAuthStore();
 
   const handleFileChange = (e) => {
     if (e.target.files && e.target.files[0]) {
@@ -29,19 +29,13 @@ const AIReportSummarizer = () => {
       reader.onloadend = async () => {
         const base64data = reader.result.split(',')[1];
         
-        const config = {
-          headers: { Authorization: `Bearer ${user?.token}` }
-        };
-        const { data } = await axios.post(
-          `${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api/ai/summarize-report`,
-          {
-            attachment: {
-              base64: base64data,
-              mimeType: file.type
-            }
+        const data = await patientService.aiSummarizeReport({
+          attachment: {
+            base64: base64data,
+            mimeType: file.type
           },
-          config
-        );
+          reportText: location.state?.reportTitle || ''
+        });
         setResultData(data);
         setIsAnalyzed(true);
       };

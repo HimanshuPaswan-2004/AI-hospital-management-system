@@ -1,16 +1,16 @@
 import { useState, useRef } from 'react';
 import { UploadCloud, Pill, AlertTriangle, Info, AlertCircle, X } from 'lucide-react';
-import axios from 'axios';
-import useAuthStore from '../../store/authStore';
+import { useLocation } from 'react-router-dom';
+import { patientService } from '../../services/patientService';
 
 const AIPrescriptionExplainer = () => {
+  const location = useLocation();
   const [isAnalyzed, setIsAnalyzed] = useState(false);
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [resultData, setResultData] = useState(null);
-  const [prescriptionText, setPrescriptionText] = useState('');
+  const [prescriptionText, setPrescriptionText] = useState(location.state?.prescriptionText || '');
   const [file, setFile] = useState(null);
   const fileInputRef = useRef(null);
-  const { user } = useAuthStore();
 
   const handleFileChange = (e) => {
     if (e.target.files && e.target.files[0]) {
@@ -41,15 +41,7 @@ const AIPrescriptionExplainer = () => {
         });
       }
 
-      const config = {
-        headers: { Authorization: `Bearer ${user?.token}` }
-      };
-      
-      const { data } = await axios.post(
-        `${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api/ai/explain-prescription`,
-        { prescriptionText, attachment },
-        config
-      );
+      const data = await patientService.aiExplainPrescription({ prescriptionText, attachment });
       
       setResultData(data);
       setIsAnalyzed(true);

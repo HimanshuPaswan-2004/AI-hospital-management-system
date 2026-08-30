@@ -1,7 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import { Send, Bot, User, MessageSquare, Search, FileText, Building, Loader2 } from 'lucide-react';
-import axios from 'axios';
-import useAuthStore from '../../store/authStore';
+import { patientService } from '../../services/patientService';
 
 const AIChatbot = () => {
   const [messages, setMessages] = useState([
@@ -38,17 +37,8 @@ const AIChatbot = () => {
     setIsTyping(true);
     
     try {
-      const config = {
-        headers: { Authorization: `Bearer ${user?.token}` }
-      };
-      
       const history = messages.map(m => ({ role: m.type, text: m.text }));
-      
-      const { data } = await axios.post(
-        `${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api/ai/chat`,
-        { message: userText, history },
-        config
-      );
+      const data = await patientService.aiChat(userText, history);
       
       setMessages(prev => [...prev, { id: prev.length + 1, type: 'bot', text: data.reply }]);
     } catch (error) {
