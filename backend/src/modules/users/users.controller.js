@@ -49,28 +49,30 @@ export const updateUserProfile = async (req, res, next) => {
       });
 
       // Update Role-Specific Profile Info
-      if (user.role === 'DOCTOR' && profileData) {
+      if (profileData && profileData.specialization !== undefined) {
         await prisma.doctorProfile.upsert({
           where: { userId: user.id },
           update: {
             specialization: profileData.specialization,
-            experience: Number(profileData.experience),
+            experience: parseInt(profileData.experience) || 0,
             qualification: profileData.qualification,
-            consultationFee: Number(profileData.consultationFee),
+            consultationFee: parseFloat(profileData.consultationFee) || 0,
             bio: profileData.bio,
             availableDays: profileData.availableDays || [],
           },
           create: {
             userId: user.id,
             specialization: profileData.specialization || '',
-            experience: Number(profileData.experience) || 0,
+            experience: parseInt(profileData.experience) || 0,
             qualification: profileData.qualification || '',
-            consultationFee: Number(profileData.consultationFee) || 0,
+            consultationFee: parseFloat(profileData.consultationFee) || 0,
             bio: profileData.bio || '',
             availableDays: profileData.availableDays || [],
           }
         });
-      } else if (user.role === 'PATIENT' && profileData) {
+      } 
+      
+      if (profileData && profileData.bloodGroup !== undefined) {
         await prisma.patientProfile.upsert({
           where: { userId: user.id },
           update: {

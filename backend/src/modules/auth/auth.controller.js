@@ -33,13 +33,19 @@ export const registerUser = async (req, res, next) => {
     });
 
     if (user) {
+      const fullUser = await prisma.user.findUnique({
+        where: { id: user.id },
+        include: { doctorProfile: true, patientProfile: true }
+      });
       res.status(201).json({
-        id: user.id,
-        email: user.email,
-        firstName: user.firstName,
-        lastName: user.lastName,
-        role: user.role,
-        token: generateToken(user.id, user.role),
+        id: fullUser.id,
+        email: fullUser.email,
+        firstName: fullUser.firstName,
+        lastName: fullUser.lastName,
+        role: fullUser.role,
+        doctorProfile: fullUser.doctorProfile,
+        patientProfile: fullUser.patientProfile,
+        token: generateToken(fullUser.id, fullUser.role),
       });
     } else {
       res.status(400);
@@ -54,7 +60,10 @@ export const loginUser = async (req, res, next) => {
   try {
     const { email, password } = req.body;
 
-    const user = await prisma.user.findUnique({ where: { email } });
+    const user = await prisma.user.findUnique({ 
+      where: { email },
+      include: { doctorProfile: true, patientProfile: true }
+    });
 
     if (user && (await bcrypt.compare(password, user.password))) {
       res.json({
@@ -63,6 +72,8 @@ export const loginUser = async (req, res, next) => {
         firstName: user.firstName,
         lastName: user.lastName,
         role: user.role,
+        doctorProfile: user.doctorProfile,
+        patientProfile: user.patientProfile,
         token: generateToken(user.id, user.role),
       });
     } else {
@@ -78,11 +89,12 @@ export const getMe = async (req, res, next) => {
   try {
     const user = await prisma.user.findUnique({
       where: { id: req.user.id },
-      select: { id: true, email: true, firstName: true, lastName: true, role: true, phone: true }
+      include: { doctorProfile: true, patientProfile: true }
     });
 
     if (user) {
-      res.json(user);
+      const { password, ...userWithoutPassword } = user;
+      res.json(userWithoutPassword);
     } else {
       res.status(404);
       throw new Error('User not found');

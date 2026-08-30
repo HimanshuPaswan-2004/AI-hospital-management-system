@@ -4,7 +4,9 @@ import axios from 'axios';
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
 
 const getAuthHeaders = () => {
-  const token = localStorage.getItem('token');
+  const userStr = sessionStorage.getItem('user');
+  const user = userStr ? JSON.parse(userStr) : null;
+  const token = user?.token;
   return {
     headers: {
       Authorization: `Bearer ${token}`,
@@ -41,6 +43,24 @@ export const doctorService = {
   // Get reports for the doctor's patients
   getReports: async () => {
     const response = await axios.get(`${API_URL}/records/reports`, getAuthHeaders());
+    return response.data;
+  },
+
+  // Update doctor profile
+  updateProfile: async (profileData) => {
+    const response = await axios.put(`${API_URL}/users/profile`, profileData, getAuthHeaders());
+    return response.data;
+  },
+
+  // Update appointment status
+  updateAppointmentStatus: async (appointmentId, status) => {
+    const response = await axios.put(`${API_URL}/appointments/${appointmentId}/status`, { status }, getAuthHeaders());
+    return response.data;
+  },
+
+  // Create a new prescription
+  createPrescription: async (prescriptionData) => {
+    const response = await axios.post(`${API_URL}/records/prescriptions`, prescriptionData, getAuthHeaders());
     return response.data;
   },
 };

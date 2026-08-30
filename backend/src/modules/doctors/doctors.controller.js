@@ -115,11 +115,51 @@ export const getDashboardStats = async (req, res, next) => {
       }
     });
 
+    // 5. Chart Data (Appointments per day for the last 7 days)
+    const sevenDaysAgo = new Date(today);
+    sevenDaysAgo.setDate(today.getDate() - 6);
+    
+    const weeklyAppointments = await prisma.appointment.findMany({
+      where: {
+        doctorId,
+        appointmentDate: {
+          gte: sevenDaysAgo,
+          lt: new Date(today.getTime() + 24 * 60 * 60 * 1000)
+        }
+      },
+      select: {
+        appointmentDate: true
+      }
+    });
+
+    const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+    const chartDataMap = {};
+    for (let i = 6; i >= 0; i--) {
+      const d = new Date(today);
+      d.setDate(today.getDate() - i);
+      const dayName = days[d.getDay()];
+      chartDataMap[dayName] = 0;
+    }
+
+    weeklyAppointments.forEach(apt => {
+      const aptDate = new Date(apt.appointmentDate);
+      const dayName = days[aptDate.getDay()];
+      if (chartDataMap[dayName] !== undefined) {
+        chartDataMap[dayName]++;
+      }
+    });
+
+    const chartData = Object.keys(chartDataMap).map(key => ({
+      name: key,
+      appointments: chartDataMap[key]
+    }));
+
     res.json({
       todaysAppointments: todaysAppointmentsCount,
       totalPatients: totalPatientsCount,
       pendingReports: pendingReportsCount,
-      consultations: consultationsCount
+      consultations: consultationsCount,
+      chartData: chartData
     });
   } catch (error) {
     next(error);

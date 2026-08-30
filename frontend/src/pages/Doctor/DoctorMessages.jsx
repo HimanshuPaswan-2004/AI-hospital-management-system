@@ -1,24 +1,53 @@
 import { useState } from 'react';
 import { Send, Phone, Video } from 'lucide-react';
+import dayjs from 'dayjs';
+
+const initialContacts = [
+  { id: 'PT1', name: 'Emily Davis', unread: 0, lastMessage: 'Thank you doctor!', time: '10:30 AM', initials: 'ED', color: 'bg-indigo-100 text-indigo-600', active: false },
+  { id: 'PT2', name: 'Robert Williams', unread: 0, lastMessage: 'I have a question...', time: 'Yesterday', initials: 'RW', color: 'bg-blue-100 text-blue-600', active: false },
+  { id: 'PT3', name: 'Michael Brown', unread: 0, lastMessage: 'Please share the report.', time: '20 May', initials: 'MB', color: 'bg-sky-100 text-sky-600', active: false },
+  { id: 'PT4', name: 'Jessica Miller', unread: 0, lastMessage: 'When is my next visit?', time: '18 May', initials: 'JM', color: 'bg-purple-100 text-purple-600', active: false },
+  { id: 'PT5', name: 'William Jones', unread: 0, lastMessage: 'Thanks for the help.', time: '18 May', initials: 'WJ', color: 'bg-blue-100 text-blue-600', active: true },
+];
+
+const initialChats = {
+  'PT1': [{ id: 1, text: 'Thank you doctor!', sender: 'patient', time: '10:30 AM' }],
+  'PT2': [{ id: 1, text: 'I have a question...', sender: 'patient', time: 'Yesterday' }],
+  'PT3': [{ id: 1, text: 'Please share the report.', sender: 'patient', time: '20 May' }],
+  'PT4': [{ id: 1, text: 'When is my next visit?', sender: 'patient', time: '18 May' }],
+  'PT5': [{ id: 1, text: 'Thanks for the help.', sender: 'patient', time: '18 May' }],
+};
 
 const DoctorMessages = () => {
-  const [activeChat, setActiveChat] = useState('PT4');
+  const [activeChat, setActiveChat] = useState('PT5');
   const [message, setMessage] = useState('');
-
-  const contacts = [
-    { id: 'PT1', name: 'Emily Davis', unread: 0, lastMessage: 'Thank you doctor!', time: '10:30 AM', initials: 'ED', color: 'bg-indigo-100 text-indigo-600', active: false },
-    { id: 'PT2', name: 'Robert Williams', unread: 0, lastMessage: 'I have a question...', time: 'Yesterday', initials: 'RW', color: 'bg-blue-100 text-blue-600', active: false },
-    { id: 'PT3', name: 'Michael Brown', unread: 0, lastMessage: 'Please share the report.', time: '20 May', initials: 'MB', color: 'bg-sky-100 text-sky-600', active: false },
-    { id: 'PT4', name: 'Jessica Miller', unread: 0, lastMessage: 'When is my next visit?', time: '18 May', initials: 'JM', color: 'bg-purple-100 text-purple-600', active: false },
-    { id: 'PT5', name: 'William Jones', unread: 0, lastMessage: 'Thanks for the help.', time: '18 May', initials: 'WJ', color: 'bg-blue-100 text-blue-600', active: true },
-  ];
+  const [contacts, setContacts] = useState(initialContacts);
+  const [chats, setChats] = useState(initialChats);
 
   const handleSend = (e) => {
     e.preventDefault();
     if (message.trim()) {
+      const newMessage = {
+        id: Date.now(),
+        text: message.trim(),
+        sender: 'doctor',
+        time: dayjs().format('hh:mm A')
+      };
+      
+      setChats(prev => ({
+        ...prev,
+        [activeChat]: [...(prev[activeChat] || []), newMessage]
+      }));
+      
+      setContacts(prev => prev.map(c => 
+        c.id === activeChat ? { ...c, lastMessage: newMessage.text, time: newMessage.time } : c
+      ));
+
       setMessage('');
     }
   };
+  
+  const activeContact = contacts.find(c => c.id === activeChat);
 
   return (
     <div className="max-w-6xl mx-auto h-[calc(100vh-140px)] flex bg-white rounded-2xl shadow-[0_2px_10px_rgb(0,0,0,0.02)] border border-slate-100 overflow-hidden">
@@ -59,12 +88,12 @@ const DoctorMessages = () => {
         {/* Chat Header */}
         <div className="h-[76px] border-b border-slate-100 px-6 flex items-center justify-between bg-white flex-shrink-0">
           <div className="flex items-center gap-4">
-            <div className="w-10 h-10 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center font-bold text-sm">
-              WJ
+            <div className={`w-10 h-10 rounded-full flex items-center justify-center font-bold text-sm ${activeContact?.color}`}>
+              {activeContact?.initials}
             </div>
             <div>
-              <h2 className="text-sm font-bold text-slate-800">William Jones</h2>
-              <p className="text-xs text-slate-400 font-medium">Offline</p>
+              <h2 className="text-sm font-bold text-slate-800">{activeContact?.name}</h2>
+              <p className="text-xs text-slate-400 font-medium">Online</p>
             </div>
           </div>
           <div className="flex items-center gap-2">
@@ -79,16 +108,18 @@ const DoctorMessages = () => {
 
         {/* Messages */}
         <div className="flex-1 overflow-y-auto p-6 space-y-6">
-          <div className="flex justify-start">
-            <div className="max-w-[70%]">
-              <div className="px-5 py-3 rounded-2xl text-sm bg-slate-50 border border-slate-100 text-slate-700 rounded-tl-sm shadow-sm">
-                Thanks for the help.
-              </div>
-              <div className="text-[10px] font-medium text-slate-400 mt-1.5 ml-1">
-                18 May
+          {(chats[activeChat] || []).map(msg => (
+            <div key={msg.id} className={`flex ${msg.sender === 'doctor' ? 'justify-end' : 'justify-start'}`}>
+              <div className="max-w-[70%]">
+                <div className={`px-5 py-3 rounded-2xl text-sm shadow-sm ${msg.sender === 'doctor' ? 'bg-blue-600 text-white rounded-tr-sm' : 'bg-slate-50 border border-slate-100 text-slate-700 rounded-tl-sm'}`}>
+                  {msg.text}
+                </div>
+                <div className={`text-[10px] font-medium text-slate-400 mt-1.5 ${msg.sender === 'doctor' ? 'text-right mr-1' : 'ml-1'}`}>
+                  {msg.time}
+                </div>
               </div>
             </div>
-          </div>
+          ))}
         </div>
 
         {/* Input Area */}

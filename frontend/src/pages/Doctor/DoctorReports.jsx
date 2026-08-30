@@ -1,14 +1,35 @@
+import { useState, useEffect } from 'react';
 import { Search, Filter, Download } from 'lucide-react';
-
-const mockReports = [
-  { id: 'REP1', name: 'Complete Blood Count', patient: 'Robert Williams', date: '15 May 2024', type: 'Lab Report' },
-  { id: 'REP2', name: 'Lipid Profile', patient: 'Emily Davis', date: '18 May 2024', type: 'Lab Report' },
-  { id: 'REP3', name: 'Thyroid Profile', patient: 'Michael Brown', date: '17 May 2024', type: 'Lab Report' },
-  { id: 'REP4', name: 'Blood Sugar Fasting', patient: 'Jessica Miller', date: '15 May 2024', type: 'Lab Report' },
-  { id: 'REP5', name: 'Liver Function Test', patient: 'William Jones', date: '14 May 2024', type: 'Lab Report' },
-];
+import { doctorService } from '../../services/doctorService';
+import dayjs from 'dayjs';
 
 const DoctorReports = () => {
+  const [reports, setReports] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchReports = async () => {
+      try {
+        const data = await doctorService.getReports();
+        const formatted = data.map(report => ({
+          id: report.id,
+          name: report.reportName,
+          patient: `${report.patient.firstName} ${report.patient.lastName}`,
+          date: dayjs(report.dateUploaded).format('DD MMM YYYY'),
+          type: 'Lab Report',
+          fileUrl: report.fileUrl
+        }));
+        setReports(formatted);
+      } catch (error) {
+        console.error("Failed to fetch reports:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchReports();
+  }, []);
+
+  if (loading) return <div className="p-8 text-center text-slate-500">Loading reports...</div>;
   return (
     <div className="max-w-6xl mx-auto space-y-8">
       {/* Header */}
@@ -44,7 +65,12 @@ const DoctorReports = () => {
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-100">
-              {mockReports.map((report) => (
+              {reports.length === 0 && (
+                <tr>
+                  <td colSpan="5" className="py-8 text-center text-slate-500">No reports found.</td>
+                </tr>
+              )}
+              {reports.map((report) => (
                 <tr key={report.id} className="hover:bg-slate-50/50 transition-colors group bg-white">
                   <td className="py-4 px-6">
                     <span className="font-bold text-slate-800">{report.name}</span>
@@ -57,9 +83,11 @@ const DoctorReports = () => {
                     </span>
                   </td>
                   <td className="py-4 px-6 text-right">
-                    <button className="p-2 text-slate-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors">
-                      <Download size={18} />
-                    </button>
+                    {report.fileUrl && (
+                      <a href={`http://localhost:5000/${report.fileUrl}`} target="_blank" rel="noreferrer" className="inline-block p-2 text-slate-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors">
+                        <Download size={18} />
+                      </a>
+                    )}
                   </td>
                 </tr>
               ))}

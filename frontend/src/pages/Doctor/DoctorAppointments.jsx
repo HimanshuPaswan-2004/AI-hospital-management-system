@@ -57,6 +57,24 @@ const DoctorAppointments = () => {
     fetchAppointments();
   }, []);
 
+  const handleUpdateStatus = async (id, newStatus) => {
+    try {
+      await doctorService.updateAppointmentStatus(id, newStatus);
+      // Update local state
+      setAppointments(prev => prev.map(apt => {
+        if (apt.id === id) {
+          return {
+            ...apt,
+            status: newStatus === 'COMPLETED' ? 'Confirmed' : 'Cancelled'
+          };
+        }
+        return apt;
+      }));
+    } catch (error) {
+      console.error("Failed to update status", error);
+    }
+  };
+
   const filteredAppointments = appointments.filter(apt => {
     if (activeTab === 'All') return true;
     if (activeTab === 'Completed') return apt.status === 'Confirmed'; // Simplified mapping
@@ -142,9 +160,27 @@ const DoctorAppointments = () => {
               </div>
 
               {/* Actions */}
-              <button className="text-slate-400 hover:text-blue-600 transition-colors p-2">
-                <MoreVertical size={20} />
-              </button>
+              <div className="flex items-center gap-2">
+                {apt.status === 'Upcoming' && (
+                  <>
+                    <button 
+                      onClick={() => handleUpdateStatus(apt.id, 'COMPLETED')}
+                      className="px-3 py-1.5 text-xs font-bold text-emerald-600 bg-emerald-50 hover:bg-emerald-100 rounded-lg transition-colors border border-emerald-100"
+                    >
+                      Complete
+                    </button>
+                    <button 
+                      onClick={() => handleUpdateStatus(apt.id, 'CANCELLED')}
+                      className="px-3 py-1.5 text-xs font-bold text-rose-600 bg-rose-50 hover:bg-rose-100 rounded-lg transition-colors border border-rose-100"
+                    >
+                      Cancel
+                    </button>
+                  </>
+                )}
+                <button className="text-slate-400 hover:text-blue-600 transition-colors p-2">
+                  <MoreVertical size={20} />
+                </button>
+              </div>
             </div>
           </div>
         ))}

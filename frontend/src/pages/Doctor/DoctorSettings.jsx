@@ -1,9 +1,37 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { ChevronRight, Sun, Moon, Monitor } from 'lucide-react';
 
 const DoctorSettings = () => {
   const [activeTab, setActiveTab] = useState('General Settings');
-  const [theme, setTheme] = useState('Light');
+  const [theme, setTheme] = useState(localStorage.getItem('theme') || 'Light');
+  
+  const [language, setLanguage] = useState(localStorage.getItem('language') || 'English');
+  const [timeZone, setTimeZone] = useState(localStorage.getItem('timeZone') || '(GMT +05:30) Asia/Kolkata');
+  const [dateFormat, setDateFormat] = useState(localStorage.getItem('dateFormat') || 'DD MMM YYYY');
+  const [timeFormat, setTimeFormat] = useState(localStorage.getItem('timeFormat') || '12 Hour (AM/PM)');
+
+  useEffect(() => {
+    if (theme === 'Dark') {
+      document.documentElement.classList.add('dark');
+    } else if (theme === 'Light') {
+      document.documentElement.classList.remove('dark');
+    } else {
+      if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.documentElement.classList.add('dark');
+      } else {
+        document.documentElement.classList.remove('dark');
+      }
+    }
+  }, [theme]);
+
+  const handleSave = () => {
+    localStorage.setItem('theme', theme);
+    localStorage.setItem('language', language);
+    localStorage.setItem('timeZone', timeZone);
+    localStorage.setItem('dateFormat', dateFormat);
+    localStorage.setItem('timeFormat', timeFormat);
+    alert('Settings saved successfully!');
+  };
 
   const preferences = [
     { name: 'General Settings', desc: 'Manage general preferences' },
@@ -56,33 +84,49 @@ const DoctorSettings = () => {
               <div className="space-y-4">
                 <div className="flex items-center justify-between py-3 border-b border-slate-100">
                   <span className="text-sm font-medium text-slate-500">Language</span>
-                  <select className="text-sm font-bold text-slate-800 bg-transparent border-none focus:ring-0 cursor-pointer outline-none text-right">
-                    <option>English</option>
-                    <option>Spanish</option>
+                  <select 
+                    value={language} 
+                    onChange={(e) => setLanguage(e.target.value)} 
+                    className="text-sm font-bold text-slate-800 bg-transparent border-none focus:ring-0 cursor-pointer outline-none text-right"
+                  >
+                    <option value="English">English</option>
+                    <option value="Spanish">Spanish</option>
                   </select>
                 </div>
 
                 <div className="flex items-center justify-between py-3 border-b border-slate-100">
                   <span className="text-sm font-medium text-slate-500">Time Zone</span>
-                  <select className="text-sm font-bold text-slate-800 bg-transparent border-none focus:ring-0 cursor-pointer outline-none text-right">
-                    <option>(GMT +05:30) Asia/Kolkata</option>
-                    <option>(GMT -05:00) EST</option>
+                  <select 
+                    value={timeZone} 
+                    onChange={(e) => setTimeZone(e.target.value)} 
+                    className="text-sm font-bold text-slate-800 bg-transparent border-none focus:ring-0 cursor-pointer outline-none text-right"
+                  >
+                    <option value="(GMT +05:30) Asia/Kolkata">(GMT +05:30) Asia/Kolkata</option>
+                    <option value="(GMT -05:00) EST">(GMT -05:00) EST</option>
                   </select>
                 </div>
 
                 <div className="flex items-center justify-between py-3 border-b border-slate-100">
                   <span className="text-sm font-medium text-slate-500">Date Format</span>
-                  <select className="text-sm font-bold text-slate-800 bg-transparent border-none focus:ring-0 cursor-pointer outline-none text-right">
-                    <option>DD MMM YYYY</option>
-                    <option>MM/DD/YYYY</option>
+                  <select 
+                    value={dateFormat} 
+                    onChange={(e) => setDateFormat(e.target.value)} 
+                    className="text-sm font-bold text-slate-800 bg-transparent border-none focus:ring-0 cursor-pointer outline-none text-right"
+                  >
+                    <option value="DD MMM YYYY">DD MMM YYYY</option>
+                    <option value="MM/DD/YYYY">MM/DD/YYYY</option>
                   </select>
                 </div>
 
                 <div className="flex items-center justify-between py-3 border-b border-slate-100">
                   <span className="text-sm font-medium text-slate-500">Time Format</span>
-                  <select className="text-sm font-bold text-slate-800 bg-transparent border-none focus:ring-0 cursor-pointer outline-none text-right">
-                    <option>12 Hour (AM/PM)</option>
-                    <option>24 Hour</option>
+                  <select 
+                    value={timeFormat} 
+                    onChange={(e) => setTimeFormat(e.target.value)} 
+                    className="text-sm font-bold text-slate-800 bg-transparent border-none focus:ring-0 cursor-pointer outline-none text-right"
+                  >
+                    <option value="12 Hour (AM/PM)">12 Hour (AM/PM)</option>
+                    <option value="24 Hour">24 Hour</option>
                   </select>
                 </div>
               </div>
@@ -115,7 +159,7 @@ const DoctorSettings = () => {
               </div>
 
               <div className="pt-4">
-                <button className="w-full py-3.5 bg-blue-600 text-white font-bold rounded-xl hover:bg-blue-700 transition-colors shadow-sm">
+                <button onClick={handleSave} className="w-full py-3.5 bg-blue-600 text-white font-bold rounded-xl hover:bg-blue-700 transition-colors shadow-sm">
                   Save Preferences
                 </button>
               </div>

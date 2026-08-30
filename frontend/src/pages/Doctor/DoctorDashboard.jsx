@@ -5,24 +5,7 @@ import useAuthStore from '../../store/authStore';
 import { Link } from 'react-router-dom';
 import { doctorService } from '../../services/doctorService';
 
-const data = [
-  { name: 'Mon', appointments: 22 },
-  { name: 'Tue', appointments: 30 },
-  { name: 'Wed', appointments: 18 },
-  { name: 'Thu', appointments: 25 },
-  { name: 'Fri', appointments: 15 },
-  { name: 'Sat', appointments: 28 },
-  { name: 'Sun', appointments: 10 },
-];
-
-const schedule = [
-  { time: '09:00 AM', patient: 'Robert Williams', type: 'Follow Up', status: 'Confirmed', initials: 'RW', color: 'bg-blue-100 text-blue-600' },
-  { time: '10:30 AM', patient: 'Emily Davis', type: 'Consultation', status: 'Confirmed', initials: 'ED', color: 'bg-indigo-100 text-indigo-600' },
-  { time: '12:00 PM', patient: 'Michael Brown', type: 'New Patient', status: 'Confirmed', initials: 'MB', color: 'bg-sky-100 text-sky-600' },
-  { time: '02:30 PM', patient: 'Jessica Miller', type: 'Follow Up', status: 'Upcoming', initials: 'JM', color: 'bg-purple-100 text-purple-600' },
-  { time: '04:00 PM', patient: 'William Jones', type: 'Consultation', status: 'Upcoming', initials: 'WJ', color: 'bg-blue-100 text-blue-600' },
-  { time: '05:00 PM', patient: 'David Anderson', type: 'Follow Up', status: 'Cancelled', initials: 'DA', color: 'bg-slate-100 text-slate-600' },
-];
+import dayjs from 'dayjs';
 
 const StatusBadge = ({ status }) => {
   const styles = {
@@ -44,15 +27,39 @@ const DoctorDashboard = () => {
     todaysAppointments: 0,
     totalPatients: 0,
     pendingReports: 0,
-    consultations: 0
+    consultations: 0,
+    chartData: []
   });
+  const [schedule, setSchedule] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchDashboardData = async () => {
       try {
-        const dashboardStats = await doctorService.getDashboardStats();
+        const [dashboardStats, appointmentsData] = await Promise.all([
+          doctorService.getDashboardStats(),
+          doctorService.getAppointments(dayjs().format('YYYY-MM-DD'))
+        ]);
+        
         setStats(dashboardStats);
+        
+        // Format schedule
+        const formattedSchedule = appointmentsData.map(apt => {
+          let statusText = apt.status === 'PENDING' ? 'Upcoming' : 
+                           apt.status === 'CONFIRMED' ? 'Confirmed' : 
+                           apt.status === 'COMPLETED' ? 'Confirmed' : 'Cancelled';
+          
+          return {
+            id: apt.id,
+            time: apt.timeSlot,
+            patient: `${apt.patient.firstName} ${apt.patient.lastName}`,
+            type: apt.reason || 'Consultation',
+            status: statusText,
+            initials: `${apt.patient.firstName[0]}${apt.patient.lastName[0]}`,
+            color: 'bg-blue-100 text-blue-600'
+          };
+        });
+        setSchedule(formattedSchedule);
       } catch (error) {
         console.error("Failed to fetch dashboard stats", error);
       } finally {
@@ -140,8 +147,11 @@ const DoctorDashboard = () => {
           </div>
           
           <div className="space-y-6">
+            {schedule.length === 0 && (
+              <div className="text-center text-slate-500 py-4 text-sm font-medium">No appointments today.</div>
+            )}
             {schedule.map((item, index) => (
-              <div key={index} className="flex items-center justify-between">
+              <div key={item.id || index} className="flex items-center justify-between">
                 <div className="flex items-center gap-4">
                   <div className="w-[60px] text-xs font-bold text-slate-400">{item.time}</div>
                   <div className={`w-10 h-10 rounded-full flex items-center justify-center font-bold text-sm ${item.color}`}>
@@ -171,7 +181,7 @@ const DoctorDashboard = () => {
           
           <div className="h-[300px] w-full">
             <ResponsiveContainer width="100%" height="100%">
-              <LineChart data={data} margin={{ top: 5, right: 10, left: -20, bottom: 0 }}>
+              <LineChart data={stats.chartData} margin={{ top: 5, right: 10, left: -20, bottom: 0 }}>
                 <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f1f5f9" />
                 <XAxis 
                   dataKey="name" 
