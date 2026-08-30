@@ -32,6 +32,8 @@ model User {
   prescriptions       Prescription[]    @relation("PatientPrescriptions")
   writtenPrescriptions Prescription[]   @relation("DoctorPrescriptions")
   labReports          LabReport[]       @relation("PatientLabReports")
+  sentMessages        Message[]         @relation("SentMessages")
+  receivedMessages    Message[]         @relation("ReceivedMessages")
 }
 
 model DoctorProfile {
@@ -141,5 +143,16 @@ model LabReport {
   notes           String?
   createdAt       DateTime @default(now())
   updatedAt       DateTime @updatedAt
+}
+
+model Message {
+  id         String   @id @default(uuid())
+  senderId   String
+  sender     User     @relation("SentMessages", fields: [senderId], references: [id])
+  receiverId String
+  receiver   User     @relation("ReceivedMessages", fields: [receiverId], references: [id])
+  content    String
+  isRead     Boolean  @default(false)
+  createdAt  DateTime @default(now())
 }
 

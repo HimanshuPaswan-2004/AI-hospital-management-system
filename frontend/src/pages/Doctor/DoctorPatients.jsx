@@ -38,13 +38,13 @@ const DoctorPatients = () => {
     fetchPatients();
   }, []);
 
-  if (loading) return <div className="p-8 text-center text-slate-500">Loading patients...</div>;
+  if (loading) return <div className="p-8 text-center text-slate-500 dark:text-slate-400 dark:text-slate-500">Loading patients...</div>;
 
   return (
     <div className="max-w-6xl mx-auto space-y-8">
       {/* Header */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-        <h1 className="text-2xl font-bold text-slate-800">Patients</h1>
+        <h1 className="text-2xl font-bold text-slate-800 dark:text-white">Patients</h1>
         <button className="inline-flex items-center gap-2 px-5 py-2.5 bg-blue-600 text-white rounded-xl font-bold transition-colors hover:bg-blue-700 shadow-sm text-sm">
           <Plus size={18} />
           Add Patient
@@ -54,14 +54,14 @@ const DoctorPatients = () => {
       {/* Filters */}
       <div className="flex flex-col sm:flex-row gap-4">
         <div className="relative flex-1 max-w-sm">
-          <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+          <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 dark:text-slate-500" />
           <input
             type="text"
             placeholder="Search patients..."
-            className="w-full pl-11 pr-4 py-2.5 bg-white border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-100 focus:border-blue-500 transition-shadow"
+            className="w-full pl-11 pr-4 py-2.5 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-100 focus:border-blue-500 transition-shadow"
           />
         </div>
-        <button className="inline-flex items-center gap-2 px-4 py-2.5 bg-white border border-slate-200 text-slate-700 rounded-xl font-medium hover:bg-slate-50 transition-colors text-sm">
+        <button className="inline-flex items-center gap-2 px-4 py-2.5 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200 rounded-xl font-medium hover:bg-slate-50 dark:hover:bg-slate-700 dark:bg-slate-900/50 transition-colors text-sm">
           <Filter size={16} />
           Filter
         </button>
@@ -70,24 +70,24 @@ const DoctorPatients = () => {
       {/* Patient Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {patients.length === 0 && (
-          <div className="col-span-full p-8 text-center text-slate-500">No patients found.</div>
+          <div className="col-span-full p-8 text-center text-slate-500 dark:text-slate-400 dark:text-slate-500">No patients found.</div>
         )}
         {patients.map((patient) => (
-          <div key={patient.id} className="bg-white rounded-2xl shadow-[0_2px_10px_rgb(0,0,0,0.02)] border border-slate-100 p-6 flex items-center justify-between hover:border-blue-100 transition-colors cursor-pointer group">
+          <div key={patient.id} className="bg-white dark:bg-slate-800 rounded-2xl shadow-[0_2px_10px_rgb(0,0,0,0.02)] border border-slate-100 dark:border-slate-700 p-6 flex items-center justify-between hover:border-blue-100 transition-colors cursor-pointer group">
             <div className="flex items-center gap-5">
               <div className={`w-14 h-14 rounded-full flex items-center justify-center font-bold text-lg ${patient.color}`}>
                 {patient.initials}
               </div>
               <div>
-                <h3 className="font-bold text-slate-800 group-hover:text-blue-600 transition-colors">{patient.name}</h3>
-                <p className="text-sm text-slate-500 mt-0.5">{patient.age} Years, {patient.gender}</p>
-                <p className="text-xs font-medium text-slate-400 mt-1">ID: {patient.id}</p>
+                <h3 className="font-bold text-slate-800 dark:text-white group-hover:text-blue-600 transition-colors">{patient.name}</h3>
+                <p className="text-sm text-slate-500 dark:text-slate-400 dark:text-slate-500 mt-0.5">{patient.age} Years, {patient.gender}</p>
+                <p className="text-xs font-medium text-slate-400 dark:text-slate-500 mt-1">ID: {patient.id}</p>
               </div>
             </div>
             
             <div className="text-right">
-              <p className="text-xs font-medium text-slate-400">Last Visit</p>
-              <p className="text-sm font-bold text-slate-700 mt-1">{patient.lastVisit}</p>
+              <p className="text-xs font-medium text-slate-400 dark:text-slate-500">Last Visit</p>
+              <p className="text-sm font-bold text-slate-700 dark:text-slate-200 mt-1">{patient.lastVisit}</p>
             </div>
           </div>
         ))}

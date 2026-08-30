@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from 'react';
 import { Bot, Sparkles, FileText, Pill, ClipboardList, Send, Mic, User, Loader2 } from 'lucide-react';
 import useAuthStore from '../../store/authStore';
-import axios from 'axios';
+import { doctorService } from '../../services/doctorService';
 
 const DoctorAIAssistant = () => {
   const { user } = useAuthStore();
@@ -27,17 +27,9 @@ const DoctorAIAssistant = () => {
     setIsTyping(true);
     
     try {
-      const config = {
-        headers: { Authorization: `Bearer ${user?.token}` }
-      };
-      
       const history = messages.map(m => ({ role: m.type, text: m.text }));
       
-      const { data } = await axios.post(
-        `${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api/ai/chat`,
-        { message: text, history },
-        config
-      );
+      const data = await doctorService.aiChat(text, history);
       
       setMessages(prev => [...prev, { id: Date.now(), type: 'bot', text: data.reply }]);
     } catch (error) {
@@ -56,11 +48,11 @@ const DoctorAIAssistant = () => {
     <div className="max-w-5xl mx-auto h-[calc(100vh-140px)] flex flex-col space-y-6">
       {/* Header */}
       <div className="flex-shrink-0">
-        <h1 className="text-2xl font-bold text-slate-800">AI Assistant</h1>
+        <h1 className="text-2xl font-bold text-slate-800 dark:text-white">AI Assistant</h1>
       </div>
 
       {/* Main Chat Area */}
-      <div className="flex-1 bg-white rounded-2xl shadow-[0_2px_10px_rgb(0,0,0,0.02)] border border-slate-100 flex flex-col overflow-hidden">
+      <div className="flex-1 bg-white dark:bg-slate-800 rounded-2xl shadow-[0_2px_10px_rgb(0,0,0,0.02)] border border-slate-100 dark:border-slate-700 flex flex-col overflow-hidden">
         
         {/* Chat Content */}
         <div className="flex-1 overflow-y-auto p-6 lg:p-10 custom-scrollbar space-y-8">
@@ -71,43 +63,43 @@ const DoctorAIAssistant = () => {
               <Bot size={24} />
             </div>
             <div>
-              <h2 className="text-xl font-bold text-slate-800">Hello Dr. {user?.firstName || 'Sarah'}!</h2>
-              <p className="text-slate-500 mt-1">How can I help you today?</p>
+              <h2 className="text-xl font-bold text-slate-800 dark:text-white">Hello Dr. {user?.firstName || 'Sarah'}!</h2>
+              <p className="text-slate-500 dark:text-slate-400 dark:text-slate-500 mt-1">How can I help you today?</p>
             </div>
           </div>
 
           {/* Quick Actions */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-            <button onClick={() => handleQuickAction('Analyze the following symptoms: ')} className="p-5 rounded-2xl border border-slate-100 hover:border-blue-200 hover:bg-blue-50/50 transition-all text-center group bg-white">
+            <button onClick={() => handleQuickAction('Analyze the following symptoms: ')} className="p-5 rounded-2xl border border-slate-100 dark:border-slate-700 hover:border-blue-200 hover:bg-blue-50/50 transition-all text-center group bg-white dark:bg-slate-800">
               <div className="w-10 h-10 mx-auto bg-blue-50 text-blue-600 rounded-full flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
                 <Sparkles size={20} />
               </div>
-              <h3 className="font-bold text-slate-800 text-sm">Analyze Symptoms</h3>
-              <p className="text-xs text-slate-500 mt-1">Analyze patient symptoms</p>
+              <h3 className="font-bold text-slate-800 dark:text-white text-sm">Analyze Symptoms</h3>
+              <p className="text-xs text-slate-500 dark:text-slate-400 dark:text-slate-500 mt-1">Analyze patient symptoms</p>
             </button>
             
-            <button onClick={() => handleQuickAction('Summarize the recent interactions for my patient: ')} className="p-5 rounded-2xl border border-slate-100 hover:border-blue-200 hover:bg-blue-50/50 transition-all text-center group bg-white">
+            <button onClick={() => handleQuickAction('Summarize the recent interactions for my patient: ')} className="p-5 rounded-2xl border border-slate-100 dark:border-slate-700 hover:border-blue-200 hover:bg-blue-50/50 transition-all text-center group bg-white dark:bg-slate-800">
               <div className="w-10 h-10 mx-auto bg-blue-50 text-blue-600 rounded-full flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
                 <FileText size={20} />
               </div>
-              <h3 className="font-bold text-slate-800 text-sm">Summarize Interactions</h3>
-              <p className="text-xs text-slate-500 mt-1">Summarize patient reports</p>
+              <h3 className="font-bold text-slate-800 dark:text-white text-sm">Summarize Interactions</h3>
+              <p className="text-xs text-slate-500 dark:text-slate-400 dark:text-slate-500 mt-1">Summarize patient reports</p>
             </button>
 
-            <button onClick={() => handleQuickAction('Check drug interactions for: ')} className="p-5 rounded-2xl border border-slate-100 hover:border-blue-200 hover:bg-blue-50/50 transition-all text-center group bg-white">
+            <button onClick={() => handleQuickAction('Check drug interactions for: ')} className="p-5 rounded-2xl border border-slate-100 dark:border-slate-700 hover:border-blue-200 hover:bg-blue-50/50 transition-all text-center group bg-white dark:bg-slate-800">
               <div className="w-10 h-10 mx-auto bg-blue-50 text-blue-600 rounded-full flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
                 <Pill size={20} />
               </div>
-              <h3 className="font-bold text-slate-800 text-sm">Drug Interaction</h3>
-              <p className="text-xs text-slate-500 mt-1">Check drug interactions</p>
+              <h3 className="font-bold text-slate-800 dark:text-white text-sm">Drug Interaction</h3>
+              <p className="text-xs text-slate-500 dark:text-slate-400 dark:text-slate-500 mt-1">Check drug interactions</p>
             </button>
 
-            <button onClick={() => handleQuickAction('What are the latest treatment guidelines for: ')} className="p-5 rounded-2xl border border-slate-100 hover:border-blue-200 hover:bg-blue-50/50 transition-all text-center group bg-white">
+            <button onClick={() => handleQuickAction('What are the latest treatment guidelines for: ')} className="p-5 rounded-2xl border border-slate-100 dark:border-slate-700 hover:border-blue-200 hover:bg-blue-50/50 transition-all text-center group bg-white dark:bg-slate-800">
               <div className="w-10 h-10 mx-auto bg-blue-50 text-blue-600 rounded-full flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
                 <ClipboardList size={20} />
               </div>
-              <h3 className="font-bold text-slate-800 text-sm">Treatment Guidelines</h3>
-              <p className="text-xs text-slate-500 mt-1">Get treatment recommendations</p>
+              <h3 className="font-bold text-slate-800 dark:text-white text-sm">Treatment Guidelines</h3>
+              <p className="text-xs text-slate-500 dark:text-slate-400 dark:text-slate-500 mt-1">Get treatment recommendations</p>
             </button>
           </div>
 
@@ -117,7 +109,7 @@ const DoctorAIAssistant = () => {
               <div className="w-10 h-10 rounded-full flex items-center justify-center shrink-0 shadow-sm bg-blue-600 text-white">
                 <Bot size={20} />
               </div>
-              <div className="p-4 rounded-2xl text-[15px] leading-relaxed shadow-sm whitespace-pre-wrap bg-slate-50 border border-slate-100 text-slate-700 rounded-tl-sm">
+              <div className="p-4 rounded-2xl text-[15px] leading-relaxed shadow-sm whitespace-pre-wrap bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-slate-700 text-slate-700 dark:text-slate-200 rounded-tl-sm">
                 Hello Dr. {user?.firstName || 'Sarah'}! How can I help you today?
               </div>
             </div>
@@ -130,7 +122,7 @@ const DoctorAIAssistant = () => {
                 <div className={`p-4 rounded-2xl text-[15px] leading-relaxed shadow-sm whitespace-pre-wrap ${
                   msg.type === 'user' 
                     ? 'bg-blue-600 text-white rounded-tr-sm' 
-                    : 'bg-slate-50 border border-slate-100 text-slate-700 rounded-tl-sm'
+                    : 'bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-slate-700 text-slate-700 dark:text-slate-200 rounded-tl-sm'
                 }`}>
                   {msg.text}
                 </div>
@@ -142,7 +134,7 @@ const DoctorAIAssistant = () => {
                 <div className="w-10 h-10 rounded-full flex items-center justify-center shrink-0 shadow-sm bg-blue-600 text-white">
                   <Bot size={20} />
                 </div>
-                <div className="p-4 rounded-2xl bg-slate-50 border border-slate-100 rounded-tl-sm flex items-center gap-1.5">
+                <div className="p-4 rounded-2xl bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-slate-700 rounded-tl-sm flex items-center gap-1.5">
                   <div className="w-2 h-2 bg-blue-400 rounded-full animate-bounce"></div>
                   <div className="w-2 h-2 bg-blue-400 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
                   <div className="w-2 h-2 bg-blue-400 rounded-full animate-bounce" style={{ animationDelay: '0.4s' }}></div>
@@ -154,19 +146,19 @@ const DoctorAIAssistant = () => {
         </div>
 
         {/* Input Area */}
-        <div className="p-6 bg-white border-t border-slate-100 flex-shrink-0">
+        <div className="p-6 bg-white dark:bg-slate-800 border-t border-slate-100 dark:border-slate-700 flex-shrink-0">
           <form 
             onSubmit={(e) => { e.preventDefault(); handleSend(); }} 
-            className="relative flex items-center bg-white border border-slate-200 rounded-full p-1.5 shadow-sm focus-within:ring-2 focus-within:ring-blue-100 focus-within:border-blue-500 transition-all"
+            className="relative flex items-center bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-full p-1.5 shadow-sm focus-within:ring-2 focus-within:ring-blue-100 focus-within:border-blue-500 transition-all"
           >
             <input 
               type="text" 
               value={message}
               onChange={(e) => setMessage(e.target.value)}
               placeholder="Ask anything about your patient or medical knowledge..." 
-              className="flex-1 bg-transparent border-none px-4 py-2 text-sm focus:outline-none text-slate-700"
+              className="flex-1 bg-transparent border-none px-4 py-2 text-sm focus:outline-none text-slate-700 dark:text-slate-200"
             />
-            <button type="button" className="p-2.5 text-slate-400 hover:text-slate-600 transition-colors">
+            <button type="button" className="p-2.5 text-slate-400 dark:text-slate-500 hover:text-slate-600 dark:text-slate-300 transition-colors">
               <Mic size={20} />
             </button>
             <button 

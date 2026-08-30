@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import useAuthStore from '../../store/authStore';
 import { Link } from 'react-router-dom';
 import { doctorService } from '../../services/doctorService';
+import { useTranslation } from 'react-i18next';
 
 import dayjs from 'dayjs';
 
@@ -23,6 +24,7 @@ const StatusBadge = ({ status }) => {
 
 const DoctorDashboard = () => {
   const { user } = useAuthStore();
+  const { t } = useTranslation();
   const [stats, setStats] = useState({
     todaysAppointments: 0,
     totalPatients: 0,
@@ -70,96 +72,96 @@ const DoctorDashboard = () => {
   }, []);
 
   if (loading) {
-    return <div className="p-8 text-center text-slate-500 font-medium">Loading dashboard...</div>;
+    return <div className="p-8 text-center text-slate-500 dark:text-slate-400 dark:text-slate-500 font-medium">Loading dashboard...</div>;
   }
 
   return (
     <div className="max-w-7xl mx-auto space-y-6">
       {/* Header */}
       <div>
-        <h1 className="text-2xl font-bold text-slate-800">
-          Good morning, Dr. {user?.firstName || 'Sarah'} 👋
+        <h1 className="text-2xl font-bold text-slate-800 dark:text-white">
+          {t('Good morning')}, Dr. {user?.firstName || 'Sarah'} 👋
         </h1>
-        <p className="text-slate-500 text-sm mt-1">Here's what's happening with your practice today.</p>
+        <p className="text-slate-500 dark:text-slate-400 dark:text-slate-500 text-sm mt-1">{t("Here's what's happening with your practice today")}</p>
       </div>
 
       {/* Stats Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        <div className="bg-white p-6 rounded-2xl shadow-[0_2px_10px_rgb(0,0,0,0.02)] border border-slate-100 flex flex-col justify-between h-32">
+        <div className="bg-white dark:bg-slate-800 p-6 rounded-2xl shadow-[0_2px_10px_rgb(0,0,0,0.02)] border border-slate-100 dark:border-slate-700 flex flex-col justify-between h-32 transition-colors">
           <div className="flex justify-between items-start">
             <div>
-              <p className="text-sm font-medium text-slate-500">Today's Appointments</p>
-              <h3 className="text-3xl font-black text-slate-800 mt-1">{stats.todaysAppointments}</h3>
+              <p className="text-sm font-medium text-slate-500 dark:text-slate-400 dark:text-slate-500">{t("Today's Appointments")}</p>
+              <h3 className="text-3xl font-black text-slate-800 dark:text-white mt-1">{stats.todaysAppointments}</h3>
             </div>
-            <div className="w-10 h-10 bg-blue-50 rounded-xl flex items-center justify-center text-blue-600">
+            <div className="w-10 h-10 bg-blue-50 dark:bg-blue-900/30 rounded-xl flex items-center justify-center text-blue-600 dark:text-blue-400">
               <Calendar size={20} />
             </div>
           </div>
-          <p className="text-xs font-medium text-slate-400">+2 from yesterday</p>
+          <p className="text-xs font-medium text-slate-400 dark:text-slate-500 dark:text-slate-400 dark:text-slate-500">+2 from yesterday</p>
         </div>
 
-        <div className="bg-white p-6 rounded-2xl shadow-[0_2px_10px_rgb(0,0,0,0.02)] border border-slate-100 flex flex-col justify-between h-32">
+        <div className="bg-white dark:bg-slate-800 p-6 rounded-2xl shadow-[0_2px_10px_rgb(0,0,0,0.02)] border border-slate-100 dark:border-slate-700 flex flex-col justify-between h-32 transition-colors">
           <div className="flex justify-between items-start">
             <div>
-              <p className="text-sm font-medium text-slate-500">Total Patients</p>
-              <h3 className="text-3xl font-black text-slate-800 mt-1">{stats.totalPatients}</h3>
+              <p className="text-sm font-medium text-slate-500 dark:text-slate-400 dark:text-slate-500">{t("Total Patients")}</p>
+              <h3 className="text-3xl font-black text-slate-800 dark:text-white mt-1">{stats.totalPatients}</h3>
             </div>
-            <div className="w-10 h-10 bg-emerald-50 rounded-xl flex items-center justify-center text-emerald-600">
+            <div className="w-10 h-10 bg-emerald-50 dark:bg-emerald-900/30 rounded-xl flex items-center justify-center text-emerald-600 dark:text-emerald-400">
               <Users size={20} />
             </div>
           </div>
-          <p className="text-xs font-medium text-slate-400">+38 this month</p>
+          <p className="text-xs font-medium text-slate-400 dark:text-slate-500 dark:text-slate-400 dark:text-slate-500">+38 this month</p>
         </div>
 
-        <div className="bg-white p-6 rounded-2xl shadow-[0_2px_10px_rgb(0,0,0,0.02)] border border-slate-100 flex flex-col justify-between h-32">
+        <div className="bg-white dark:bg-slate-800 p-6 rounded-2xl shadow-[0_2px_10px_rgb(0,0,0,0.02)] border border-slate-100 dark:border-slate-700 flex flex-col justify-between h-32 transition-colors">
           <div className="flex justify-between items-start">
             <div>
-              <p className="text-sm font-medium text-slate-500">Pending Reports</p>
-              <h3 className="text-3xl font-black text-slate-800 mt-1">{stats.pendingReports}</h3>
+              <p className="text-sm font-medium text-slate-500 dark:text-slate-400 dark:text-slate-500">{t("Pending Reports")}</p>
+              <h3 className="text-3xl font-black text-slate-800 dark:text-white mt-1">{stats.pendingReports}</h3>
             </div>
-            <div className="w-10 h-10 bg-amber-50 rounded-xl flex items-center justify-center text-amber-600">
+            <div className="w-10 h-10 bg-amber-50 dark:bg-amber-900/30 rounded-xl flex items-center justify-center text-amber-600 dark:text-amber-400">
               <FileText size={20} />
             </div>
           </div>
-          <p className="text-xs font-medium text-slate-400">-3 from yesterday</p>
+          <p className="text-xs font-medium text-slate-400 dark:text-slate-500 dark:text-slate-400 dark:text-slate-500">-3 from yesterday</p>
         </div>
 
-        <div className="bg-white p-6 rounded-2xl shadow-[0_2px_10px_rgb(0,0,0,0.02)] border border-slate-100 flex flex-col justify-between h-32">
+        <div className="bg-white dark:bg-slate-800 p-6 rounded-2xl shadow-[0_2px_10px_rgb(0,0,0,0.02)] border border-slate-100 dark:border-slate-700 flex flex-col justify-between h-32 transition-colors">
           <div className="flex justify-between items-start">
             <div>
-              <p className="text-sm font-medium text-slate-500">Consultations</p>
-              <h3 className="text-3xl font-black text-slate-800 mt-1">{stats.consultations}</h3>
+              <p className="text-sm font-medium text-slate-500 dark:text-slate-400 dark:text-slate-500">{t("Consultations")}</p>
+              <h3 className="text-3xl font-black text-slate-800 dark:text-white mt-1">{stats.consultations}</h3>
             </div>
-            <div className="w-10 h-10 bg-purple-50 rounded-xl flex items-center justify-center text-purple-600">
+            <div className="w-10 h-10 bg-purple-50 dark:bg-purple-900/30 rounded-xl flex items-center justify-center text-purple-600 dark:text-purple-400">
               <Sparkles size={20} />
             </div>
           </div>
-          <p className="text-xs font-medium text-slate-400">This week</p>
+          <p className="text-xs font-medium text-slate-400 dark:text-slate-500 dark:text-slate-400 dark:text-slate-500">This week</p>
         </div>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Today's Schedule */}
-        <div className="lg:col-span-1 bg-white rounded-2xl shadow-[0_2px_10px_rgb(0,0,0,0.02)] border border-slate-100 p-6">
+        <div className="lg:col-span-1 bg-white dark:bg-slate-800 rounded-2xl shadow-[0_2px_10px_rgb(0,0,0,0.02)] border border-slate-100 dark:border-slate-700 p-6 transition-colors">
           <div className="flex items-center justify-between mb-6">
-            <h2 className="text-lg font-bold text-slate-800">Today's Schedule</h2>
-            <Link to="/doctor/schedule" className="text-sm font-bold text-blue-600 hover:text-blue-700">View all</Link>
+            <h2 className="text-lg font-bold text-slate-800 dark:text-white">{t("Today's Schedule")}</h2>
+            <Link to="/doctor/schedule" className="text-sm font-bold text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300">{t("View all")}</Link>
           </div>
           
           <div className="space-y-6">
             {schedule.length === 0 && (
-              <div className="text-center text-slate-500 py-4 text-sm font-medium">No appointments today.</div>
+              <div className="text-center text-slate-500 dark:text-slate-400 dark:text-slate-500 py-4 text-sm font-medium">{t("No appointments today")}</div>
             )}
             {schedule.map((item, index) => (
               <div key={item.id || index} className="flex items-center justify-between">
                 <div className="flex items-center gap-4">
-                  <div className="w-[60px] text-xs font-bold text-slate-400">{item.time}</div>
-                  <div className={`w-10 h-10 rounded-full flex items-center justify-center font-bold text-sm ${item.color}`}>
+                  <div className="w-[60px] text-xs font-bold text-slate-400 dark:text-slate-500 dark:text-slate-400 dark:text-slate-500">{item.time}</div>
+                  <div className={`w-10 h-10 rounded-full flex items-center justify-center font-bold text-sm ${item.color.replace('bg-blue-100', 'bg-blue-100 dark:bg-blue-900/30').replace('text-blue-600', 'text-blue-600 dark:text-blue-400')}`}>
                     {item.initials}
                   </div>
                   <div>
-                    <h4 className="text-sm font-bold text-slate-800">{item.patient}</h4>
-                    <p className="text-xs text-slate-500">{item.type}</p>
+                    <h4 className="text-sm font-bold text-slate-800 dark:text-white dark:text-slate-200">{item.patient}</h4>
+                    <p className="text-xs text-slate-500 dark:text-slate-400 dark:text-slate-500">{item.type}</p>
                   </div>
                 </div>
                 <StatusBadge status={item.status} />
@@ -169,10 +171,10 @@ const DoctorDashboard = () => {
         </div>
 
         {/* Appointments Chart */}
-        <div className="lg:col-span-2 bg-white rounded-2xl shadow-[0_2px_10px_rgb(0,0,0,0.02)] border border-slate-100 p-6">
+        <div className="lg:col-span-2 bg-white dark:bg-slate-800 rounded-2xl shadow-[0_2px_10px_rgb(0,0,0,0.02)] border border-slate-100 dark:border-slate-700 p-6 transition-colors">
           <div className="flex items-center justify-between mb-8">
-            <h2 className="text-lg font-bold text-slate-800">Appointments Overview</h2>
-            <select className="text-sm font-medium text-slate-500 bg-transparent border-none focus:ring-0 cursor-pointer outline-none">
+            <h2 className="text-lg font-bold text-slate-800 dark:text-white">{t("Appointments Overview")}</h2>
+            <select className="text-sm font-medium text-slate-500 dark:text-slate-400 dark:text-slate-500 bg-transparent border-none focus:ring-0 cursor-pointer outline-none [&>option]:text-black">
               <option>This Week</option>
               <option>Last Week</option>
               <option>This Month</option>

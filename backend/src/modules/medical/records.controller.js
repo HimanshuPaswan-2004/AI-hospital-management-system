@@ -130,8 +130,18 @@ export const getLabReports = async (req, res, next) => {
 
     if (req.user.role === 'PATIENT') {
       whereClause.patientId = req.user.id;
-    } else if (req.user.role === 'DOCTOR' && req.query.patientId) {
-      whereClause.patientId = req.query.patientId;
+    } else if (req.user.role === 'DOCTOR') {
+      if (req.query.patientId) {
+        whereClause.patientId = req.query.patientId;
+      } else {
+        const uniquePatients = await prisma.appointment.findMany({
+          where: { doctorId: req.user.id },
+          select: { patientId: true },
+          distinct: ['patientId']
+        });
+        const patientIds = uniquePatients.map(p => p.patientId);
+        whereClause.patientId = { in: patientIds };
+      }
     } else if (req.user.role === 'ADMIN') {
       if (req.query.patientId) whereClause.patientId = req.query.patientId;
     }

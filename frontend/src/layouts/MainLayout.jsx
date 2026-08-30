@@ -20,7 +20,7 @@ const MainLayout = () => {
   }, [location.pathname]);
 
   return (
-    <div className="flex h-screen bg-slate-50 overflow-hidden">
+    <div className="flex h-screen bg-slate-50 dark:bg-slate-900 overflow-hidden">
       {/* Overlay for mobile */}
       {sidebarOpen && (
         <div
@@ -34,7 +34,7 @@ const MainLayout = () => {
       <div className="flex flex-col flex-1 w-full overflow-hidden">
         <Navbar toggleSidebar={() => setSidebarOpen(!sidebarOpen)} />
 
-        <main className="flex-1 overflow-x-hidden overflow-y-auto bg-slate-50 p-4 md:p-8 pb-28 md:pb-8">
+        <main className="flex-1 overflow-x-hidden overflow-y-auto bg-slate-50 dark:bg-slate-900 p-4 md:p-8 pb-28 md:pb-8">
           <Outlet />
         </main>
       </div>

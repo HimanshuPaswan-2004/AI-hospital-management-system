@@ -63,6 +63,10 @@ app.use('/api/ai', aiRoutes);
 import analyticsRoutes from './modules/analytics/analytics.routes.js';
 app.use('/api/analytics', analyticsRoutes);
 
+// Messages Routes
+import messagesRoutes from './modules/messages/messages.routes.js';
+app.use('/api/messages', messagesRoutes);
+
 // Serve uploads folder as static
 import path from 'path';
 const __dirname = path.resolve();

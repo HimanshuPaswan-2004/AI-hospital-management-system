@@ -81,13 +81,13 @@ const DoctorAppointments = () => {
     return apt.status === activeTab;
   });
 
-  if (loading) return <div className="p-8 text-center text-slate-500">Loading appointments...</div>;
+  if (loading) return <div className="p-8 text-center text-slate-500 dark:text-slate-400 dark:text-slate-500">Loading appointments...</div>;
 
   return (
     <div className="max-w-6xl mx-auto space-y-8">
       {/* Header */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-        <h1 className="text-2xl font-bold text-slate-800">Appointments</h1>
+        <h1 className="text-2xl font-bold text-slate-800 dark:text-white">Appointments</h1>
         <button className="inline-flex items-center gap-2 px-5 py-2.5 bg-blue-600 text-white rounded-xl font-bold transition-colors hover:bg-blue-700 shadow-sm text-sm">
           <Plus size={18} />
           New Appointment
@@ -102,8 +102,8 @@ const DoctorAppointments = () => {
             onClick={() => setActiveTab(tab)}
             className={`px-6 py-2 rounded-full text-sm font-semibold transition-colors border ${
               activeTab === tab
-                ? 'bg-white border-blue-600 text-blue-600 shadow-[0_2px_10px_rgb(37,99,235,0.1)]'
-                : 'bg-white border-slate-200 text-slate-600 hover:bg-slate-50'
+                ? 'bg-white dark:bg-slate-800 border-blue-600 text-blue-600 shadow-[0_2px_10px_rgb(37,99,235,0.1)]'
+                : 'bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700 dark:bg-slate-900/50'
             }`}
           >
             {tab}
@@ -113,34 +113,34 @@ const DoctorAppointments = () => {
 
       <div className="flex flex-col sm:flex-row gap-4 mb-6">
         <div className="relative flex-1 max-w-sm">
-          <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+          <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 dark:text-slate-500" />
           <input
             type="text"
             placeholder="Search appointments..."
-            className="w-full pl-11 pr-4 py-2.5 bg-white border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-100 focus:border-blue-500 transition-shadow"
+            className="w-full pl-11 pr-4 py-2.5 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-100 focus:border-blue-500 transition-shadow"
           />
         </div>
-        <button className="inline-flex items-center gap-2 px-4 py-2.5 bg-white border border-slate-200 text-slate-700 rounded-xl font-medium hover:bg-slate-50 transition-colors text-sm">
+        <button className="inline-flex items-center gap-2 px-4 py-2.5 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200 rounded-xl font-medium hover:bg-slate-50 dark:hover:bg-slate-700 dark:bg-slate-900/50 transition-colors text-sm">
           <Filter size={16} />
           Filter
         </button>
       </div>
 
       {/* Appointments List */}
-      <div className="bg-white rounded-2xl shadow-[0_2px_10px_rgb(0,0,0,0.02)] border border-slate-100 overflow-hidden">
+      <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-[0_2px_10px_rgb(0,0,0,0.02)] border border-slate-100 dark:border-slate-700 overflow-hidden">
         {filteredAppointments.length === 0 && (
-          <div className="p-8 text-center text-slate-500">No appointments found.</div>
+          <div className="p-8 text-center text-slate-500 dark:text-slate-400 dark:text-slate-500">No appointments found.</div>
         )}
         {filteredAppointments.map((apt, index) => (
           <div 
             key={apt.id} 
-            className={`flex items-center justify-between p-5 ${index !== filteredAppointments.length - 1 ? 'border-b border-slate-100' : ''}`}
+            className={`flex items-center justify-between p-5 ${index !== filteredAppointments.length - 1 ? 'border-b border-slate-100 dark:border-slate-700' : ''}`}
           >
             <div className="flex items-center gap-8 w-full">
               {/* Date & Time */}
               <div className="w-24 flex-shrink-0">
-                <p className="font-bold text-slate-800">{apt.time}</p>
-                <p className="text-xs text-slate-400 font-medium">{apt.date}</p>
+                <p className="font-bold text-slate-800 dark:text-white">{apt.time}</p>
+                <p className="text-xs text-slate-400 dark:text-slate-500 font-medium">{apt.date}</p>
               </div>
 
               {/* Patient Info */}
@@ -149,8 +149,8 @@ const DoctorAppointments = () => {
                   {apt.initials}
                 </div>
                 <div>
-                  <h4 className="font-bold text-slate-800">{apt.patient}</h4>
-                  <p className="text-sm text-slate-500">{apt.type}</p>
+                  <h4 className="font-bold text-slate-800 dark:text-white">{apt.patient}</h4>
+                  <p className="text-sm text-slate-500 dark:text-slate-400 dark:text-slate-500">{apt.type}</p>
                 </div>
               </div>
 
@@ -177,7 +177,7 @@ const DoctorAppointments = () => {
                     </button>
                   </>
                 )}
-                <button className="text-slate-400 hover:text-blue-600 transition-colors p-2">
+                <button className="text-slate-400 dark:text-slate-500 hover:text-blue-600 transition-colors p-2">
                   <MoreVertical size={20} />
                 </button>
               </div>

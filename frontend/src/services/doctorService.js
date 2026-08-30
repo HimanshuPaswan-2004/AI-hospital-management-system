@@ -63,4 +63,28 @@ export const doctorService = {
     const response = await axios.post(`${API_URL}/records/prescriptions`, prescriptionData, getAuthHeaders());
     return response.data;
   },
+
+  // Chat with AI Assistant
+  aiChat: async (message, history) => {
+    const response = await axios.post(`${API_URL}/ai/chat`, { message, history }, getAuthHeaders());
+    return response.data;
+  },
+
+  // Get message contacts
+  getContacts: async () => {
+    const response = await axios.get(`${API_URL}/messages/contacts`, getAuthHeaders());
+    return response.data;
+  },
+
+  // Get chat history with a user
+  getMessages: async (userId) => {
+    const response = await axios.get(`${API_URL}/messages/${userId}`, getAuthHeaders());
+    return response.data;
+  },
+
+  // Send a message
+  sendMessage: async (receiverId, content) => {
+    const response = await axios.post(`${API_URL}/messages`, { receiverId, content }, getAuthHeaders());
+    return response.data;
+  },
 };

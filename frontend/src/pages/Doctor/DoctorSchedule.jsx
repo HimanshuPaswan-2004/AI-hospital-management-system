@@ -49,16 +49,16 @@ const DoctorSchedule = () => {
     fetchSchedule();
   }, [dateStr]);
 
-  if (loading) return <div className="p-8 text-center text-slate-500">Loading schedule...</div>;
+  if (loading) return <div className="p-8 text-center text-slate-500 dark:text-slate-400 dark:text-slate-500">Loading schedule...</div>;
 
   return (
     <div className="max-w-6xl mx-auto space-y-8">
       {/* Header */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-        <h1 className="text-2xl font-bold text-slate-800">My Schedule</h1>
+        <h1 className="text-2xl font-bold text-slate-800 dark:text-white">My Schedule</h1>
         
         <div className="flex items-center gap-6">
-          <div className="flex bg-white rounded-full p-1 border border-slate-200">
+          <div className="flex bg-white dark:bg-slate-800 rounded-full p-1 border border-slate-200 dark:border-slate-700">
             {['Day', 'Week', 'Month'].map((view) => (
               <button
                 key={view}
@@ -66,25 +66,25 @@ const DoctorSchedule = () => {
                 className={`px-4 py-1.5 rounded-full text-sm font-semibold transition-colors ${
                   activeView === view
                     ? 'bg-blue-50 text-blue-600'
-                    : 'text-slate-500 hover:text-slate-700'
+                    : 'text-slate-500 dark:text-slate-400 dark:text-slate-500 hover:text-slate-700 dark:text-slate-200'
                 }`}
               >
                 {view}
               </button>
             ))}
           </div>
-          <span className="text-sm font-bold text-slate-600">{displayDate}</span>
+          <span className="text-sm font-bold text-slate-600 dark:text-slate-300">{displayDate}</span>
         </div>
       </div>
 
       {/* Schedule Container */}
-      <div className="bg-white rounded-2xl shadow-[0_2px_10px_rgb(0,0,0,0.02)] border border-slate-100 p-8 h-[600px] overflow-y-auto custom-scrollbar">
+      <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-[0_2px_10px_rgb(0,0,0,0.02)] border border-slate-100 dark:border-slate-700 p-8 h-[600px] overflow-y-auto custom-scrollbar">
         <div className="space-y-6">
           {scheduleData.map((slot, index) => (
             <div key={index} className="flex items-start gap-8 group">
               {/* Time Label */}
               <div className="w-20 pt-4 flex-shrink-0 text-right">
-                <span className="text-sm font-bold text-slate-400 group-hover:text-slate-600 transition-colors">
+                <span className="text-sm font-bold text-slate-400 dark:text-slate-500 group-hover:text-slate-600 dark:text-slate-300 transition-colors">
                   {slot.time}
                 </span>
               </div>
@@ -92,12 +92,12 @@ const DoctorSchedule = () => {
               {/* Slot Content */}
               <div className="flex-1">
                 {slot.status === 'open' ? (
-                  <div className="h-16 w-full rounded-xl border-2 border-dashed border-slate-200 flex items-center px-6 hover:border-blue-300 hover:bg-blue-50/30 transition-all cursor-pointer">
-                    <span className="text-sm font-medium text-slate-400">Open slot</span>
+                  <div className="h-16 w-full rounded-xl border-2 border-dashed border-slate-200 dark:border-slate-700 flex items-center px-6 hover:border-blue-300 hover:bg-blue-50/30 transition-all cursor-pointer">
+                    <span className="text-sm font-medium text-slate-400 dark:text-slate-500">Open slot</span>
                   </div>
                 ) : (
                   <div className="w-full bg-blue-50 rounded-xl border border-blue-100 p-4 flex items-center gap-4 cursor-pointer hover:shadow-md transition-shadow">
-                    <div className="w-10 h-10 bg-white rounded-full flex items-center justify-center font-bold text-sm text-blue-600 shadow-sm">
+                    <div className="w-10 h-10 bg-white dark:bg-slate-800 rounded-full flex items-center justify-center font-bold text-sm text-blue-600 shadow-sm">
                       {slot.initials}
                     </div>
                     <div>
