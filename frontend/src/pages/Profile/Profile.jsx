@@ -99,14 +99,14 @@ const Profile = () => {
   if (loading && !formData.firstName) return <div className="p-6">Loading profile...</div>;
 
   return (
-    <div className="max-w-4xl mx-auto p-6 bg-white rounded-xl shadow-sm border border-gray-100">
-      <div className="flex items-center gap-4 border-b border-gray-200 pb-6 mb-6">
-        <div className="w-16 h-16 bg-teal-100 text-teal-600 rounded-full flex items-center justify-center text-2xl font-bold uppercase">
+    <div className="max-w-4xl mx-auto p-6 bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-gray-100 dark:border-slate-700">
+      <div className="flex items-center gap-4 border-b border-gray-200 dark:border-slate-700 pb-6 mb-6">
+        <div className="w-16 h-16 bg-teal-100 dark:bg-teal-900/40 text-teal-600 dark:text-teal-400 rounded-full flex items-center justify-center text-2xl font-bold uppercase">
           {formData.firstName.charAt(0) || 'U'}
         </div>
         <div>
-          <h1 className="text-2xl font-bold text-gray-800">My Profile</h1>
-          <p className="text-gray-500 capitalize">{user?.role.toLowerCase()}</p>
+          <h1 className="text-2xl font-bold text-gray-800 dark:text-white">My Profile</h1>
+          <p className="text-gray-500 dark:text-gray-400 capitalize">{user?.role.toLowerCase()}</p>
         </div>
       </div>
 
@@ -120,23 +120,23 @@ const Profile = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {/* Basic Info */}
           <div className="col-span-full">
-            <h3 className="text-lg font-semibold text-gray-700 mb-4 flex items-center gap-2"><User size={20}/> Basic Information</h3>
+            <h3 className="text-lg font-semibold text-gray-700 dark:text-gray-300 mb-4 flex items-center gap-2"><User size={20}/> Basic Information</h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">First Name</label>
-                <input type="text" name="firstName" value={formData.firstName} onChange={handleChange} className="w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500" required />
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-400 mb-1">First Name</label>
+                <input type="text" name="firstName" value={formData.firstName} onChange={handleChange} className="w-full p-2 bg-white dark:bg-slate-900 border border-gray-300 dark:border-slate-700 dark:text-white rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500" required />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Last Name</label>
-                <input type="text" name="lastName" value={formData.lastName} onChange={handleChange} className="w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500" required />
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-400 mb-1">Last Name</label>
+                <input type="text" name="lastName" value={formData.lastName} onChange={handleChange} className="w-full p-2 bg-white dark:bg-slate-900 border border-gray-300 dark:border-slate-700 dark:text-white rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500" required />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Email</label>
-                <input type="email" value={user?.email || ''} disabled className="w-full p-2 border border-gray-200 bg-gray-50 rounded-lg text-gray-500" />
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-400 mb-1">Email</label>
+                <input type="email" value={user?.email || ''} disabled className="w-full p-2 border border-gray-200 dark:border-slate-700 bg-gray-50 dark:bg-slate-800 rounded-lg text-gray-500 dark:text-gray-400" />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Phone</label>
-                <input type="text" name="phone" value={formData.phone} onChange={handleChange} className="w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500" />
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-400 mb-1">Phone</label>
+                <input type="text" name="phone" value={formData.phone} onChange={handleChange} className="w-full p-2 bg-white dark:bg-slate-900 border border-gray-300 dark:border-slate-700 dark:text-white rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500" />
               </div>
             </div>
           </div>
@@ -144,15 +144,15 @@ const Profile = () => {
           {/* Role Specific Info */}
           {user?.role === 'PATIENT' && (
             <div className="col-span-full mt-6">
-              <h3 className="text-lg font-semibold text-gray-700 mb-4 flex items-center gap-2"><Activity size={20}/> Patient Details</h3>
+              <h3 className="text-lg font-semibold text-gray-700 dark:text-gray-300 mb-4 flex items-center gap-2"><Activity size={20}/> Patient Details</h3>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Date of Birth</label>
-                  <input type="date" name="dateOfBirth" value={formData.profileData.dateOfBirth ? formData.profileData.dateOfBirth.split('T')[0] : ''} onChange={handleProfileChange} className="w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500" />
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-400 mb-1">Date of Birth</label>
+                  <input type="date" name="dateOfBirth" value={formData.profileData.dateOfBirth ? formData.profileData.dateOfBirth.split('T')[0] : ''} onChange={handleProfileChange} className="w-full p-2 bg-white dark:bg-slate-900 border border-gray-300 dark:border-slate-700 dark:text-white rounded-lg focus:ring-2 focus:ring-teal-500" />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Gender</label>
-                  <select name="gender" value={formData.profileData.gender || ''} onChange={handleProfileChange} className="w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500">
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-400 mb-1">Gender</label>
+                  <select name="gender" value={formData.profileData.gender || ''} onChange={handleProfileChange} className="w-full p-2 bg-white dark:bg-slate-900 border border-gray-300 dark:border-slate-700 dark:text-white rounded-lg focus:ring-2 focus:ring-teal-500">
                     <option value="">Select Gender</option>
                     <option value="Male">Male</option>
                     <option value="Female">Female</option>
@@ -160,16 +160,16 @@ const Profile = () => {
                   </select>
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Blood Group</label>
-                  <input type="text" name="bloodGroup" value={formData.profileData.bloodGroup || ''} onChange={handleProfileChange} placeholder="e.g. O+" className="w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500" />
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-400 mb-1">Blood Group</label>
+                  <input type="text" name="bloodGroup" value={formData.profileData.bloodGroup || ''} onChange={handleProfileChange} placeholder="e.g. O+" className="w-full p-2 bg-white dark:bg-slate-900 border border-gray-300 dark:border-slate-700 dark:text-white rounded-lg focus:ring-2 focus:ring-teal-500" />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Allergies (comma separated)</label>
-                  <input type="text" name="allergies" value={Array.isArray(formData.profileData.allergies) ? formData.profileData.allergies.join(', ') : (formData.profileData.allergies || '')} onChange={handleProfileChange} placeholder="e.g. Peanuts, Dust" className="w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500" />
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-400 mb-1">Allergies (comma separated)</label>
+                  <input type="text" name="allergies" value={Array.isArray(formData.profileData.allergies) ? formData.profileData.allergies.join(', ') : (formData.profileData.allergies || '')} onChange={handleProfileChange} placeholder="e.g. Peanuts, Dust" className="w-full p-2 bg-white dark:bg-slate-900 border border-gray-300 dark:border-slate-700 dark:text-white rounded-lg focus:ring-2 focus:ring-teal-500" />
                 </div>
                 <div className="col-span-full">
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Address</label>
-                  <textarea name="address" value={formData.profileData.address || ''} onChange={handleProfileChange} rows="3" className="w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500"></textarea>
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-400 mb-1">Address</label>
+                  <textarea name="address" value={formData.profileData.address || ''} onChange={handleProfileChange} rows="3" className="w-full p-2 bg-white dark:bg-slate-900 border border-gray-300 dark:border-slate-700 dark:text-white rounded-lg focus:ring-2 focus:ring-teal-500"></textarea>
                 </div>
               </div>
             </div>
@@ -177,38 +177,38 @@ const Profile = () => {
 
           {user?.role === 'DOCTOR' && (
             <div className="col-span-full mt-6">
-              <h3 className="text-lg font-semibold text-gray-700 mb-4 flex items-center gap-2"><Stethoscope size={20}/> Professional Details</h3>
+              <h3 className="text-lg font-semibold text-gray-700 dark:text-gray-300 mb-4 flex items-center gap-2"><Stethoscope size={20}/> Professional Details</h3>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Specialization</label>
-                  <input type="text" name="specialization" value={formData.profileData.specialization || ''} onChange={handleProfileChange} placeholder="e.g. Cardiologist" className="w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500" />
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-400 mb-1">Specialization</label>
+                  <input type="text" name="specialization" value={formData.profileData.specialization || ''} onChange={handleProfileChange} placeholder="e.g. Cardiologist" className="w-full p-2 bg-white dark:bg-slate-900 border border-gray-300 dark:border-slate-700 dark:text-white rounded-lg focus:ring-2 focus:ring-teal-500" />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Experience (Years)</label>
-                  <input type="number" name="experience" value={formData.profileData.experience || ''} onChange={handleProfileChange} className="w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500" />
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-400 mb-1">Experience (Years)</label>
+                  <input type="number" name="experience" value={formData.profileData.experience || ''} onChange={handleProfileChange} className="w-full p-2 bg-white dark:bg-slate-900 border border-gray-300 dark:border-slate-700 dark:text-white rounded-lg focus:ring-2 focus:ring-teal-500" />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Qualification</label>
-                  <input type="text" name="qualification" value={formData.profileData.qualification || ''} onChange={handleProfileChange} placeholder="e.g. MBBS, MD" className="w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500" />
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-400 mb-1">Qualification</label>
+                  <input type="text" name="qualification" value={formData.profileData.qualification || ''} onChange={handleProfileChange} placeholder="e.g. MBBS, MD" className="w-full p-2 bg-white dark:bg-slate-900 border border-gray-300 dark:border-slate-700 dark:text-white rounded-lg focus:ring-2 focus:ring-teal-500" />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Consultation Fee ($)</label>
-                  <input type="number" name="consultationFee" value={formData.profileData.consultationFee || ''} onChange={handleProfileChange} className="w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500" />
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-400 mb-1">Consultation Fee ($)</label>
+                  <input type="number" name="consultationFee" value={formData.profileData.consultationFee || ''} onChange={handleProfileChange} className="w-full p-2 bg-white dark:bg-slate-900 border border-gray-300 dark:border-slate-700 dark:text-white rounded-lg focus:ring-2 focus:ring-teal-500" />
                 </div>
                 <div className="col-span-full">
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Available Days (comma separated)</label>
-                  <input type="text" name="availableDays" value={Array.isArray(formData.profileData.availableDays) ? formData.profileData.availableDays.join(', ') : (formData.profileData.availableDays || '')} onChange={handleProfileChange} placeholder="e.g. Monday, Wednesday, Friday" className="w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500" />
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-400 mb-1">Available Days (comma separated)</label>
+                  <input type="text" name="availableDays" value={Array.isArray(formData.profileData.availableDays) ? formData.profileData.availableDays.join(', ') : (formData.profileData.availableDays || '')} onChange={handleProfileChange} placeholder="e.g. Monday, Wednesday, Friday" className="w-full p-2 bg-white dark:bg-slate-900 border border-gray-300 dark:border-slate-700 dark:text-white rounded-lg focus:ring-2 focus:ring-teal-500" />
                 </div>
                 <div className="col-span-full">
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Bio</label>
-                  <textarea name="bio" value={formData.profileData.bio || ''} onChange={handleProfileChange} rows="3" placeholder="Brief description about yourself" className="w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500"></textarea>
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-400 mb-1">Bio</label>
+                  <textarea name="bio" value={formData.profileData.bio || ''} onChange={handleProfileChange} rows="3" placeholder="Brief description about yourself" className="w-full p-2 bg-white dark:bg-slate-900 border border-gray-300 dark:border-slate-700 dark:text-white rounded-lg focus:ring-2 focus:ring-teal-500"></textarea>
                 </div>
               </div>
             </div>
           )}
         </div>
 
-        <div className="flex justify-end pt-6 border-t border-gray-200">
+        <div className="flex justify-end pt-6 border-t border-gray-200 dark:border-slate-700">
           <button type="submit" disabled={loading} className="px-6 py-2 bg-teal-600 text-white rounded-lg hover:bg-teal-700 transition-colors font-medium shadow-sm flex items-center gap-2">
             {loading ? 'Saving...' : 'Save Profile'}
           </button>

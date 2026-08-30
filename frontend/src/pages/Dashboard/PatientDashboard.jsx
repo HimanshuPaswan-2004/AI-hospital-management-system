@@ -41,8 +41,8 @@ const PatientDashboard = () => {
   return (
     <div className="max-w-6xl mx-auto space-y-6">
       <div className="mb-8">
-        <h1 className="text-3xl font-extrabold text-slate-900 tracking-tight">Welcome back, {user?.firstName || 'Patient'} 👋</h1>
-        <p className="text-slate-500 mt-2 text-[15px] font-medium">Here's what's happening with your health today.</p>
+        <h1 className="text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight">Welcome back, {user?.firstName || 'Patient'} 👋</h1>
+        <p className="text-slate-500 dark:text-slate-400 mt-2 text-[15px] font-medium">Here's what's happening with your health today.</p>
       </div>
 
       {/* Stats Grid */}
@@ -52,22 +52,22 @@ const PatientDashboard = () => {
           return (
             <div key={index} className="pro-card p-6 flex flex-col justify-between group cursor-pointer transition-all hover:border-blue-200">
               <div className="flex items-center gap-4 mb-4">
-                <div className={`w-12 h-12 rounded-2xl flex items-center justify-center ${stat.bg}`}>
-                  <Icon className={`w-6 h-6 ${stat.color}`} />
+                <div className={`w-12 h-12 rounded-2xl flex items-center justify-center ${stat.bg} dark:bg-opacity-10`}>
+                  <Icon className={`w-6 h-6 ${stat.color} dark:text-opacity-90`} />
                 </div>
                 <div>
-                   <p className="text-sm font-bold text-slate-500 leading-tight">{stat.title}</p>
-                </div>
-              </div>
-              
-              <div className="flex items-end justify-between mt-2">
-                <div className="flex items-baseline gap-2">
-                  <h3 className="text-4xl font-black text-slate-800">{stat.value}</h3>
-                  {stat.subtext && <span className="text-sm font-bold text-emerald-500">{stat.subtext}</span>}
+                  <p className="text-sm font-bold text-slate-500 dark:text-slate-400 leading-tight">{stat.title}</p>
                 </div>
               </div>
 
-              <Link to={stat.link} className="flex items-center gap-1 text-[13px] font-bold text-blue-600 mt-6 opacity-80 group-hover:opacity-100 group-hover:gap-2 transition-all">
+              <div className="flex items-end justify-between mt-2">
+                <div className="flex items-baseline gap-2">
+                  <h3 className="text-4xl font-black text-slate-800 dark:text-white">{stat.value}</h3>
+                  {stat.subtext && <span className="text-sm font-bold text-emerald-500 dark:text-emerald-400">{stat.subtext}</span>}
+                </div>
+              </div>
+
+              <Link to={stat.link} className="flex items-center gap-1 text-[13px] font-bold text-blue-600 dark:text-blue-400 mt-6 opacity-80 group-hover:opacity-100 group-hover:gap-2 transition-all">
                 View all <ChevronRight size={14} />
               </Link>
             </div>
@@ -79,40 +79,40 @@ const PatientDashboard = () => {
         {/* Upcoming Appointment */}
         <div className="lg:col-span-2 pro-card p-6">
           <div className="flex items-center justify-between mb-6">
-            <h2 className="text-lg font-bold text-slate-800">Upcoming Appointment</h2>
+            <h2 className="text-lg font-bold text-slate-800 dark:text-white">Upcoming Appointment</h2>
           </div>
-          
+
           {nextAppointment ? (
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between bg-slate-50 p-5 rounded-2xl border border-slate-100">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between bg-slate-50 dark:bg-slate-800/50 p-5 rounded-2xl border border-slate-100 dark:border-slate-700/50">
               <div className="flex items-center gap-4 mb-4 sm:mb-0">
-                <div className="w-14 h-14 rounded-full bg-blue-100 overflow-hidden border-2 border-white shadow-sm flex items-center justify-center">
-                   <span className="text-blue-600 font-bold text-xl">{nextAppointment.doctor?.firstName[0]}{nextAppointment.doctor?.lastName[0]}</span>
+                <div className="w-14 h-14 rounded-full bg-blue-100 dark:bg-blue-900/40 overflow-hidden border-2 border-white dark:border-slate-700 shadow-sm flex items-center justify-center">
+                  <span className="text-blue-600 dark:text-blue-400 font-bold text-xl">{nextAppointment.doctor?.firstName[0]}{nextAppointment.doctor?.lastName[0]}</span>
                 </div>
                 <div>
-                  <h3 className="font-bold text-slate-800">Dr. {nextAppointment.doctor?.firstName} {nextAppointment.doctor?.lastName}</h3>
-                  <p className="text-sm font-medium text-slate-500">{nextAppointment.doctor?.doctorProfile?.specialization || 'Doctor'}</p>
+                  <h3 className="font-bold text-slate-800 dark:text-white">Dr. {nextAppointment.doctor?.firstName} {nextAppointment.doctor?.lastName}</h3>
+                  <p className="text-sm font-medium text-slate-500 dark:text-slate-400">{nextAppointment.doctor?.doctorProfile?.specialization || 'Doctor'}</p>
                 </div>
               </div>
-              
+
               <div className="flex flex-col sm:items-end gap-1">
-                 <div className="flex items-center gap-2 text-sm font-bold text-slate-700">
-                    <Calendar size={16} className="text-blue-600" />
-                    {dayjs(nextAppointment.appointmentDate).format('DD MMM YYYY')}
-                 </div>
-                 <div className="flex items-center gap-2 text-sm font-bold text-slate-700">
-                    <Activity size={16} className="text-blue-600" />
-                    {nextAppointment.timeSlot}
-                 </div>
+                <div className="flex items-center gap-2 text-sm font-bold text-slate-700 dark:text-slate-300">
+                  <Calendar size={16} className="text-blue-600 dark:text-blue-400" />
+                  {dayjs(nextAppointment.appointmentDate).format('DD MMM YYYY')}
+                </div>
+                <div className="flex items-center gap-2 text-sm font-bold text-slate-700 dark:text-slate-300">
+                  <Activity size={16} className="text-blue-600 dark:text-blue-400" />
+                  {nextAppointment.timeSlot}
+                </div>
               </div>
             </div>
           ) : (
-            <div className="flex flex-col items-center justify-center p-8 bg-slate-50 rounded-2xl border border-slate-100 text-slate-500">
-              <Calendar size={32} className="text-slate-300 mb-3" />
+            <div className="flex flex-col items-center justify-center p-8 bg-slate-50 dark:bg-slate-800/50 rounded-2xl border border-slate-100 dark:border-slate-700/50 text-slate-500 dark:text-slate-400">
+              <Calendar size={32} className="text-slate-300 dark:text-slate-600 mb-3" />
               <p className="font-medium text-sm">No upcoming appointments</p>
-              <Link to="/patient/appointments" className="mt-2 text-blue-600 text-sm font-bold hover:underline">Book one now</Link>
+              <Link to="/patient/appointments" className="mt-2 text-blue-600 dark:text-blue-400 text-sm font-bold hover:underline">Book one now</Link>
             </div>
           )}
-          
+
           <div className="mt-6">
             <Link to="/patient/appointments" className="text-sm font-bold text-blue-600 hover:underline">
               View Details
@@ -129,16 +129,16 @@ const PatientDashboard = () => {
               </div>
               <h2 className="text-lg font-bold">AI Health Tip</h2>
             </div>
-            
+
             <p className="text-[15px] font-medium leading-relaxed text-blue-50 flex-1">
               Drink at least 8 glasses of water daily and maintain a balanced diet.
             </p>
-            
+
             <button className="flex items-center gap-2 text-sm font-bold bg-white text-blue-600 w-max px-4 py-2 rounded-lg mt-6 hover:bg-blue-50 transition-colors shadow-sm">
               Learn more <ChevronRight size={16} />
             </button>
           </div>
-          
+
           {/* Decorative background for the tip card */}
           <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full blur-2xl -translate-y-1/2 translate-x-1/3"></div>
           <div className="absolute bottom-0 left-0 w-24 h-24 bg-white/10 rounded-full blur-xl translate-y-1/2 -translate-x-1/4"></div>

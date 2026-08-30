@@ -14,7 +14,7 @@ const StatusBadge = ({ status }) => {
     Upcoming: 'bg-amber-50 text-amber-600 border-amber-100',
     Cancelled: 'bg-rose-50 text-rose-600 border-rose-100',
   };
-  
+
   return (
     <span className={`px-3 py-1 rounded-full text-xs font-bold border ${styles[status]}`}>
       {status}
@@ -42,15 +42,15 @@ const DoctorDashboard = () => {
           doctorService.getDashboardStats(),
           doctorService.getAppointments(dayjs().format('YYYY-MM-DD'))
         ]);
-        
+
         setStats(dashboardStats);
-        
+
         // Format schedule
         const formattedSchedule = appointmentsData.map(apt => {
-          let statusText = apt.status === 'PENDING' ? 'Upcoming' : 
-                           apt.status === 'CONFIRMED' ? 'Confirmed' : 
-                           apt.status === 'COMPLETED' ? 'Confirmed' : 'Cancelled';
-          
+          let statusText = apt.status === 'PENDING' ? 'Upcoming' :
+            apt.status === 'CONFIRMED' ? 'Confirmed' :
+              apt.status === 'COMPLETED' ? 'Confirmed' : 'Cancelled';
+
           return {
             id: apt.id,
             time: apt.timeSlot,
@@ -147,7 +147,7 @@ const DoctorDashboard = () => {
             <h2 className="text-lg font-bold text-slate-800 dark:text-white">{t("Today's Schedule")}</h2>
             <Link to="/doctor/schedule" className="text-sm font-bold text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300">{t("View all")}</Link>
           </div>
-          
+
           <div className="space-y-6">
             {schedule.length === 0 && (
               <div className="text-center text-slate-500 dark:text-slate-400 dark:text-slate-500 py-4 text-sm font-medium">{t("No appointments today")}</div>
@@ -180,32 +180,32 @@ const DoctorDashboard = () => {
               <option>This Month</option>
             </select>
           </div>
-          
+
           <div className="h-[300px] w-full">
             <ResponsiveContainer width="100%" height="100%">
               <LineChart data={stats.chartData} margin={{ top: 5, right: 10, left: -20, bottom: 0 }}>
                 <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f1f5f9" />
-                <XAxis 
-                  dataKey="name" 
-                  axisLine={false} 
-                  tickLine={false} 
-                  tick={{ fill: '#94a3b8', fontSize: 12 }} 
+                <XAxis
+                  dataKey="name"
+                  axisLine={false}
+                  tickLine={false}
+                  tick={{ fill: '#94a3b8', fontSize: 12 }}
                   dy={10}
                 />
-                <YAxis 
-                  axisLine={false} 
-                  tickLine={false} 
-                  tick={{ fill: '#94a3b8', fontSize: 12 }} 
+                <YAxis
+                  axisLine={false}
+                  tickLine={false}
+                  tick={{ fill: '#94a3b8', fontSize: 12 }}
                   ticks={[0, 8, 16, 24, 32]}
                 />
-                <Tooltip 
+                <Tooltip
                   contentStyle={{ borderRadius: '12px', border: 'none', boxShadow: '0 4px 20px rgba(0,0,0,0.08)' }}
                   cursor={{ stroke: '#e2e8f0', strokeWidth: 1, strokeDasharray: '4 4' }}
                 />
-                <Line 
-                  type="monotone" 
-                  dataKey="appointments" 
-                  stroke="#2563eb" 
+                <Line
+                  type="monotone"
+                  dataKey="appointments"
+                  stroke="#2563eb"
                   strokeWidth={3}
                   dot={{ r: 4, strokeWidth: 2, fill: '#2563eb', stroke: '#fff' }}
                   activeDot={{ r: 6, fill: '#2563eb', stroke: '#fff', strokeWidth: 2 }}

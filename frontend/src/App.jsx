@@ -7,6 +7,8 @@ import LandingPage from './pages/LandingPage.jsx';
 
 import ProtectedRoute from './components/ProtectedRoute.jsx';
 import MainLayout from './layouts/MainLayout.jsx';
+import useThemeStore from './store/themeStore.js';
+import { useEffect } from 'react';
 
 // Core Dashboard Pages
 import PatientDashboard from './pages/Dashboard/PatientDashboard.jsx';
@@ -46,6 +48,12 @@ import BookAppointment from './pages/Appointments/BookAppointment.jsx';
 
 
 function App() {
+  const { initTheme } = useThemeStore();
+  
+  useEffect(() => {
+    initTheme();
+  }, [initTheme]);
+
   return (
     <Router>
       <Routes>
@@ -90,7 +98,7 @@ function App() {
           {/* Fallback for legacy routes if needed */}
           <Route path="/doctor-directory" element={<DoctorDirectory />} />
           <Route path="/book-appointment/:doctorId" element={<BookAppointment />} />
-          
+
           <Route path="/dashboard" element={<Navigate to="/patient/dashboard" replace />} />
         </Route>
       </Routes>

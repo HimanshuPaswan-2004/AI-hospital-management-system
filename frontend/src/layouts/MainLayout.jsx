@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 import { Outlet, useLocation } from 'react-router-dom';
 import Sidebar from './Sidebar';
 import Navbar from './Navbar';
-import FloatingChatbot from '../components/FloatingChatbot';
 import useAuthStore from '../store/authStore';
 
 const MainLayout = () => {
@@ -38,9 +37,6 @@ const MainLayout = () => {
           <Outlet />
         </main>
       </div>
-
-      {/* AI Medical Assistant Chatbot */}
-      <FloatingChatbot />
     </div>
   );
 };

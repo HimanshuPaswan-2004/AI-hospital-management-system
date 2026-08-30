@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 const DoctorSettings = () => {
   const { i18n } = useTranslation();
   const [activeTab, setActiveTab] = useState('General Settings');
-  
+
   // General Settings
   const [theme, setTheme] = useState(localStorage.getItem('theme') || 'Light');
   const [timeZone, setTimeZone] = useState(localStorage.getItem('timeZone') || '(GMT +05:30) Asia/Kolkata');
@@ -47,12 +47,12 @@ const DoctorSettings = () => {
     localStorage.setItem('timeZone', timeZone);
     localStorage.setItem('dateFormat', dateFormat);
     localStorage.setItem('timeFormat', timeFormat);
-    
+
     // Notifications
     localStorage.setItem('emailNotifs', emailNotifs);
     localStorage.setItem('smsNotifs', smsNotifs);
     localStorage.setItem('apptReminders', apptReminders);
-    
+
     // Calendar
     localStorage.setItem('apptDuration', apptDuration);
     localStorage.setItem('bufferTime', bufferTime);
@@ -89,11 +89,10 @@ const DoctorSettings = () => {
               <button
                 key={pref.name}
                 onClick={() => setActiveTab(pref.name)}
-                className={`w-full flex items-center justify-between p-4 rounded-xl transition-colors text-left border ${
-                  activeTab === pref.name 
-                    ? 'border-blue-100 dark:border-blue-900 bg-blue-50/50 dark:bg-blue-900/20' 
+                className={`w-full flex items-center justify-between p-4 rounded-xl transition-colors text-left border ${activeTab === pref.name
+                    ? 'border-blue-100 dark:border-blue-900 bg-blue-50/50 dark:bg-blue-900/20'
                     : 'border-transparent hover:bg-slate-50 dark:hover:bg-slate-700 dark:bg-slate-900/50 dark:hover:bg-slate-700'
-                }`}
+                  }`}
               >
                 <div>
                   <h3 className={`font-bold text-sm ${activeTab === pref.name ? 'text-blue-700 dark:text-blue-400' : 'text-slate-800 dark:text-white dark:text-slate-200'}`}>
@@ -114,23 +113,23 @@ const DoctorSettings = () => {
           {activeTab === 'General Settings' && (
             <div className="space-y-8 animate-in fade-in slide-in-from-bottom-2 duration-300">
               <div className="space-y-4">                <div className="flex items-center justify-between py-3 border-b border-slate-100 dark:border-slate-700">
-                  <span className="text-sm font-medium text-slate-500 dark:text-slate-400 dark:text-slate-500">Time Zone</span>
-                  <select 
-                    value={timeZone} 
-                    onChange={(e) => setTimeZone(e.target.value)} 
-                    className="text-sm font-bold text-slate-800 dark:text-white bg-transparent border-none focus:ring-0 cursor-pointer outline-none text-right [&>option]:text-black"
-                  >
-                    <option value="(GMT +05:30) Asia/Kolkata">(GMT +05:30) Asia/Kolkata</option>
-                    <option value="(GMT -05:00) EST">(GMT -05:00) EST</option>
-                    <option value="(GMT +00:00) UTC">(GMT +00:00) UTC</option>
-                  </select>
-                </div>
+                <span className="text-sm font-medium text-slate-500 dark:text-slate-400 dark:text-slate-500">Time Zone</span>
+                <select
+                  value={timeZone}
+                  onChange={(e) => setTimeZone(e.target.value)}
+                  className="text-sm font-bold text-slate-800 dark:text-white bg-transparent border-none focus:ring-0 cursor-pointer outline-none text-right [&>option]:text-black"
+                >
+                  <option value="(GMT +05:30) Asia/Kolkata">(GMT +05:30) Asia/Kolkata</option>
+                  <option value="(GMT -05:00) EST">(GMT -05:00) EST</option>
+                  <option value="(GMT +00:00) UTC">(GMT +00:00) UTC</option>
+                </select>
+              </div>
 
                 <div className="flex items-center justify-between py-3 border-b border-slate-100 dark:border-slate-700">
                   <span className="text-sm font-medium text-slate-500 dark:text-slate-400 dark:text-slate-500">Date Format</span>
-                  <select 
-                    value={dateFormat} 
-                    onChange={(e) => setDateFormat(e.target.value)} 
+                  <select
+                    value={dateFormat}
+                    onChange={(e) => setDateFormat(e.target.value)}
                     className="text-sm font-bold text-slate-800 dark:text-white bg-transparent border-none focus:ring-0 cursor-pointer outline-none text-right [&>option]:text-black"
                   >
                     <option value="DD MMM YYYY">DD MMM YYYY</option>
@@ -141,9 +140,9 @@ const DoctorSettings = () => {
 
                 <div className="flex items-center justify-between py-3 border-b border-slate-100 dark:border-slate-700">
                   <span className="text-sm font-medium text-slate-500 dark:text-slate-400 dark:text-slate-500">Time Format</span>
-                  <select 
-                    value={timeFormat} 
-                    onChange={(e) => setTimeFormat(e.target.value)} 
+                  <select
+                    value={timeFormat}
+                    onChange={(e) => setTimeFormat(e.target.value)}
                     className="text-sm font-bold text-slate-800 dark:text-white bg-transparent border-none focus:ring-0 cursor-pointer outline-none text-right [&>option]:text-black"
                   >
                     <option value="12 Hour (AM/PM)">12 Hour (AM/PM)</option>
@@ -155,21 +154,21 @@ const DoctorSettings = () => {
               <div>
                 <h3 className="text-sm font-bold text-slate-800 dark:text-white mb-4">Appearance</h3>
                 <div className="grid grid-cols-3 gap-4">
-                  <button 
+                  <button
                     onClick={() => setTheme('Light')}
                     className={`flex flex-col items-center gap-2 p-4 rounded-xl border transition-colors ${theme === 'Light' ? 'border-blue-600 bg-blue-50/50 dark:bg-blue-900/40' : 'border-slate-200 dark:border-slate-700 dark:border-slate-600 hover:border-slate-300 dark:hover:border-slate-500'}`}
                   >
                     <Sun size={24} className={theme === 'Light' ? 'text-blue-600 dark:text-blue-400' : 'text-slate-400 dark:text-slate-500'} />
                     <span className={`text-sm font-bold ${theme === 'Light' ? 'text-blue-600 dark:text-blue-400' : 'text-slate-600 dark:text-slate-300'}`}>Light</span>
                   </button>
-                  <button 
+                  <button
                     onClick={() => setTheme('Dark')}
                     className={`flex flex-col items-center gap-2 p-4 rounded-xl border transition-colors ${theme === 'Dark' ? 'border-blue-600 bg-blue-50/50 dark:bg-blue-900/40' : 'border-slate-200 dark:border-slate-700 dark:border-slate-600 hover:border-slate-300 dark:hover:border-slate-500'}`}
                   >
                     <Moon size={24} className={theme === 'Dark' ? 'text-blue-600 dark:text-blue-400' : 'text-slate-400 dark:text-slate-500'} />
                     <span className={`text-sm font-bold ${theme === 'Dark' ? 'text-blue-600 dark:text-blue-400' : 'text-slate-600 dark:text-slate-300'}`}>Dark</span>
                   </button>
-                  <button 
+                  <button
                     onClick={() => setTheme('System')}
                     className={`flex flex-col items-center gap-2 p-4 rounded-xl border transition-colors ${theme === 'System' ? 'border-blue-600 bg-blue-50/50 dark:bg-blue-900/40' : 'border-slate-200 dark:border-slate-700 dark:border-slate-600 hover:border-slate-300 dark:hover:border-slate-500'}`}
                   >
@@ -240,8 +239,8 @@ const DoctorSettings = () => {
                   <label className="block text-sm font-medium text-slate-600 dark:text-slate-300">Appointment Duration (mins)</label>
                   <div className="relative">
                     <Clock className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 dark:text-slate-500" size={18} />
-                    <select 
-                      value={apptDuration} 
+                    <select
+                      value={apptDuration}
                       onChange={(e) => setApptDuration(e.target.value)}
                       className="w-full pl-10 pr-4 py-3 bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-700 dark:border-slate-600 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-100 dark:focus:ring-blue-900/50 text-slate-800 dark:text-white [&>option]:text-black"
                     >
@@ -257,8 +256,8 @@ const DoctorSettings = () => {
                   <label className="block text-sm font-medium text-slate-600 dark:text-slate-300">Buffer Time (mins)</label>
                   <div className="relative">
                     <Clock className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 dark:text-slate-500" size={18} />
-                    <select 
-                      value={bufferTime} 
+                    <select
+                      value={bufferTime}
                       onChange={(e) => setBufferTime(e.target.value)}
                       className="w-full pl-10 pr-4 py-3 bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-700 dark:border-slate-600 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-100 dark:focus:ring-blue-900/50 text-slate-800 dark:text-white [&>option]:text-black"
                     >
@@ -274,15 +273,15 @@ const DoctorSettings = () => {
               <div className="pt-4 border-t border-slate-100 dark:border-slate-700">
                 <h3 className="text-sm font-bold text-slate-800 dark:text-white mb-4">Working Hours</h3>
                 <div className="flex items-center gap-4">
-                  <input 
-                    type="time" 
+                  <input
+                    type="time"
                     value={workingHoursStart}
                     onChange={(e) => setWorkingHoursStart(e.target.value)}
                     className="px-4 py-2 bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-700 dark:border-slate-600 rounded-lg text-sm text-slate-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-100 dark:focus:ring-blue-900/50"
                   />
                   <span className="text-slate-400 dark:text-slate-500">to</span>
-                  <input 
-                    type="time" 
+                  <input
+                    type="time"
                     value={workingHoursEnd}
                     onChange={(e) => setWorkingHoursEnd(e.target.value)}
                     className="px-4 py-2 bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-700 dark:border-slate-600 rounded-lg text-sm text-slate-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-100 dark:focus:ring-blue-900/50"
@@ -298,8 +297,8 @@ const DoctorSettings = () => {
                 <label className="block text-sm font-medium text-slate-600 dark:text-slate-300">Default Currency</label>
                 <div className="relative">
                   <DollarSign className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 dark:text-slate-500" size={18} />
-                  <select 
-                    value={currency} 
+                  <select
+                    value={currency}
                     onChange={(e) => setCurrency(e.target.value)}
                     className="w-full pl-10 pr-4 py-3 bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-700 dark:border-slate-600 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-100 dark:focus:ring-blue-900/50 text-slate-800 dark:text-white [&>option]:text-black"
                   >
@@ -315,8 +314,8 @@ const DoctorSettings = () => {
                 <label className="block text-sm font-medium text-slate-600 dark:text-slate-300">Bank Account Details (For Payouts)</label>
                 <div className="relative">
                   <CreditCard className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 dark:text-slate-500" size={18} />
-                  <input 
-                    type="text" 
+                  <input
+                    type="text"
                     placeholder="IBAN or Account Number"
                     value={bankAccount}
                     onChange={(e) => setBankAccount(e.target.value)}

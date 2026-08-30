@@ -47,6 +47,13 @@ const useAuthStore = create((set) => ({
     set({ user: null, isSuccess: false, isError: false, message: '' });
   },
 
+  updateUser: (updatedUser) => {
+    const currentUser = JSON.parse(sessionStorage.getItem('user'));
+    const newUser = { ...currentUser, ...updatedUser };
+    sessionStorage.setItem('user', JSON.stringify(newUser));
+    set({ user: newUser });
+  },
+
   fetchMe: async () => {
     set({ isLoading: true, isError: false, message: '' });
     try {

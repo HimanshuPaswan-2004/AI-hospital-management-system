@@ -9,7 +9,7 @@ const StatusBadge = ({ status }) => {
     Upcoming: 'bg-amber-50 text-amber-600 border-amber-100',
     Cancelled: 'bg-rose-50 text-rose-600 border-rose-100',
   };
-  
+
   return (
     <span className={`px-4 py-1.5 rounded-full text-xs font-bold border ${styles[status]}`}>
       {status}
@@ -32,10 +32,10 @@ const DoctorAppointments = () => {
           const initials = `${apt.patient.firstName[0]}${apt.patient.lastName[0]}`;
           // Status from backend is usually uppercase (PENDING, CONFIRMED, CANCELLED, COMPLETED)
           // We need to map it to what StatusBadge expects (Upcoming, Confirmed, Cancelled)
-          let statusText = apt.status === 'PENDING' ? 'Upcoming' : 
-                           apt.status === 'CONFIRMED' ? 'Confirmed' : 
-                           apt.status === 'COMPLETED' ? 'Confirmed' : 'Cancelled';
-          
+          let statusText = apt.status === 'PENDING' ? 'Upcoming' :
+            apt.status === 'CONFIRMED' ? 'Confirmed' :
+              apt.status === 'COMPLETED' ? 'Confirmed' : 'Cancelled';
+
           return {
             id: apt.id,
             time: apt.timeSlot,
@@ -100,11 +100,10 @@ const DoctorAppointments = () => {
           <button
             key={tab}
             onClick={() => setActiveTab(tab)}
-            className={`px-6 py-2 rounded-full text-sm font-semibold transition-colors border ${
-              activeTab === tab
+            className={`px-6 py-2 rounded-full text-sm font-semibold transition-colors border ${activeTab === tab
                 ? 'bg-white dark:bg-slate-800 border-blue-600 text-blue-600 shadow-[0_2px_10px_rgb(37,99,235,0.1)]'
                 : 'bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700 dark:bg-slate-900/50'
-            }`}
+              }`}
           >
             {tab}
           </button>
@@ -132,8 +131,8 @@ const DoctorAppointments = () => {
           <div className="p-8 text-center text-slate-500 dark:text-slate-400 dark:text-slate-500">No appointments found.</div>
         )}
         {filteredAppointments.map((apt, index) => (
-          <div 
-            key={apt.id} 
+          <div
+            key={apt.id}
             className={`flex items-center justify-between p-5 ${index !== filteredAppointments.length - 1 ? 'border-b border-slate-100 dark:border-slate-700' : ''}`}
           >
             <div className="flex items-center gap-8 w-full">
@@ -163,13 +162,13 @@ const DoctorAppointments = () => {
               <div className="flex items-center gap-2">
                 {apt.status === 'Upcoming' && (
                   <>
-                    <button 
+                    <button
                       onClick={() => handleUpdateStatus(apt.id, 'COMPLETED')}
                       className="px-3 py-1.5 text-xs font-bold text-emerald-600 bg-emerald-50 hover:bg-emerald-100 rounded-lg transition-colors border border-emerald-100"
                     >
                       Complete
                     </button>
-                    <button 
+                    <button
                       onClick={() => handleUpdateStatus(apt.id, 'CANCELLED')}
                       className="px-3 py-1.5 text-xs font-bold text-rose-600 bg-rose-50 hover:bg-rose-100 rounded-lg transition-colors border border-rose-100"
                     >
