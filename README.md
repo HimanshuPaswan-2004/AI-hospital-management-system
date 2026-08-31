@@ -11,9 +11,10 @@ MediAI is a state-of-the-art, production-ready Hospital Management System built 
 ---
 
 ## ✨ Stunning UI/UX Design
-- **Pro-Card Glassmorphism**: Beautiful, clean, and modern interface with subtle shadows and rounded corners.
+- **Next-Gen Landing Page**: A beautifully crafted entry point featuring animated typography, premium gradients, floating ambient orbs, and glassmorphic pill navigation.
+- **Pro-Card Glassmorphism**: Clean and modern dashboard interfaces with subtle shadows, translucent overlays, and rounded corners.
 - **Dark Mode Support**: Seamless toggle between light and dark themes across all dashboards.
-- **Micro-Animations**: Smooth hover effects, transitions, and loading states for a premium feel.
+- **Micro-Animations**: Smooth hover effects (like the interactive Departments grid), transitions, and loading states for a premium, Silicon-Valley grade feel.
 - **Dynamic Charts**: Interactive analytics powered by `Recharts`.
 
 ---
