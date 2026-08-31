@@ -1,3 +1,4 @@
+import toast from 'react-hot-toast';
 import { useState, useRef } from 'react';
 import { UploadCloud, Pill, AlertTriangle, Info, AlertCircle, X } from 'lucide-react';
 import { useLocation } from 'react-router-dom';
@@ -47,7 +48,7 @@ const AIPrescriptionExplainer = () => {
       setIsAnalyzed(true);
     } catch (error) {
       console.error(error);
-      alert('Failed to explain prescription.');
+      toast.error('Failed to explain prescription.');
     } finally {
       setIsAnalyzing(false);
     }

@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { ShieldPlus, CheckSquare, Square, Eye, EyeOff } from 'lucide-react';
 import useAuthStore from '../store/authStore';
-import doctorIllustration from '../assets/doctor_illustration.jpg';
+import loginIllustration from '../assets/login_illustration.jpg';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -16,7 +16,14 @@ const Login = () => {
     e.preventDefault();
     const success = await login({ email, password });
     if (success) {
-      navigate('/patient/dashboard');
+      const currentUser = useAuthStore.getState().user;
+      if (currentUser?.role === 'ADMIN') {
+        navigate('/admin/dashboard');
+      } else if (currentUser?.role === 'DOCTOR') {
+        navigate('/doctor/dashboard');
+      } else {
+        navigate('/patient/dashboard');
+      }
     }
   };
 
@@ -103,22 +110,6 @@ const Login = () => {
             </button>
           </form>
 
-          <div className="mt-8 flex items-center gap-4">
-            <div className="flex-1 h-px bg-slate-100"></div>
-            <span className="text-xs font-bold text-slate-400 uppercase tracking-widest">Or continue with</span>
-            <div className="flex-1 h-px bg-slate-100"></div>
-          </div>
-
-          <div className="grid grid-cols-2 gap-4 mt-6">
-            <button className="flex items-center justify-center gap-2 py-3 border border-slate-200 rounded-xl hover:bg-slate-50 transition-colors font-semibold text-slate-700 text-sm">
-              <img src="https://www.svgrepo.com/show/475656/google-color.svg" alt="Google" className="w-5 h-5" />
-              Google
-            </button>
-            <button className="flex items-center justify-center gap-2 py-3 border border-slate-200 rounded-xl hover:bg-slate-50 transition-colors font-semibold text-slate-700 text-sm">
-              <img src="https://www.svgrepo.com/show/475662/microsoft-color.svg" alt="Microsoft" className="w-5 h-5" />
-              Microsoft
-            </button>
-          </div>
 
           <p className="text-center text-sm font-medium text-slate-500 mt-10">
             Don't have an account?{' '}
@@ -128,28 +119,21 @@ const Login = () => {
       </div>
 
       {/* Right Illustration Section */}
-      <div className="hidden lg:flex w-[50%] bg-blue-50/50 p-12 items-center justify-center relative overflow-hidden">
-        {/* Decorative Background Elements */}
-        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-blue-100/50 rounded-full blur-3xl -translate-y-1/2 translate-x-1/3"></div>
-        <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-indigo-100/50 rounded-full blur-3xl translate-y-1/3 -translate-x-1/4"></div>
+      <div className="hidden lg:flex w-[50%] bg-[#eef5fc] items-center justify-center p-12 relative overflow-hidden">
+        {/* Decorative Ambient Background */}
+        <div className="absolute top-[-10%] right-[-5%] w-[500px] h-[500px] bg-blue-400/30 rounded-full blur-[100px] mix-blend-multiply pointer-events-none"></div>
+        <div className="absolute bottom-[-10%] left-[-10%] w-[600px] h-[600px] bg-indigo-300/30 rounded-full blur-[120px] mix-blend-multiply pointer-events-none"></div>
+        
+        {/* Subtle Grid/Dot Pattern */}
+        <div className="absolute inset-0 opacity-[0.04] pointer-events-none" style={{ backgroundImage: 'radial-gradient(#1e3a8a 2px, transparent 2px)', backgroundSize: '32px 32px' }}></div>
 
-        <div className="relative z-10 max-w-lg w-full aspect-square bg-gradient-to-b from-blue-100 to-transparent rounded-[3rem] border border-white/50 shadow-2xl flex items-center justify-center overflow-hidden">
+        {/* Image Container */}
+        <div className="relative z-10 w-full max-w-2xl flex justify-center">
           <img
-            src={doctorIllustration}
-            alt="Doctor Illustration"
-            className="w-full h-full object-cover mix-blend-multiply opacity-90"
+            src={loginIllustration}
+            alt="Login Illustration"
+            className="w-full h-auto object-contain rounded-[2rem] shadow-[0_20px_60px_-15px_rgba(0,0,0,0.1)] ring-8 ring-white/50"
           />
-
-          {/* Floating UI element */}
-          <div className="absolute -left-8 top-1/4 bg-white p-4 rounded-2xl shadow-xl border border-slate-100 flex items-center gap-4 animate-bounce" style={{ animationDuration: '3s' }}>
-            <div className="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center">
-              <ShieldPlus className="w-5 h-5 text-blue-600" />
-            </div>
-            <div>
-              <p className="text-xs font-bold text-slate-800">Secure Login</p>
-              <p className="text-[10px] font-medium text-slate-500">Data Encrypted</p>
-            </div>
-          </div>
         </div>
       </div>
     </div>

@@ -1,3 +1,4 @@
+import toast from 'react-hot-toast';
 import { useState } from 'react';
 import { Search, HeartPulse, User, Star, ChevronRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
@@ -21,7 +22,7 @@ const AIDoctorRecommendation = () => {
          setIsAnalyzed(true);
       } catch (error) {
          console.error(error);
-         alert('Failed to get recommendation.');
+         toast.error('Failed to get recommendation.');
       } finally {
          setIsAnalyzing(false);
       }

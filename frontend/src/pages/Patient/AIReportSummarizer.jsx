@@ -1,3 +1,4 @@
+import toast from 'react-hot-toast';
 import { useState, useRef } from 'react';
 import { UploadCloud, CheckCircle2, AlertCircle, FileText, Download, X } from 'lucide-react';
 import { useLocation } from 'react-router-dom';
@@ -42,7 +43,7 @@ const AIReportSummarizer = () => {
       reader.readAsDataURL(file);
     } catch (error) {
       console.error(error);
-      alert('Failed to analyze report.');
+      toast.error('Failed to analyze report.');
     } finally {
       setIsAnalyzing(false);
     }

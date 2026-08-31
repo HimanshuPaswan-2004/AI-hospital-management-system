@@ -1,3 +1,4 @@
+import toast from 'react-hot-toast';
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import useAuthStore from '../../store/authStore';
@@ -44,7 +45,7 @@ const PharmacyDashboard = () => {
       setNewMedicine({ name: '', category: '', stockQuantity: '', unitPrice: '', description: '' });
       fetchMedicines();
     } catch (error) {
-      alert(error.response?.data?.message || 'Error adding medicine');
+      toast.error(error.response?.data?.message || 'Error adding medicine');
     }
   };
 
@@ -57,7 +58,7 @@ const PharmacyDashboard = () => {
       setEditingId(null);
       fetchMedicines();
     } catch (error) {
-      alert('Failed to update stock');
+      toast.error('Failed to update stock');
     }
   };
 

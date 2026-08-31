@@ -1,3 +1,4 @@
+import toast from 'react-hot-toast';
 import { useState, useEffect } from 'react';
 import useAuthStore from '../../store/authStore';
 import { doctorService } from '../../services/doctorService';
@@ -56,10 +57,10 @@ const DoctorProfile = () => {
         }
       });
       await fetchMe();
-      alert('Profile updated successfully!');
+      toast.success('Profile updated successfully!');
     } catch (error) {
       console.error("Failed to update profile", error);
-      alert(`Failed to update profile: ${error.response?.data?.message || error.message}`);
+      toast.error(`Failed to update profile: ${error.response?.data?.message || error.message}`);
     } finally {
       setSaving(false);
     }

@@ -1,3 +1,4 @@
+import toast from 'react-hot-toast';
 import { jsPDF } from 'jspdf';
 import 'jspdf-autotable';
 
@@ -103,6 +104,6 @@ export const generateInvoicePDF = (invoice) => {
     doc.save(`Invoice_${invoice.id.split('-')[0].toUpperCase()}.pdf`);
   } catch (error) {
     console.error('PDF Generation Error:', error);
-    alert('Error generating PDF: ' + error.message);
+    toast.error('Error generating PDF: ' + error.message);
   }
 };

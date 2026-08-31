@@ -1,3 +1,4 @@
+import toast from 'react-hot-toast';
 import { useState, useEffect } from 'react';
 import { Search, FileText, Image, File, UploadCloud, X } from 'lucide-react';
 import { patientService } from '../../services/patientService';
@@ -44,7 +45,7 @@ const MedicalRecords = () => {
       fetchRecords(); // Refresh list
     } catch (error) {
       console.error("Upload failed", error);
-      alert("Failed to upload report");
+      toast.error("Failed to upload report");
     }
   };
   const filteredRecords = records.filter(r => (r.title || '').toLowerCase().includes(search.toLowerCase()));

@@ -1,3 +1,4 @@
+import toast from 'react-hot-toast';
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import useAuthStore from '../../store/authStore';
@@ -43,13 +44,13 @@ const DoctorDashboard = () => {
       fetchSchedule();
     } catch (err) {
       console.error('Failed to update status', err);
-      alert('Failed to update appointment status.');
+      toast.error('Failed to update appointment status.');
     }
   };
 
   const handlePrescriptionSuccess = () => {
     setPrescribingAppt(null);
-    alert('Prescription saved successfully!');
+    toast.success('Prescription saved successfully!');
     // If we were automatically marking it completed when prescribing, we could do it here
   };
 

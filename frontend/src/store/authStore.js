@@ -15,8 +15,7 @@ const useAuthStore = create((set) => ({
     try {
       const response = await axios.post(`${API_URL}/register`, userData);
       if (response.data) {
-        sessionStorage.setItem('user', JSON.stringify(response.data));
-        set({ user: response.data, isLoading: false, isSuccess: true });
+        set({ isLoading: false, isSuccess: true });
         return true;
       }
     } catch (error) {

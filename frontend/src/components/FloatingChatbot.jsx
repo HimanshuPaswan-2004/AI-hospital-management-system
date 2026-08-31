@@ -1,3 +1,4 @@
+import toast from 'react-hot-toast';
 import { useState, useRef, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import { MessageSquare, X, Send, Loader2, Stethoscope, FileText, Paperclip } from 'lucide-react';
@@ -80,7 +81,7 @@ const FloatingChatbot = () => {
 
     // Optional limit: 5MB
     if (file.size > 5 * 1024 * 1024) {
-      alert("File is too large! Maximum 5MB allowed.");
+      toast.error("File is too large! Maximum 5MB allowed.");
       return;
     }
 

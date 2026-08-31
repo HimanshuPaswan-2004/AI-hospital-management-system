@@ -11,6 +11,8 @@ enum Role {
   ADMIN
   DOCTOR
   PATIENT
+  RECEPTIONIST
+  PHARMACIST
 }
 
 model User {
@@ -34,6 +36,7 @@ model User {
   labReports          LabReport[]       @relation("PatientLabReports")
   sentMessages        Message[]         @relation("SentMessages")
   receivedMessages    Message[]         @relation("ReceivedMessages")
+  auditLogs           AuditLog[]
 }
 
 model DoctorProfile {
@@ -156,3 +159,29 @@ model Message {
   createdAt  DateTime @default(now())
 }
 
+model Department {
+  id          String   @id @default(uuid())
+  name        String   @unique
+  description String?
+  status      String   @default("Active") // Active, Inactive
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model AuditLog {
+  id        String   @id @default(uuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  action    String
+  module    String
+  ipAddress String?
+  createdAt DateTime @default(now())
+}
+
+model AppSetting {
+  id          String   @id @default(uuid())
+  key         String   @unique
+  value       String   // JSON stringified value
+  description String?
+  updatedAt   DateTime @updatedAt
+}

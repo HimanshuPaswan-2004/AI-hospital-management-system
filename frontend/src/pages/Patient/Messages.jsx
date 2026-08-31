@@ -164,14 +164,7 @@ const Messages = () => {
                     <p className="text-xs text-emerald-600 dark:text-emerald-400 font-medium">Online</p>
                   </div>
                 </div>
-                <div className="flex items-center gap-2">
-                  <button className="text-slate-400 dark:text-slate-500 hover:text-slate-600 dark:hover:text-slate-300 p-2 rounded-full hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors">
-                    <Phone size={18} />
-                  </button>
-                  <button className="text-slate-400 dark:text-slate-500 hover:text-slate-600 dark:hover:text-slate-300 p-2 rounded-full hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors">
-                    <Video size={18} />
-                  </button>
-                </div>
+                {/* Removed Phone and Video buttons as per request */}
               </div>
 
               {/* Messages */}

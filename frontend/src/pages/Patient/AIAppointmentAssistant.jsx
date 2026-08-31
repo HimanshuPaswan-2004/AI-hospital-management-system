@@ -1,3 +1,4 @@
+import toast from 'react-hot-toast';
 import { useState } from 'react';
 import { Search, Calendar, Clock, User } from 'lucide-react';
 import { patientService } from '../../services/patientService';
@@ -20,7 +21,7 @@ const AIAppointmentAssistant = () => {
          setIsAnalyzed(true);
       } catch (error) {
          console.error(error);
-         alert('Failed to find slots.');
+         toast.error('Failed to find slots.');
       } finally {
          setIsAnalyzing(false);
       }

@@ -1,3 +1,4 @@
+import toast from 'react-hot-toast';
 import { useState, useEffect } from 'react';
 import { ChevronRight, Sun, Moon, Monitor, Bell, Mail, Smartphone, Clock, Calendar as CalIcon, CreditCard, DollarSign } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
@@ -63,7 +64,7 @@ const DoctorSettings = () => {
     localStorage.setItem('currency', currency);
     localStorage.setItem('bankAccount', bankAccount);
 
-    alert('Settings saved successfully!');
+    toast.success('Settings saved successfully!');
   };
 
   const preferences = [

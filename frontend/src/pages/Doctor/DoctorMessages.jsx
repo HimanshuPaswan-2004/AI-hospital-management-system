@@ -147,14 +147,7 @@ const DoctorMessages = () => {
                   <p className="text-xs text-slate-400 dark:text-slate-500 font-medium">Online</p>
                 </div>
               </div>
-              <div className="flex items-center gap-2">
-                <button className="text-slate-400 dark:text-slate-500 hover:text-slate-600 dark:text-slate-300 p-2 rounded-full hover:bg-slate-50 dark:hover:bg-slate-700 dark:bg-slate-900/50 transition-colors">
-                  <Phone size={18} />
-                </button>
-                <button className="text-slate-400 dark:text-slate-500 hover:text-slate-600 dark:text-slate-300 p-2 rounded-full hover:bg-slate-50 dark:hover:bg-slate-700 dark:bg-slate-900/50 transition-colors">
-                  <Video size={18} />
-                </button>
-              </div>
+              {/* Removed Phone and Video buttons as per request */}
             </div>
 
             {/* Messages */}

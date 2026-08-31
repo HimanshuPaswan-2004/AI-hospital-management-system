@@ -38,6 +38,21 @@ export const getContacts = async (req, res, next) => {
           unread: 0
         });
       });
+    } else if (req.user.role === 'ADMIN') {
+      // Admin can chat with Doctors and Receptionists
+      const staff = await prisma.user.findMany({
+        where: { role: { in: ['DOCTOR', 'RECEPTIONIST'] } }
+      });
+      staff.forEach(user => {
+        const title = user.role === 'DOCTOR' ? 'Dr. ' : '';
+        contactsMap.set(user.id, {
+          id: user.id,
+          name: `${title}${user.firstName} ${user.lastName}`,
+          initials: `${user.firstName[0]}${user.lastName[0]}`,
+          color: user.role === 'DOCTOR' ? 'bg-indigo-100 text-indigo-600' : 'bg-emerald-100 text-emerald-600',
+          unread: 0
+        });
+      });
     }
 
     // Now get the latest message for each contact

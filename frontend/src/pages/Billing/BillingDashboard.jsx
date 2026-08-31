@@ -1,3 +1,4 @@
+import toast from 'react-hot-toast';
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import useAuthStore from '../../store/authStore';
@@ -40,7 +41,7 @@ const BillingDashboard = () => {
       });
       fetchData(); // refresh
     } catch (err) {
-      alert('Failed to update status');
+      toast.error('Failed to update status');
     }
   };
 
@@ -54,10 +55,10 @@ const BillingDashboard = () => {
         headers: { Authorization: `Bearer ${user?.token}` }
       });
       setGenApptId('');
-      alert('Invoice Generated Successfully!');
+      toast.success('Invoice Generated Successfully!');
       fetchData();
     } catch (err) {
-      alert(err.response?.data?.message || 'Failed to generate invoice');
+      toast.error(err.response?.data?.message || 'Failed to generate invoice');
     }
   };
 

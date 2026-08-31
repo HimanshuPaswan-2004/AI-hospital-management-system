@@ -1,3 +1,4 @@
+import toast from 'react-hot-toast';
 import { useState } from 'react';
 import { ClipboardList, ShieldCheck, AlertCircle, Activity, ChevronRight, CheckCircle2, ShieldAlert, HeartPulse, Microscope } from 'lucide-react';
 import { Link } from 'react-router-dom';
@@ -20,7 +21,7 @@ const AISymptomChecker = () => {
       setIsAnalyzed(true);
     } catch (error) {
       console.error(error);
-      alert('Failed to analyze symptoms. Please try again.');
+      toast.error('Failed to analyze symptoms. Please try again.');
     } finally {
       setIsAnalyzing(false);
     }

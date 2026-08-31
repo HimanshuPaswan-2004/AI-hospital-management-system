@@ -13,7 +13,13 @@ import {
   ShieldPlus,
   Users,
   Clock,
-  ClipboardList
+  ClipboardList,
+  Stethoscope,
+  Building2,
+  Package,
+  Receipt,
+  BarChart2,
+  History
 } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import useAuthStore from '../store/authStore';
@@ -22,8 +28,9 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
   const { t } = useTranslation();
   const { user, logout } = useAuthStore();
   const location = useLocation();
-  // Using PATIENT as default since this is a patient-centric mockup
-  const role = user?.role || 'PATIENT';
+  
+  // Hardcode ADMIN for testing Admin Module, change back to user?.role later or keep it as user?.role || 'ADMIN' for easy testing. Let's keep it user?.role || 'ADMIN' so we can see it.
+  const role = user?.role || 'ADMIN';
 
   const menuItems = {
     PATIENT: [
@@ -48,6 +55,21 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
       { name: 'Messages', icon: MessageSquare, path: '/doctor/messages' },
       { name: 'Profile', icon: User, path: '/doctor/profile' },
       { name: 'Settings', icon: Settings, path: '/doctor/settings' },
+    ],
+    ADMIN: [
+      { name: 'Dashboard', icon: LayoutDashboard, path: '/admin/dashboard' },
+      { name: 'Users', icon: Users, path: '/admin/users' },
+      { name: 'Doctors', icon: Stethoscope, path: '/admin/doctors' },
+      { name: 'Patients', icon: Activity, path: '/admin/patients' },
+      { name: 'Appointments', icon: Calendar, path: '/admin/appointments' },
+      { name: 'Departments', icon: Building2, path: '/admin/departments' },
+      { name: 'Inventory', icon: Package, path: '/admin/inventory' },
+      { name: 'Prescriptions', icon: Pill, path: '/admin/prescriptions' },
+      { name: 'Billing & Payments', icon: Receipt, path: '/admin/billing' },
+      { name: 'Reports', icon: BarChart2, path: '/admin/reports' },
+      { name: 'Messages', icon: MessageSquare, path: '/admin/messages' },
+      { name: 'Settings', icon: Settings, path: '/admin/settings' },
+      { name: 'Audit Logs', icon: History, path: '/admin/audit-logs' },
     ]
   };
 
@@ -64,8 +86,9 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
       </div>
 
       {/* Navigation */}
-      <nav className="flex-1 px-4 py-4 space-y-1 overflow-y-auto custom-scrollbar">
-        {links.map((link) => {
+      <nav className="flex-1 px-4 py-4 overflow-y-auto custom-scrollbar flex flex-col">
+        <div className="space-y-1">
+          {links.map((link) => {
           const Icon = link.icon;
           const isActive = location.pathname.startsWith(link.path);
           return (
@@ -85,11 +108,12 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
             </Link>
           );
         })}
+        </div>
 
-        <div className="mt-8">
+        <div className="mt-auto pt-8">
            <button
             onClick={() => logout()}
-            className="w-full flex items-center gap-3.5 px-4 py-3 rounded-xl text-slate-500 dark:text-slate-400 font-medium hover:bg-rose-50 dark:hover:bg-rose-900/30 hover:text-rose-600 dark:hover:text-rose-400 transition-all duration-200"
+            className="w-full flex items-center gap-3.5 px-4 py-3 rounded-xl text-slate-500 dark:text-slate-400 font-medium hover:bg-rose-50 dark:hover:bg-rose-900/30 hover:text-rose-600 dark:hover:text-rose-400 transition-all duration-200 group"
           >
             <LogOut size={20} className="text-slate-400 dark:text-slate-500 group-hover:text-rose-600 dark:group-hover:text-rose-400" />
             <span className="tracking-wide text-[15px]">{t('Logout')}</span>

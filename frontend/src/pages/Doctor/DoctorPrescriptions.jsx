@@ -1,3 +1,4 @@
+import toast from 'react-hot-toast';
 import { useState, useEffect } from 'react';
 import { Search, Plus, Eye, Download, X } from 'lucide-react';
 import { doctorService } from '../../services/doctorService';
@@ -78,7 +79,7 @@ const DoctorPrescriptions = () => {
       });
     } catch (error) {
       console.error("Failed to create prescription", error);
-      alert("Failed to create prescription. Maybe one already exists for this appointment.");
+      toast.error("Failed to create prescription. Maybe one already exists for this appointment.");
     }
   };
 

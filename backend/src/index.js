@@ -67,6 +67,10 @@ app.use('/api/analytics', analyticsRoutes);
 import messagesRoutes from './modules/messages/messages.routes.js';
 app.use('/api/messages', messagesRoutes);
 
+// Admin Routes
+import adminRoutes from './modules/admin/admin.routes.js';
+app.use('/api/admin', adminRoutes);
+
 // Serve uploads folder as static
 import path from 'path';
 const __dirname = path.resolve();

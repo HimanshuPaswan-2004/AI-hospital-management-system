@@ -4,14 +4,52 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="MediAI is a Next-Gen Hospital Management System powered by AI. Seamlessly book appointments, access medical records, and manage hospital workflows." />
+    <meta name="theme-color" content="#2563eb" />
+    <meta property="og:title" content="MediAI | Next-Gen Hospital Management System" />
+    <meta property="og:description" content="Advanced AI-Powered Hospital Management System for Patients, Doctors, and Admins." />
+    <meta property="og:type" content="website" />
     <!-- Google Fonts: Inter and Outfit -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <title>AI Health App</title>
+    <title>MediAI | Next-Gen Hospital Management System</title>
+    <style>
+      #initial-loader {
+        position: fixed;
+        top: 0; left: 0; width: 100vw; height: 100vh;
+        background-color: #f8fafc;
+        display: flex; flex-direction: column; align-items: center; justify-content: center;
+        z-index: 99999;
+        font-family: 'Outfit', sans-serif;
+      }
+      .loader-spinner {
+        width: 50px; height: 50px;
+        border: 4px solid #e2e8f0; border-top: 4px solid #2563eb;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+        margin-bottom: 20px;
+      }
+      @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+      .dark-mode #initial-loader { background-color: #0f172a; }
+      .dark-mode .loader-spinner { border: 4px solid #334155; border-top: 4px solid #3b82f6; }
+    </style>
+    <script>
+      // Apply dark mode immediately to avoid flash of light mode on load
+      if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+        document.documentElement.classList.add('dark-mode');
+      }
+    </script>
   </head>
   <body>
-    <div id="root"></div>
+    <div id="root">
+      <div id="initial-loader">
+        <div class="loader-spinner"></div>
+        <h2 style="margin:0; font-size: 24px; font-weight: 700; color: #2563eb;">MediAI</h2>
+        <p style="margin: 8px 0 0; font-size: 14px; color: #64748b; font-family: 'Inter', sans-serif;">Loading Hospital Management System...</p>
+      </div>
+    </div>
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>
