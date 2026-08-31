@@ -64,13 +64,51 @@ const LandingPage = () => {
           </div>
         </div>
 
-        {/* Image/Illustration */}
-        <div className="relative w-full aspect-square rounded-[2rem] overflow-hidden shadow-2xl">
-          <img
-            src={heroImage}
-            alt="Healthcare App Preview"
-            className="w-full h-full object-cover scale-[1.12]"
-          />
+        {/* Right Typography / Features Composition (Replacing Image) */}
+        <div className="relative w-full h-full min-h-[480px] flex flex-col justify-center rounded-[2.5rem] bg-gradient-to-br from-blue-50/80 via-[#f5f9ff] to-indigo-50/80 p-8 md:p-12 mt-10 md:mt-0 border-2 border-white shadow-[0_20px_60px_-15px_rgba(37,99,235,0.15)] overflow-hidden">
+          {/* Decorative Background Icon */}
+          <div className="absolute -top-10 -right-10 text-blue-600/5 pointer-events-none transform rotate-12">
+             <ShieldPlus size={350} strokeWidth={1} />
+          </div>
+          
+          <div className="relative z-10 space-y-8">
+            <h3 className="text-3xl md:text-4xl font-black text-slate-800 leading-[1.2] tracking-tight">
+              Transforming healthcare with <br/>
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600">Intelligent Automation</span>.
+            </h3>
+            
+            <div className="space-y-6 pt-2">
+              <div className="flex items-start gap-4 bg-white/60 backdrop-blur-sm p-4 rounded-2xl border border-white shadow-sm hover:shadow-md transition-shadow">
+                <div className="mt-0.5 w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center flex-shrink-0 text-blue-600 shadow-inner">
+                  <CheckCircle size={20} strokeWidth={2.5} />
+                </div>
+                <div>
+                  <h4 className="font-bold text-slate-800 text-base">AI-Powered Insights</h4>
+                  <p className="text-slate-500 text-sm mt-1 leading-relaxed">Instant preliminary health assessments and symptom checking powered by advanced AI.</p>
+                </div>
+              </div>
+              
+              <div className="flex items-start gap-4 bg-white/60 backdrop-blur-sm p-4 rounded-2xl border border-white shadow-sm hover:shadow-md transition-shadow">
+                <div className="mt-0.5 w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center flex-shrink-0 text-blue-600 shadow-inner">
+                  <CheckCircle size={20} strokeWidth={2.5} />
+                </div>
+                <div>
+                  <h4 className="font-bold text-slate-800 text-base">Smart Scheduling</h4>
+                  <p className="text-slate-500 text-sm mt-1 leading-relaxed">Book appointments with top specialists instantly without long queues or waiting times.</p>
+                </div>
+              </div>
+
+              <div className="flex items-start gap-4 bg-white/60 backdrop-blur-sm p-4 rounded-2xl border border-white shadow-sm hover:shadow-md transition-shadow">
+                <div className="mt-0.5 w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center flex-shrink-0 text-blue-600 shadow-inner">
+                  <CheckCircle size={20} strokeWidth={2.5} />
+                </div>
+                <div>
+                  <h4 className="font-bold text-slate-800 text-base">Secure Digital Records</h4>
+                  <p className="text-slate-500 text-sm mt-1 leading-relaxed">Your medical history is encrypted, stored safely, and accessible only to you and your doctor.</p>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
