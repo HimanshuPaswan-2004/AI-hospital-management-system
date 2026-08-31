@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Search, Filter, MoreVertical, Plus } from 'lucide-react';
+import { Search, Filter, MoreVertical, Plus, Eye, X } from 'lucide-react';
 import { doctorService } from '../../services/doctorService';
 import dayjs from 'dayjs';
 
@@ -21,6 +21,8 @@ const DoctorAppointments = () => {
   const [activeTab, setActiveTab] = useState('All');
   const [appointments, setAppointments] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [selectedAppointment, setSelectedAppointment] = useState(null);
+  const [viewModalOpen, setViewModalOpen] = useState(false);
 
   useEffect(() => {
     const fetchAppointments = async () => {
@@ -176,14 +178,56 @@ const DoctorAppointments = () => {
                     </button>
                   </>
                 )}
-                <button className="text-slate-400 dark:text-slate-500 hover:text-blue-600 transition-colors p-2">
-                  <MoreVertical size={20} />
+                <button onClick={() => { setSelectedAppointment(apt); setViewModalOpen(true); }} className="text-slate-400 dark:text-slate-500 hover:text-blue-600 transition-colors p-2">
+                  <Eye size={20} />
                 </button>
               </div>
             </div>
           </div>
         ))}
       </div>
+
+      {viewModalOpen && selectedAppointment && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/50 backdrop-blur-sm">
+          <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-xl w-full max-w-md overflow-hidden">
+            <div className="flex items-center justify-between p-6 border-b border-slate-100 dark:border-slate-700">
+              <h2 className="text-xl font-bold text-slate-800 dark:text-white">Appointment Details</h2>
+              <button onClick={() => { setViewModalOpen(false); setSelectedAppointment(null); }} className="text-slate-400 hover:text-slate-600 dark:hover:text-slate-300">
+                <X size={20} />
+              </button>
+            </div>
+            <div className="p-6 space-y-4">
+              <div className="flex items-center gap-4 mb-6">
+                <div className="w-16 h-16 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center text-xl font-bold">
+                  {selectedAppointment.initials}
+                </div>
+                <div>
+                  <h3 className="text-lg font-bold text-slate-800 dark:text-white">{selectedAppointment.patient}</h3>
+                  <p className="text-sm text-slate-500">{selectedAppointment.type}</p>
+                </div>
+              </div>
+              <div className="grid grid-cols-2 gap-4">
+                <div className="bg-slate-50 dark:bg-slate-900 p-3 rounded-xl">
+                  <p className="text-xs text-slate-500 mb-1">Date</p>
+                  <p className="text-sm font-medium text-slate-800 dark:text-slate-200">{selectedAppointment.date}</p>
+                </div>
+                <div className="bg-slate-50 dark:bg-slate-900 p-3 rounded-xl">
+                  <p className="text-xs text-slate-500 mb-1">Time</p>
+                  <p className="text-sm font-medium text-slate-800 dark:text-slate-200">{selectedAppointment.time}</p>
+                </div>
+                <div className="bg-slate-50 dark:bg-slate-900 p-3 rounded-xl">
+                  <p className="text-xs text-slate-500 mb-1">Status</p>
+                  <p className="text-sm font-medium text-slate-800 dark:text-slate-200"><StatusBadge status={selectedAppointment.status} /></p>
+                </div>
+                <div className="bg-slate-50 dark:bg-slate-900 p-3 rounded-xl">
+                  <p className="text-xs text-slate-500 mb-1">Appointment ID</p>
+                  <p className="text-sm font-medium text-slate-800 dark:text-slate-200">{selectedAppointment.id.substring(0,8)}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

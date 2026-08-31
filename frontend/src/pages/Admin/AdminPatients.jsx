@@ -9,6 +9,8 @@ const AdminPatients = () => {
   const [patients, setPatients] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [selectedPatient, setSelectedPatient] = useState(null);
+  const [viewModalOpen, setViewModalOpen] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [formData, setFormData] = useState({
     firstName: '',
@@ -133,10 +135,10 @@ const AdminPatients = () => {
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-center">
                     <div className="flex items-center justify-center gap-2">
-                      <button className="p-1.5 text-slate-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors">
+                      <button onClick={() => { setSelectedPatient(patient); setViewModalOpen(true); }} className="p-1.5 text-slate-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors">
                         <Eye size={16} />
                       </button>
-                      <button className="p-1.5 text-slate-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors">
+                      <button onClick={() => toast('Edit feature coming soon!')} className="p-1.5 text-slate-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors">
                         <Edit2 size={16} />
                       </button>
                     </div>
@@ -228,6 +230,47 @@ const AdminPatients = () => {
                 </button>
               </div>
             </form>
+          </div>
+        </div>
+      )}
+      {viewModalOpen && selectedPatient && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/50 backdrop-blur-sm">
+          <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-xl w-full max-w-md overflow-hidden">
+            <div className="flex items-center justify-between p-6 border-b border-slate-100 dark:border-slate-700">
+              <h2 className="text-xl font-bold text-slate-800 dark:text-white">Patient Details</h2>
+              <button onClick={() => { setViewModalOpen(false); setSelectedPatient(null); }} className="text-slate-400 hover:text-slate-600 dark:hover:text-slate-300">
+                <X size={20} />
+              </button>
+            </div>
+            <div className="p-6 space-y-4">
+              <div className="flex items-center gap-4 mb-6">
+                <div className="w-16 h-16 rounded-full bg-indigo-100 text-indigo-700 flex items-center justify-center text-xl font-bold">
+                  {selectedPatient.firstName[0]}{selectedPatient.lastName[0]}
+                </div>
+                <div>
+                  <h3 className="text-lg font-bold text-slate-800 dark:text-white">{selectedPatient.firstName} {selectedPatient.lastName}</h3>
+                  <p className="text-sm text-slate-500">ID: {selectedPatient.id.substring(0,8)}...</p>
+                </div>
+              </div>
+              <div className="grid grid-cols-2 gap-4">
+                <div className="bg-slate-50 dark:bg-slate-900 p-3 rounded-xl">
+                  <p className="text-xs text-slate-500 mb-1">Email</p>
+                  <p className="text-sm font-medium text-slate-800 dark:text-slate-200 break-all">{selectedPatient.email}</p>
+                </div>
+                <div className="bg-slate-50 dark:bg-slate-900 p-3 rounded-xl">
+                  <p className="text-xs text-slate-500 mb-1">Phone</p>
+                  <p className="text-sm font-medium text-slate-800 dark:text-slate-200">{selectedPatient.phone || 'N/A'}</p>
+                </div>
+                <div className="bg-slate-50 dark:bg-slate-900 p-3 rounded-xl">
+                  <p className="text-xs text-slate-500 mb-1">Gender</p>
+                  <p className="text-sm font-medium text-slate-800 dark:text-slate-200">{selectedPatient.patientProfile?.gender || 'N/A'}</p>
+                </div>
+                <div className="bg-slate-50 dark:bg-slate-900 p-3 rounded-xl">
+                  <p className="text-xs text-slate-500 mb-1">Blood Group</p>
+                  <p className="text-sm font-medium text-slate-800 dark:text-slate-200">{selectedPatient.patientProfile?.bloodGroup || 'N/A'}</p>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       )}

@@ -98,6 +98,44 @@ export const getAllUsers = async (req, res, next) => {
   }
 };
 
+export const createUser = async (req, res, next) => {
+  try {
+    const { firstName, lastName, email, phone, role, specialization, experience } = req.body;
+    
+    const existingUser = await prisma.user.findUnique({ where: { email } });
+    if (existingUser) {
+      return res.status(400).json({ message: 'User already exists' });
+    }
+
+    const hashedPassword = await bcrypt.hash('password123', 10);
+
+    const user = await prisma.user.create({
+      data: {
+        firstName,
+        lastName,
+        email,
+        phone,
+        password: hashedPassword,
+        role: role || 'PATIENT',
+      }
+    });
+
+    if (role === 'DOCTOR') {
+      await prisma.doctorProfile.create({
+        data: {
+          userId: user.id,
+          specialization: specialization || 'General',
+          experience: parseInt(experience) || 0
+        }
+      });
+    }
+
+    res.status(201).json({ message: 'User created successfully', user });
+  } catch (error) {
+    next(error);
+  }
+};
+
 export const getAllAppointments = async (req, res, next) => {
   try {
     const appointments = await prisma.appointment.findMany({
